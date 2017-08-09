@@ -260,19 +260,19 @@ class BantuanPenganjuranKejohananLaporanController extends Controller
                 //upload file to server
                 
                 // delete upload file
-                if($existingPenyataPerbelanjaan != ""){
+                /*if($existingPenyataPerbelanjaan != ""){
                     self::actionDeleteupload($id, 'penyata_perbelanjaan_resit_yang_telah_disahkan');
                 }
                 
                 $filename = $model->bantuan_penganjuran_kejohanan_id . "-penyata_perbelanjaan_resit_yang_telah_disahkan";
-                $model->penyata_perbelanjaan_resit_yang_telah_disahkan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananLaporanFolder, $filename);
+                $model->penyata_perbelanjaan_resit_yang_telah_disahkan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananLaporanFolder, $filename);*/
             } else {
                 //invalid file to upload
                 //remain existing file
                 $model->penyata_perbelanjaan_resit_yang_telah_disahkan = $existingPenyataPerbelanjaan;
             }
             
-            $file = UploadedFile::getInstance($model, 'laporan_bergambar');
+            /*$file = UploadedFile::getInstance($model, 'laporan_bergambar');
             $filename = $model->bantuan_penganjuran_kejohanan_laporan_id . "-laporan_bergambar";
             if($file){
                 $model->laporan_bergambar = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananLaporanFolder, $filename);
@@ -312,7 +312,7 @@ class BantuanPenganjuranKejohananLaporanController extends Controller
             $filename = $model->bantuan_penganjuran_kejohanan_laporan_id . "-senarai_pegawai_pembantu_perubatan";
             if($file){
                 $model->senarai_pegawai_pembantu_perubatan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananLaporanFolder, $filename);
-            }
+            }*/
         }
         
         $queryPar = null;
@@ -323,15 +323,65 @@ class BantuanPenganjuranKejohananLaporanController extends Controller
         $dataProviderBantuanPenganjuranKejohananLaporanTuntutan = $searchModelBantuanPenganjuranKejohananLaporanTuntutan->search($queryPar);
 
         if (Yii::$app->request->post() && $model->save() && $allowSubmit) {
-            return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kejohanan_laporan_id]);
-        } else {
-            return $this->render('update', [
+            $file = UploadedFile::getInstance($model, 'laporan_bergambar');
+            $filename = $model->bantuan_penganjuran_kejohanan_laporan_id . "-laporan_bergambar";
+            if($file){
+                $model->laporan_bergambar = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananLaporanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'penyata_perbelanjaan_resit_yang_telah_disahkan');
+            $filename = $model->bantuan_penganjuran_kejohanan_laporan_id . "-penyata_perbelanjaan_resit_yang_telah_disahkan";
+            if($file){
+                $model->penyata_perbelanjaan_resit_yang_telah_disahkan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananLaporanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'jadual_keputusan_pertandingan');
+            $filename = $model->bantuan_penganjuran_kejohanan_laporan_id . "-jadual_keputusan_pertandingan";
+            if($file){
+                $model->jadual_keputusan_pertandingan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananLaporanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'senarai_pasukan');
+            $filename = $model->bantuan_penganjuran_kejohanan_laporan_id . "-senarai_pasukan";
+            if($file){
+                $model->senarai_pasukan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananLaporanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'senarai_statistik_penyertaan');
+            $filename = $model->bantuan_penganjuran_kejohanan_laporan_id . "-senarai_statistik_penyertaan";
+            if($file){
+                $model->senarai_statistik_penyertaan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananLaporanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'senarai_pegawai_pembantu_teknikal');
+            $filename = $model->bantuan_penganjuran_kejohanan_laporan_id . "-senarai_pegawai_pembantu_teknikal";
+            if($file){
+                $model->senarai_pegawai_pembantu_teknikal = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananLaporanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'senarai_urusetia_sukarelawan');
+            $filename = $model->bantuan_penganjuran_kejohanan_laporan_id . "-senarai_urusetia_sukarelawan";
+            if($file){
+                $model->senarai_urusetia_sukarelawan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananLaporanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'senarai_pegawai_pembantu_perubatan');
+            $filename = $model->bantuan_penganjuran_kejohanan_laporan_id . "-senarai_pegawai_pembantu_perubatan";
+            if($file){
+                $model->senarai_pegawai_pembantu_perubatan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananLaporanFolder, $filename);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kejohanan_laporan_id]);
+            }
+        } 
+        
+        return $this->render('update', [
                 'model' => $model,
                 'searchModelBantuanPenganjuranKejohananLaporanTuntutan' => $searchModelBantuanPenganjuranKejohananLaporanTuntutan,
                 'dataProviderBantuanPenganjuranKejohananLaporanTuntutan' => $dataProviderBantuanPenganjuranKejohananLaporanTuntutan,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

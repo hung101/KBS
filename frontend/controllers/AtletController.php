@@ -597,10 +597,17 @@ Sekian, terima kasih.
         //self::actionDeleteupload($id, 'gambar');
         
         //self::actionDeleteupload($id, 'muat_naik_surat_persetujuan');
+        $model = $this->findModel($id);
         
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+        $cacat = $model->cacat;
+        
+        $model->delete();
+        
+        if($cacat == '1'){
+            return $this->redirect(['index-cacat']);
+        } else {
+            return $this->redirect(['index']);
+        }
     }
 
     /**

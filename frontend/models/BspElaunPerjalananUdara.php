@@ -55,7 +55,10 @@ class BspElaunPerjalananUdara extends \yii\db\ActiveRecord
             [['tarikh', 'destinasi_pergi', 'tarikh_pergi', 'destinasi_balik', 'tarikh_balik'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['bsp_pemohon_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh', 'tarikh_pergi', 'tarikh_balik'], 'safe'],
-            [['destinasi_pergi', 'destinasi_balik'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['destinasi_pergi', 'destinasi_balik'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['destinasi_pergi', 'destinasi_balik'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

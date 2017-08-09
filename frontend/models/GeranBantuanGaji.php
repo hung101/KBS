@@ -75,6 +75,12 @@ class GeranBantuanGaji extends \yii\db\ActiveRecord
             [['catatan', 'rujukan', 'status_terkini_pengeluaran_cek', 'salinan_tawaran', 'persetujuan_terima', 'pengerusi', 'kelulusan_dkp', 'catatan_jkb', 'catatan_mpj'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tarikh_tamat_kontrak'], 'compare', 'compareAttribute'=>'tarikh_mula_kontrak', 'operator'=>'>=', 'message' => GeneralMessage::yii_validation_compare],
             [['tarikh_tamat'], 'compare', 'compareAttribute'=>'tarikh_mula', 'operator'=>'>=', 'message' => GeneralMessage::yii_validation_compare],
+            [['boucher', 'no_cek', 'bil_jkb', 'bil_mpj','nama_jurulatih', 'cawangan', 'sub_cawangan', 'program_msn', 'lain_lain_program', 
+                'pusat_latihan', 'agensi', 'cek_atas_nama','kelulusan', 'status_jurulatih', 'status_permohonan', 'status_keaktifan_jurulatih', 
+                'kategori_geran', 'status_geran','catatan', 'rujukan', 'status_terkini_pengeluaran_cek', 'salinan_tawaran', 'persetujuan_terima', 
+                'pengerusi', 'kelulusan_dkp', 'catatan_jkb', 'catatan_mpj'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

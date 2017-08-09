@@ -275,8 +275,9 @@ class KhidmatPerubatanDanSainsSukanController extends Controller
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->khidmat_perubatan_dan_sains_sukan_id]);
             }
-        } else {
-            return $this->render('update', [
+        }
+        
+        return $this->render('update', [
                 'model' => $model,
                 'searchModelAtlet' => $searchModelAtlet,
                 'dataProviderAtlet' => $dataProviderAtlet,
@@ -286,7 +287,6 @@ class KhidmatPerubatanDanSainsSukanController extends Controller
                 'dataProviderPegawai' => $dataProviderPegawai,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

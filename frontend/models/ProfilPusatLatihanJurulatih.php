@@ -54,9 +54,12 @@ class ProfilPusatLatihanJurulatih extends \yii\db\ActiveRecord
         return [
             [['jurulatih'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['profil_pusat_latihan_id', 'created_by', 'updated_by'], 'integer'],
-            [['created', 'updated'], 'safe'],
+            [['created', 'updated', 'status'], 'safe'],
             [['jurulatih'], 'string', 'max' => 80],
             [['session_id'], 'string', 'max' => 100],
+            [['jurulatih'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -69,6 +72,7 @@ class ProfilPusatLatihanJurulatih extends \yii\db\ActiveRecord
             'profil_pusat_latihan_jurulatih_id' => 'Profil Pusat Latihan Jurulatih ID',
             'profil_pusat_latihan_id' => 'Profil Pusat Latihan ID',
             'jurulatih' => GeneralLabel::jurulatih,
+            'status' => GeneralLabel::status,
             'session_id' => 'Session ID',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
@@ -85,5 +89,10 @@ class ProfilPusatLatihanJurulatih extends \yii\db\ActiveRecord
     public function getRefProfilPusatLatihan()
     {
         return $this->hasOne(ProfilPusatLatihan::className(), ['profil_pusat_latihan_id' => 'profil_pusat_latihan_id']);
+    }
+    
+    public function getRefStatusJurulatih()
+    {
+        return $this->hasOne(RefStatusJurulatih::className(), ['id' => 'status']);
     }
 }

@@ -64,6 +64,9 @@ class PerancanganProgramPlanMaster extends \yii\db\ActiveRecord
             [['tarikh_mula', 'tarikh_tamat', 'created', 'updated'], 'safe'],
             [['remarks'], 'string'],
             [['sasaran', 'kejohanan', 'target'], 'string', 'max' => 255],
+            [['remarks','sasaran', 'kejohanan', 'target'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

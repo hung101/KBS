@@ -5,7 +5,15 @@ body {
 margin: 0px;
 }
 </style>
+<script>
+    // Grab the iframe document
+document.oncontextmenu = function() { 
+    return false; 
+};
+</script>
 <body>
-<iframe align="center" width="100%" height="100%" src="frontend/web/" frameborder="no" scrolling="yes" name="SPSB" id="SPSB"> </iframe>
+    <?php $url_src = "https://$_SERVER[HTTP_HOST]/frontend/web/";
+    $url_src = "https://spsb.kbs.gov.my/frontend/web/site/login";?>
+<iframe align="center" width="100%" height="100%" src="<?=$url_src?>" frameborder="no" scrolling="yes" id="spsb_frame"> </iframe>   
 </body>
 </html>

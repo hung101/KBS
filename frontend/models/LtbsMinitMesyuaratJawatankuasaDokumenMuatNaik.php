@@ -53,6 +53,10 @@ class LtbsMinitMesyuaratJawatankuasaDokumenMuatNaik extends \yii\db\ActiveRecord
             [['mesyuarat_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama_dokumen'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false],
+            [['nama_dokumen'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -68,5 +72,26 @@ class LtbsMinitMesyuaratJawatankuasaDokumenMuatNaik extends \yii\db\ActiveRecord
             'muat_naik' => GeneralLabel::muat_naik,
 
         ];
+    }
+    
+    /**
+     * Validate upload file cannot be empty
+     */
+    public function validateFileUpload($attribute, $params){
+        $file = UploadedFile::getInstance($this, $attribute);
+        
+        if($file && $file->getHasError()){
+            $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
+        }
+
+        if(!$file && $this->$attribute==""){
+            $this->addError($attribute, GeneralMessage::uploadEmptyError);
+        }
     }
 }

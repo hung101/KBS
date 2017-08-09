@@ -104,12 +104,12 @@ class ManualSilibusKurikulumTeknikalKepegawaianController extends Controller
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->manual_silibus_kurikulum_teknikal_kepegawaian_id]);
             }
-        } else {
-            return $this->render('create', [
+        } 
+        
+        return $this->render('create', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -138,11 +138,11 @@ class ManualSilibusKurikulumTeknikalKepegawaianController extends Controller
                 //upload file to server
                 
                 // delete upload file
-                if($existingMuatNaik != ""){
+                /*if($existingMuatNaik != ""){
                     self::actionDeleteupload($id, 'muat_naik');
                 }
                 
-                $model->muat_naik = Upload::uploadFile($file, Upload::manualSilibusKurikulumTeknikalKepegawaianFolder, $model->manual_silibus_kurikulum_teknikal_kepegawaian_id);
+                $model->muat_naik = Upload::uploadFile($file, Upload::manualSilibusKurikulumTeknikalKepegawaianFolder, $model->manual_silibus_kurikulum_teknikal_kepegawaian_id);*/
             } else {
                 //invalid file to upload
                 //remain existing file
@@ -151,13 +151,20 @@ class ManualSilibusKurikulumTeknikalKepegawaianController extends Controller
         }
 
         if (Yii::$app->request->post() && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->manual_silibus_kurikulum_teknikal_kepegawaian_id]);
-        } else {
-            return $this->render('update', [
+            $file = UploadedFile::getInstance($model, 'muat_naik');
+            if($file){
+                $model->muat_naik = Upload::uploadFile($file, Upload::manualSilibusKurikulumTeknikalKepegawaianFolder, $model->manual_silibus_kurikulum_teknikal_kepegawaian_id);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->manual_silibus_kurikulum_teknikal_kepegawaian_id]);
+            }
+        }
+        
+        return $this->render('update', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

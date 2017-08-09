@@ -40,6 +40,9 @@ class ForumSeminarPeserta extends \yii\db\ActiveRecord
             [['created', 'updated'], 'safe'],
             [['session_id'], 'string', 'max' => 100],
             [['nama', 'jawatan'], 'string', 'max' => 255],
+            [['nama', 'jawatan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

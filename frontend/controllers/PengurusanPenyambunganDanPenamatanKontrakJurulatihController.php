@@ -212,12 +212,12 @@ class PengurusanPenyambunganDanPenamatanKontrakJurulatihController extends Contr
                 
                 return $this->redirect(['view', 'id' => $model->pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id]);
             }
-        } else {
-            return $this->render('create', [
+        } 
+        
+        return $this->render('create', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

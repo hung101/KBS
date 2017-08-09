@@ -7,6 +7,7 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 /**
  * This is the model class for table "tbl_mesyuarat".
@@ -122,6 +123,12 @@ class MesyuaratJkk extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
     }
     

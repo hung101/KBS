@@ -255,8 +255,9 @@ class GajiDanElaunJurulatihController extends Controller
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->gaji_dan_elaun_jurulatih_id]);
             }
-        } else {
-            return $this->render('create', [
+        } 
+        
+        return $this->render('create', [
                 'model' => $model,
                 'searchModelElaunJurulatih' => $searchModelElaunJurulatih,
                 'dataProviderElaunJurulatih' => $dataProviderElaunJurulatih,
@@ -264,7 +265,6 @@ class GajiDanElaunJurulatihController extends Controller
                 'dataProviderGajiJurulatih' => $dataProviderGajiJurulatih,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -386,8 +386,9 @@ class GajiDanElaunJurulatihController extends Controller
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->gaji_dan_elaun_jurulatih_id]);
             }
-        } else {
-            return $this->render('update', [
+        } 
+        
+        return $this->render('update', [
                 'model' => $model,
                 'searchModelElaunJurulatih' => $searchModelElaunJurulatih,
                 'dataProviderElaunJurulatih' => $dataProviderElaunJurulatih,
@@ -395,7 +396,6 @@ class GajiDanElaunJurulatihController extends Controller
                 'dataProviderGajiJurulatih' => $dataProviderGajiJurulatih,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

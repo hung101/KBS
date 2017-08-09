@@ -56,7 +56,10 @@ class JenisKebajikan extends \yii\db\ActiveRecord
                 'kejohanan_asia_dunia', 'sukan', 'jumlah', 'maksimum', 'peratus'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['sukan_sea_para_asean', 'sukan_asia_komenwel_para_asia_ead', 'sukan_olimpik_paralimpik', 'kejohanan_asia_dunia', 'jumlah'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['jenis_kebajikan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['perkara'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['perkara'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['jenis_kebajikan','perkara'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

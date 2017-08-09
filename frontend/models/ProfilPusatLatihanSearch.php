@@ -14,6 +14,7 @@ class ProfilPusatLatihanSearch extends ProfilPusatLatihan
 {
     public $sukan_id;
     public $program_id;
+    public $negeri_id;
     
     /**
      * @inheritdoc
@@ -21,7 +22,7 @@ class ProfilPusatLatihanSearch extends ProfilPusatLatihan
     public function rules()
     {
         return [
-            [['profil_pusat_latihan_id', 'created_by', 'updated_by', 'mesyuarat_id', 'sukan_id', 'program_id'], 'integer'],
+            [['profil_pusat_latihan_id', 'created_by', 'updated_by', 'mesyuarat_id', 'sukan_id', 'program_id', 'negeri_id', 'hantar_flag'], 'integer'],
             [['nama_pusat_latihan', 'alamat_1', 'alamat_2', 'alamat_3', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_telefon', 'no_faks', 
                 'emel', 'tarikh_program_bermula', 'tahun_siap_pembinaan', 'keluasan_venue', 'hakmilik', 'kadar_sewaan', 'status', 'catatan', 'created', 
                 'updated', 'sukan', 'program'], 'safe'],
@@ -79,6 +80,8 @@ class ProfilPusatLatihanSearch extends ProfilPusatLatihan
             'mesyuarat_id' => $this->mesyuarat_id,
             'sukan' => $this->sukan_id,
             'program' => $this->program_id,
+            'alamat_negeri' => $this->negeri_id,
+            'tbl_profil_pusat_latihan.hantar_flag' => $this->hantar_flag,
         ]);
 
         $query->andFilterWhere(['like', 'nama_pusat_latihan', $this->nama_pusat_latihan])
@@ -94,11 +97,15 @@ class ProfilPusatLatihanSearch extends ProfilPusatLatihan
             ->andFilterWhere(['like', 'keluasan_venue', $this->keluasan_venue])
             ->andFilterWhere(['like', 'hakmilik', $this->hakmilik])
             ->andFilterWhere(['like', 'kadar_sewaan', $this->kadar_sewaan])
-            ->andFilterWhere(['like', 'status', $this->status])
             ->andFilterWhere(['like', 'catatan', $this->catatan])
                 ->andFilterWhere(['like', 'tarikh_program_bermula', $this->tarikh_program_bermula])
                 ->andFilterWhere(['like', 'tbl_ref_sukan.desc', $this->sukan])
-                ->andFilterWhere(['like', 'tbl_ref_program_semasa_sukan_atlet.desc', $this->program]);
+                ->andFilterWhere(['like', 'tbl_ref_program_semasa_sukan_atlet.desc', $this->program])
+            ->andFilterWhere(['like', 'tbl_ref_status_pusat_latihan.desc', $this->status]);
+        
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-pusat-latihan']['kelulusan'])) {
+            $query->orFilterWhere(['tbl_profil_pusat_latihan.created_by' => Yii::$app->user->identity->id]);
+        }
 
         return $dataProvider;
     }

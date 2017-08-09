@@ -287,8 +287,9 @@ class AkademiAkkController extends Controller
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->akademi_akk_id]);
             }
-        } else {
-            return $this->render('create', [
+        } 
+        
+        return $this->render('create', [
                 'model' => $model,
                 'searchModelKegiatanPengalamanJurulatihAkk' => $searchModelKegiatanPengalamanJurulatihAkk,
                 'dataProviderKegiatanPengalamanJurulatihAkk' => $dataProviderKegiatanPengalamanJurulatihAkk,
@@ -308,7 +309,6 @@ class AkademiAkkController extends Controller
                 'dataProviderAkkPermitKerja' => $dataProviderAkkPermitKerja,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -370,8 +370,9 @@ class AkademiAkkController extends Controller
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->akademi_akk_id]);
             }
-        } else {
-            return $this->render('update', [
+        } 
+        
+        return $this->render('update', [
                 'model' => $model,
                 'searchModelKegiatanPengalamanJurulatihAkk' => $searchModelKegiatanPengalamanJurulatihAkk,
                 'dataProviderKegiatanPengalamanJurulatihAkk' => $dataProviderKegiatanPengalamanJurulatihAkk,
@@ -391,7 +392,6 @@ class AkademiAkkController extends Controller
                 'dataProviderAkkPermitKerja' => $dataProviderAkkPermitKerja,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

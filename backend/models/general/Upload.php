@@ -2,6 +2,7 @@
 namespace app\models\general;
 
 use yii\web\UploadedFile;
+use common\models\general\GeneralFunction;
 
 use Yii;
 /* 
@@ -24,12 +25,31 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const akademiAkkSijilCprFolder = "akk_sijil_cpr";
         const akademiAkkPermitKerjaFolder = "akk_permit_kerja";
         const akkProgramJurulatihFolder = "akk_program_jurulatih";
+        const anugerahPencalonanAtletFolder = "anugerah_pencalonan_atlet";
+        const anugerahPencalonanJurulatihFolder = "anugerah_pencalonan_jurulatih";
+        const anugerahPencalonanKepimpinanSukanFolder = "anugerah_pencalonan_kepimpinan_sukan";
         const anugerahPencalonanLainFolder = "anugerah_pencalonan_lain";
         const anugerahPencalonanPasukanFolder = "anugerah_pencalonan_pasukan";
+        const anugerahPencalonanTokohSukanFolder = "anugerah_pencalonan_tokoh_sukan";
         const atletFolder = "atlet";
+        const borangaduankerosakanjeniskerosakanFolder = "borang_aduan_kerosakan_jenis_kerosakan";
         const atletKursusKemFolder = "atlet_kursus_kem";
         const bantuanElaunFolder = "bantuan_elaun";
+        const bantuanElaunMuatnaikFolder = "bantuan_elaun_muatnaik";
+        const bantuanPenganjuranKejohananFolder = "bantuan_penganjuran_kejohanan";
+        const bantuanPenganjuranKejohananLaporanFolder = "bantuan_penganjuran_kejohanan_laporan";
+        const bantuanPenganjuranKejohananSirkitFolder = "bantuan_penganjuran_kejohanan_sirkit";
+        const bantuanPenganjuranKejohananSirkitLaporanFolder = "bantuan_penganjuran_kejohanan_sirkit_laporan";
+        const bantuanPenganjuranKursusFolder = "bantuan_penganjuran_kursus";
+        const bantuanPentadbiranPejabatFolder = "bantuan_pentadbiran_pejabat";
+        const forumSeminarPersidanganDiLuarNegaraFolder = "forum_seminar_persidangan_di_luar_negara";
+        const pengurusanPermohonanKursusPersatuanFolder = "pengurusan_permohonan_kursus_persatuan";
+        const bantuanPenganjuranKursusPegawaiTeknikalFolder = "bantuan_penganjuran_kursus_pegawai_teknikal";
+        const bantuanPenganjuranKursusPegawaiTeknikalLaporanFolder = "bantuan_penganjuran_kursus_pegawai_teknikal_laporan";
+        const bantuanPenganjuranKursusPenceramahFolder = "bantuan_penganjuran_kursus_penceramah";
+        const bantuanPenyertaanPegawaiTeknikalFolder = "bantuan_penyertaan_pegawai_teknikal";
         const bspElaunLatihanPraktikal = "bsp_elaun_latihan_praktikal";
+        const laporanPemantauanJurulatihKategoriFolder = "laporan_pemantauan_jurulatih_kategori";
         const bspBorangBorang = "bsp_borang_borang";
         const bspBorang10Folder = "bsp_borang_10";
         const bspBorang11Folder = "bsp_borang_11";
@@ -50,10 +70,14 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const farmasiPermohonanLiputanPerubatanSukanFolder = "farmasi_permohonan_liputan_perubatan_sukan";
         const farmasiPermohonanUbatanFolder = "farmasi_permohonan_ubatan";
         const gajiDanElaunJurulatihFolder = "gaji_dan_elaun_jurulatih";
+        const geranBantuanGajiFolder = "geran_bantuan_gaji";
+        const geranBantuanGajiLampiranFolder = "geran_bantuan_gaji_lampiran";
         const hptLaporanBulananPegawaiFolder = "hpt_laporan_bulanan_pegawai";
         const jurulatihFolder = "jurulatih";
         const jurulatihKelayakan = "jurulatih_kelayakan";
+        const jurulatihKursusTertinggi = "jurulatih_kursus_tertinggi";
         const kelayakanSukanSpesifikAkkFolder = "kelayakan_sukan_spesifik_akk";
+        const khidmatPerubatanDanSainsSukanFolder = "khidmat_perubatan_dan_sains_sukan";
         const informasiPermohonanFolder = "informasi_permohonan";
         const ltbsMesyuaratFolder = "ltbs_mesyuarat";
         const ltbsMinitMesyuaratJawatankuasaFolder = "ltbs_minit_mesyuarat_jawatankuasa";
@@ -71,12 +95,18 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const penganjuranKursusPesertaFolder  = "penganjuran_kursus_peserta";
         const pelanjutanPenamatanKontrakJurulatihFolder = "pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih";
         const pengurusanBeritaAntarabangsaFolder = "pengurusan_berita_antarabangsa";
+        const pengurusanBeritaAntarabangsaMuatnaikFolder = "pengurusan_berita_antarabangsa_muatnaik";
         const pengurusanMediaProgramFolder = "pengurusan_media_program";
         const pengurusanMediaProgramDokumenSubFolder = "dokumen_media_program";
         const pengurusanInsentifFolder = "pengurusan_insentif";
         const pengurusanInsuranFolder = "pengurusan_insuran";
+        const pengurusanInsuranLampiranFolder = "pengurusan_insuran_lampiran";
         const pengurusanKemudahanSediaAdaFolder = "pengurusan_kemudahan_sedia_ada";
+        const pengurusanKemudahanSediaAdaMsnFolder = "pengurusan_kemudahan_sedia_ada_msn";
         const pengurusanPerhimpunanKemFolder = "pengurusan_perhimpunan_kem";
+        const pengurusanProgramBinaanFolder = "pengurusan_program_binaan";
+        const laporanPenyertaanKejohananFolder = "laporan_penyertaan_kejohanan";
+        const laporanPendedahanLatihanFolder = "laporan_pendedahan_latihan";
         const perancanganProgramFolder = "perancangan_program";
         const perancanganProgramHPTFolder = "perancangan_program_hpt";
         const permohonanBiasiswaFolder = "permohonan_biasiswa";
@@ -87,13 +117,20 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const plTemujanjiRehabilitasiFolder = "pl_temujanji_rehabilitasi";
         const profilBadanSukanFolder = "profil_badan_sukan";
         const profilKonsultanFolder = "profil_konsultan";
+        const profilPanelPenasihatKpskFolder = "profil_panel_penasihat_kpsk";
         const profilPsikologiFolder = "profil_psikologi";
         const profilWartawanSukanFolder = "profil_wartawan_sukan";
         const perlembagaanBadanSukanFolder = "perlembagaan_badan_sukan";
+        const sixStepSuaianFizikalFolder = "six_step_suaian_fizikal";
+        const skimKebajikanFolder = "skim_kebajikan";
         const sukarelawanFolder = "sukarelawan";
         const uploadRootFolder = "uploads";
 
         public static function uploadFile($file, $Folder, $id, $SubFolder = ""){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                return null;
+            }
+            
             // if got sub folder
             if($SubFolder != ""){
                 $Folder = $Folder . '/' . $SubFolder;
@@ -141,6 +178,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
 if($session->get('language') == "EN") {
 
     class Upload{
+        
         const MesyuaratJkkFolder = "mesyuarat_jkk";
         const adminEBiasiswaFolder = "admin_e_biasiswa";
         const akademiAkkFolder = "akademi_akk";
@@ -150,12 +188,31 @@ if($session->get('language') == "EN") {
         const akademiAkkSijilCprFolder = "akk_sijil_cpr";
         const akademiAkkPermitKerjaFolder = "akk_permit_kerja";
         const akkProgramJurulatihFolder = "akk_program_jurulatih";
+        const anugerahPencalonanAtletFolder = "anugerah_pencalonan_atlet";
+        const anugerahPencalonanJurulatihFolder = "anugerah_pencalonan_jurulatih";
+        const anugerahPencalonanKepimpinanSukanFolder = "anugerah_pencalonan_kepimpinan_sukan";
         const anugerahPencalonanLainFolder = "anugerah_pencalonan_lain";
         const anugerahPencalonanPasukanFolder = "anugerah_pencalonan_pasukan";
+        const anugerahPencalonanTokohSukanFolder = "anugerah_pencalonan_tokoh_sukan";
         const atletFolder = "atlet";
+        const borangaduankerosakanjeniskerosakanFolder = "borang_aduan_kerosakan_jenis_kerosakan";
         const atletKursusKemFolder = "atlet_kursus_kem";
         const bantuanElaunFolder = "bantuan_elaun";
+        const bantuanElaunMuatnaikFolder = "bantuan_elaun_muatnaik";
+        const bantuanPenganjuranKejohananFolder = "bantuan_penganjuran_kejohanan";
+        const bantuanPenganjuranKejohananLaporanFolder = "bantuan_penganjuran_kejohanan_laporan";
+        const bantuanPenganjuranKejohananSirkitFolder = "bantuan_penganjuran_kejohanan_sirkit";
+        const bantuanPenganjuranKejohananSirkitLaporanFolder = "bantuan_penganjuran_kejohanan_sirkit_laporan";
+        const bantuanPenganjuranKursusFolder = "bantuan_penganjuran_kursus";
+        const bantuanPentadbiranPejabatFolder = "bantuan_pentadbiran_pejabat";
+        const forumSeminarPersidanganDiLuarNegaraFolder = "forum_seminar_persidangan_di_luar_negara";
+        const pengurusanPermohonanKursusPersatuanFolder = "pengurusan_permohonan_kursus_persatuan";
+        const bantuanPenganjuranKursusPegawaiTeknikalFolder = "bantuan_penganjuran_kursus_pegawai_teknikal";
+        const bantuanPenganjuranKursusPegawaiTeknikalLaporanFolder = "bantuan_penganjuran_kursus_pegawai_teknikal_laporan";
+        const bantuanPenganjuranKursusPenceramahFolder = "bantuan_penganjuran_kursus_penceramah";
+        const bantuanPenyertaanPegawaiTeknikalFolder = "bantuan_penyertaan_pegawai_teknikal";
         const bspElaunLatihanPraktikal = "bsp_elaun_latihan_praktikal";
+        const laporanPemantauanJurulatihKategoriFolder = "laporan_pemantauan_jurulatih_kategori";
         const bspBorangBorang = "bsp_borang_borang";
         const bspBorang10Folder = "bsp_borang_10";
         const bspBorang11Folder = "bsp_borang_11";
@@ -176,10 +233,14 @@ if($session->get('language') == "EN") {
         const farmasiPermohonanLiputanPerubatanSukanFolder = "farmasi_permohonan_liputan_perubatan_sukan";
         const farmasiPermohonanUbatanFolder = "farmasi_permohonan_ubatan";
         const gajiDanElaunJurulatihFolder = "gaji_dan_elaun_jurulatih";
+        const geranBantuanGajiFolder = "geran_bantuan_gaji";
+        const geranBantuanGajiLampiranFolder = "geran_bantuan_gaji_lampiran";
         const hptLaporanBulananPegawaiFolder = "hpt_laporan_bulanan_pegawai";
         const jurulatihFolder = "jurulatih";
         const jurulatihKelayakan = "jurulatih_kelayakan";
+        const jurulatihKursusTertinggi = "jurulatih_kursus_tertinggi";
         const kelayakanSukanSpesifikAkkFolder = "kelayakan_sukan_spesifik_akk";
+        const khidmatPerubatanDanSainsSukanFolder = "khidmat_perubatan_dan_sains_sukan";
         const informasiPermohonanFolder = "informasi_permohonan";
         const ltbsMesyuaratFolder = "ltbs_mesyuarat";
         const ltbsMinitMesyuaratJawatankuasaFolder = "ltbs_minit_mesyuarat_jawatankuasa";
@@ -197,13 +258,20 @@ if($session->get('language') == "EN") {
         const penganjuranKursusPesertaFolder  = "penganjuran_kursus_peserta";
         const pelanjutanPenamatanKontrakJurulatihFolder = "pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih";
         const pengurusanBeritaAntarabangsaFolder = "pengurusan_berita_antarabangsa";
+        const pengurusanBeritaAntarabangsaMuatnaikFolder = "pengurusan_berita_antarabangsa_muatnaik";
         const pengurusanMediaProgramFolder = "pengurusan_media_program";
         const pengurusanMediaProgramDokumenSubFolder = "dokumen_media_program";
         const pengurusanInsentifFolder = "pengurusan_insentif";
         const pengurusanInsuranFolder = "pengurusan_insuran";
+        const pengurusanInsuranLampiranFolder = "pengurusan_insuran_lampiran";
         const pengurusanKemudahanSediaAdaFolder = "pengurusan_kemudahan_sedia_ada";
+        const pengurusanKemudahanSediaAdaMsnFolder = "pengurusan_kemudahan_sedia_ada_msn";
         const pengurusanPerhimpunanKemFolder = "pengurusan_perhimpunan_kem";
+        const pengurusanProgramBinaanFolder = "pengurusan_program_binaan";
+        const laporanPenyertaanKejohananFolder = "laporan_penyertaan_kejohanan";
+        const laporanPendedahanLatihanFolder = "laporan_pendedahan_latihan";
         const perancanganProgramFolder = "perancangan_program";
+        const perancanganProgramHPTFolder = "perancangan_program_hpt";
         const permohonanBiasiswaFolder = "permohonan_biasiswa";
         const permohonanPendidikanFolder = "permohonan_pendidikan";
         const permohonanPenyelidikanFolder = "permohonan_penyelidikan";
@@ -212,14 +280,21 @@ if($session->get('language') == "EN") {
         const plTemujanjiRehabilitasiFolder = "pl_temujanji_rehabilitasi";
         const profilBadanSukanFolder = "profil_badan_sukan";
         const profilKonsultanFolder = "profil_konsultan";
+        const profilPanelPenasihatKpskFolder = "profil_panel_penasihat_kpsk";
         const profilPsikologiFolder = "profil_psikologi";
         const profilWartawanSukanFolder = "profil_wartawan_sukan";
         const perlembagaanBadanSukanFolder = "perlembagaan_badan_sukan";
+        const sixStepSuaianFizikalFolder = "six_step_suaian_fizikal";
+        const skimKebajikanFolder = "skim_kebajikan";
         const sukarelawanFolder = "sukarelawan";
         const uploadRootFolder = "uploads";
         
         
         public static function uploadFile($file, $Folder, $id, $SubFolder = ""){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                return null;
+            }
+            
             // if got sub folder
             if($SubFolder != ""){
                 $Folder = $Folder . '/' . $SubFolder;

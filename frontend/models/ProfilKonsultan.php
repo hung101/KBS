@@ -5,7 +5,7 @@ namespace app\models;
 use Yii;
 use yii\web\UploadedFile;
 use app\models\general\Upload;
-
+use common\models\general\GeneralFunction;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
 
@@ -67,6 +67,9 @@ class ProfilKonsultan extends \yii\db\ActiveRecord
             [['alamat_poskod', 'alamat_bandar'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['gambar'], 'validateFileUpload', 'skipOnEmpty' => false],
+            [['nama_konsultan', 'bidang_konsultansi', 'lain_lain', 'agensi','emel','kepakaran_pengalaman','alamat_bandar'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -109,6 +112,12 @@ class ProfilKonsultan extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
 
         if(!$file && $this->$attribute==""){

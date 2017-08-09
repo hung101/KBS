@@ -6,7 +6,7 @@ use Yii;
 use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
-
+use common\models\general\GeneralFunction;
 use app\models\general\GeneralLabel;
 
 /**
@@ -80,7 +80,10 @@ class PsikologiProfil extends \yii\db\ActiveRecord
             [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['pengalaman_pertandingan'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
             //[['muat_naik'], 'string', 'max' => 100],
-            [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false]
+            [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false],
+            [['nama','alamat_1', 'alamat_2', 'alamat_3','alamat_negeri','alamat_bandar','emel', 'facebook','catatan','pengalaman_pertandingan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -120,6 +123,12 @@ class PsikologiProfil extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
     }
     

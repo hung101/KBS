@@ -19,14 +19,18 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->permohonan_bimbingan_kaunseling_pegawai_anggota_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->permohonan_bimbingan_kaunseling_pegawai_anggota_id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => GeneralMessage::confirmDelete,
-                'method' => 'post',
-            ],
-        ]) ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-bimbingan-kaunseling']['kelulusan'])): ?>
+            <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->permohonan_bimbingan_kaunseling_pegawai_anggota_id], ['class' => 'btn btn-primary']) ?>
+        <?php endif; ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-bimbingan-kaunseling']['kelulusan'])): ?>
+            <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->permohonan_bimbingan_kaunseling_pegawai_anggota_id], [
+                'class' => 'btn btn-danger',
+                'data' => [
+                    'confirm' => GeneralMessage::confirmDelete,
+                    'method' => 'post',
+                ],
+            ]) ?>
+        <?php endif; ?>
     </p>
     
     <?= $this->render('_form', [

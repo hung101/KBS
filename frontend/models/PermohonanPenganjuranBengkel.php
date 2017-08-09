@@ -90,6 +90,10 @@ class PermohonanPenganjuranBengkel extends \yii\db\ActiveRecord
             [['tujuan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tarikh_tamat'], 'compare', 'compareAttribute'=>'tarikh', 'operator'=>'>=', 'message' => GeneralMessage::yii_validation_compare],
             ['tarikh','validateBeforePenganjuran', 'on' => 'create'],
+            [['badan_sukan', 'nama_bank', 'jkb','sukan', 'no_pendaftaran', 'alamat_1', 'alamat_2', 'alamat_3', 'no_akaun', 'status_permohonan','alamat_negeri',
+                'alamat_bandar','laman_sesawang', 'facebook', 'twitter','tempat','tujuan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

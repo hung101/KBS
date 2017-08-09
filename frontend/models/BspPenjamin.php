@@ -84,7 +84,12 @@ class BspPenjamin extends \yii\db\ActiveRecord
             [['alamat_poskod', 'alamat_surat_menyurat_poskod', 'alamat_pejabat_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_telefon_rumah', 'no_telefon_pejabat', 'no_telefon_bimbit'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_telefon_rumah', 'no_telefon_pejabat', 'no_telefon_bimbit'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['email'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['email'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama','alamat_tetap_1', 'alamat_tetap_2', 'alamat_tetap_3', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_2',
+                'alamat_surat_menyurat_3', 'alamat_pejabat_1', 'alamat_pejabat_2', 'alamat_pejabat_3','alamat_negeri', 'alamat_surat_menyurat_negeri', 
+                'alamat_pejabat_negeri','alamat_bandar', 'alamat_surat_menyurat_bandar', 'alamat_pejabat_bandar','email'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

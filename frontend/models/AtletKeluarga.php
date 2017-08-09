@@ -63,7 +63,10 @@ class AtletKeluarga extends \yii\db\ActiveRecord
             [['bangsa'], 'string', 'max' => 25, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['agama'], 'string', 'max' => 15, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_tel'], 'integer', 'message' => GeneralMessage::yii_validation_integer],            
-            [['no_tel'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['no_tel'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama', 'pekerjaan','hubungan','bangsa','agama'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

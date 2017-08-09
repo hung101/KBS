@@ -130,11 +130,11 @@ class AkkPermitKerjaController extends Controller
                 //upload file to server
                 
                 // delete upload file
-                if($existingPermit != ""){
+                /*if($existingPermit != ""){
                     self::actionDeleteupload($id, 'permit');
                 }
                 
-                $model->permit = Upload::uploadFile($file, Upload::akademiAkkFolder, $model->akk_permit_kerja_id, Upload::akademiAkkPermitKerjaFolder);
+                $model->permit = Upload::uploadFile($file, Upload::akademiAkkFolder, $model->akk_permit_kerja_id, Upload::akademiAkkPermitKerjaFolder);*/
             } else {
                 //invalid file to upload
                 //remain existing file
@@ -143,13 +143,20 @@ class AkkPermitKerjaController extends Controller
         }
 
         if (Yii::$app->request->post() && $model->save()) {
-            return '1';
-        } else {
-            return $this->renderAjax('update', [
+            $file = UploadedFile::getInstance($model, 'permit');
+            if($file){
+                $model->permit = Upload::uploadFile($file, Upload::akademiAkkFolder, $model->akk_permit_kerja_id, Upload::akademiAkkPermitKerjaFolder);
+            }
+            
+            if($model->save()){
+                return '1';
+            }
+        } 
+        
+        return $this->renderAjax('update', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

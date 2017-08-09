@@ -4,8 +4,11 @@ namespace app\models;
 
 use Yii;
 
-use app\models\general\GeneralLabel;
+use yii\web\UploadedFile;
+use app\models\general\Upload;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
+use app\models\general\GeneralLabel;
 
 /**
  * This is the model class for table "tbl_permohonan_biasiswa".
@@ -85,7 +88,12 @@ class PermohonanBiasiswa extends \yii\db\ActiveRecord
             [['alamat_rumah_poskod', 'alamat_pengajian_poskod','no_tel_rumah', 'no_tel_bimbit', 'no_tel_pengajian', 'no_fax_pengajian'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_tel_rumah', 'no_tel_bimbit', 'no_tel_pengajian', 'no_fax_pengajian'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['jenis_biasiswa', 'jenis_biasiswa_lain'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['muatnaik'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['muatnaik'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['muatnaik'],'validateFileUpload', 'skipOnEmpty' => false],
+            [['alamat_rumah_1', 'alamat_rumah_2', 'alamat_rumah_3', 'alamat_pengajian_1', 'alamat_pengajian_2', 'alamat_pengajian_3','alamat_rumah_negeri', 'alamat_pengajian_negeri',
+                'alamat_rumah_bandar', 'alamat_pengajian_bandar','no_matrix','jenis_biasiswa', 'jenis_biasiswa_lain'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -128,6 +136,23 @@ class PermohonanBiasiswa extends \yii\db\ActiveRecord
             'jenis_biasiswa_lain' => GeneralLabel::lain_lain,
             'no_matrix' => GeneralLabel::no_matrix,
         ];
+    }
+    
+    /**
+     * Validate upload file cannot be empty
+     */
+    public function validateFileUpload($attribute, $params){
+        $file = UploadedFile::getInstance($this, $attribute);
+        
+        if($file && $file->getHasError()){
+            $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
+        }
     }
     
     /**

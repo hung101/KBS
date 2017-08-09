@@ -7,6 +7,7 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 /**
  * This is the model class for table "tbl_bantuan_pentadbiran_pejabat".
@@ -73,9 +74,12 @@ class BantuanPentadbiranPejabat extends \yii\db\ActiveRecord
             [['alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_poskod', 'status_permohonan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_tel_bimbit', 'no_tel_pejabat', 'no_faks'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
-                        [['no_tel_bimbit', 'no_tel_pejabat', 'no_faks'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['no_tel_bimbit', 'no_tel_pejabat', 'no_faks'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['catatan', 'surat_permohonan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
-			[['surat_permohonan'], 'validateFileUpload', 'skipOnEmpty' => false],
+            [['surat_permohonan'], 'validateFileUpload', 'skipOnEmpty' => false],
+            [['nama', 'nama_sue', 'jawatan', 'persatuan','alamat_1', 'alamat_2', 'alamat_3','emel','alamat_negeri','alamat_bandar','catatan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -120,6 +124,12 @@ class BantuanPentadbiranPejabat extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
 
         if(!$file && $this->$attribute==""){

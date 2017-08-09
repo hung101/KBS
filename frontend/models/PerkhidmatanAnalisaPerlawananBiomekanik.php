@@ -6,7 +6,7 @@ use Yii;
 use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
-
+use common\models\general\GeneralFunction;
 use app\models\general\GeneralLabel;
 
 /**
@@ -60,7 +60,10 @@ class PerkhidmatanAnalisaPerlawananBiomekanik extends \yii\db\ActiveRecord
             [['perkhidmatan', 'pegawai_yang_bertanggungjawab'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['status_ujian'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['catitan_ringkas'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['muat_naik_video'],'validateFileUpload', 'skipOnEmpty' => false]
+            [['muat_naik_video'],'validateFileUpload', 'skipOnEmpty' => false],
+            [['perkhidmatan', 'pegawai_yang_bertanggungjawab','status_ujian','catitan_ringkas'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -91,6 +94,12 @@ class PerkhidmatanAnalisaPerlawananBiomekanik extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
     }
     

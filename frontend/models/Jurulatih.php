@@ -6,7 +6,7 @@ use Yii;
 use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
-
+use common\models\general\GeneralFunction;
 use app\models\general\GeneralLabel;
 
 /**
@@ -141,6 +141,16 @@ class Jurulatih extends \yii\db\ActiveRecord
             [['pengerusi', 'kelulusan_dkp', 'catatan_spkk', 'bersyarat', 'lain_lain', 'catatan', 'catatan_mpj', 'borang_maklumat', 'borang_kesihatan', 
                 'borang_hrmis', 'borang_rawatan', 'borang_keselamatan', 'borang_pelekat', 'borang_income_tax', 'keputusan_mesyuarat', 'salinan_ic_passport',
                 'surat_sokongan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['gambar', 'warganegara', 'emel','cawangan', 'sub_cawangan_pelapis', 'lain_lain_program', 'pusat_latihan', 'nama', 'nama_majikan', 'jawatan',
+                'status_jurulatih', 'status_permohonan', 'status_keaktifan_jurulatih', 'no_visa', 'no_permit_kerja', 'alamat_rumah_negeri', 'alamat_surat_menyurat_negeri', 
+                'status', 'sektor', 'alamat_majikan_negeri','bangsa','agama', 'taraf_perkahwinan', 'passport_no','tempat_lahir', 'alamat_rumah_1', 'alamat_rumah_2', 'alamat_rumah_3', 'alamat_surat_menyurat_1', 
+                'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3', 'alamat_majikan_1', 'alamat_majikan_2', 'alamat_majikan_3','no_fail','alamat_rumah_bandar', 
+                'alamat_surat_menyurat_bandar', 'alamat_majikan_bandar', 'bilangan_jkb', 'bilangan_mpj','alamat_rumah_poskod', 'alamat_surat_menyurat_poskod', 
+                'alamat_majikan_poskod','pengerusi', 'kelulusan_dkp', 'catatan_spkk', 'bersyarat', 'lain_lain', 'catatan', 'catatan_mpj', 'borang_maklumat', 'borang_kesihatan', 
+                'borang_hrmis', 'borang_rawatan', 'borang_keselamatan', 'borang_pelekat', 'borang_income_tax', 'keputusan_mesyuarat', 'salinan_ic_passport',
+                'surat_sokongan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -260,6 +270,12 @@ class Jurulatih extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
 
         if(!$file && $this->$attribute==""){

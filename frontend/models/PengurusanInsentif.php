@@ -70,7 +70,11 @@ class PengurusanInsentif extends \yii\db\ActiveRecord
             [['jumlah_insentif', 'jumlah_sgar', 'jumlah_sikap', 'jumlah_siso', 'jumlah_sito'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['siso_tarikh_kelayakan', 'sisi_tarikh_olimpik'], 'safe'],
             [['nama_insentif', 'nama_sukan', 'sgar_nama_jurulatih', 'sikap_nama_persatuan', 'sito_nama_acara_di_olimpik'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['kumpulan', 'rekod_baru', 'kelayakan_pingat', 'sito_pingat', 'category_insentif'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['kumpulan', 'rekod_baru', 'kelayakan_pingat', 'sito_pingat', 'category_insentif'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_insentif', 'nama_sukan', 'sgar_nama_jurulatih', 'sikap_nama_persatuan', 'sito_nama_acara_di_olimpik','kumpulan', 
+                'rekod_baru', 'kelayakan_pingat', 'sito_pingat', 'category_insentif'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

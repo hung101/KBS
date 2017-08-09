@@ -57,6 +57,9 @@ class AtletPerubatan extends \yii\db\ActiveRecord
             [['kumpulan_darah'], 'string', 'max' => 60, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alergi_makanan', 'alergi_perubatan', 'alergi_jenis_lain', 'penyakit_semula_jadi'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['penyakit_lain_lain'], 'safe'],
+            [['kumpulan_darah','penyakit_lain_lain','alergi_makanan', 'alergi_perubatan', 'alergi_jenis_lain', 'penyakit_semula_jadi'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

@@ -1,0 +1,155 @@
+Note Update for 14 July 2017
+===============================
+reports
+-------
+(update) - Done
+-LaporanKewanganPlanPeriodisasi.jrxml
+-LaporanPelanPeriodisasi.jrxml
+-LaporanJumlahPingatMengikutAcara.jrxml
+-LaporanRekodBaru.jrxml
+-LaporanAcaraKejohananTemasya.jrxml
+-LaporanJumlahPingatMengikutNegeri.jrxml
+-LaporanPenyertaanKontinjen.jrxml
+
+(new) - Done
+-LaporanStatistikKemudahanJumlahMengikutAgensi.jrxml
+
+$F{TARIKH_MULA} + " - " + $F{TARIKH_TAMAT}
+
+Edward@5301314
+
+Note Update for 19 July 2017
+===============================
+reports
+-------
+(update)
+-TempahanKemudahan.jrxml
+-LaporanStatistikKemudahanJumlahHasilMengikutKemudahan.jrxml
+-LaporanElaunAtletMengikutSukan.jrxml
+-LaporanElaunAtletMengikutSukaniParalimpik.jrxml
+-SuratTawaranAtlet.jrxml
+-SuratTawaranAtletParalimpik.jrxml
+
+
+upload folder
+-------------
+-anugerah_pencalonan_jurulatih
+-bantuan_elaun_muatnaik
+
+download folder
+----------------
+-web\downloads\pelantikan-sue\jobskop_lampiran.pdf
+
+
+
+
+Note Update for 26 July 2017
+===============================
+reports
+-------
+(update)
+-LaporanAtletPencapianPrestasi.jrxml
+-LaporanStatistikAtlet.jrxml
+-LaporanStatistikAtletParalimpik.jrxml
+
+
+Nur Zati Adilla bt Mohd Lukman
+
+Note: 24 Jul 2017
+Jurulatih Geran Batuan - Done
+=======================
+- add 'cheque atas nama' text field
+-  filter DD jurulatih only status 'JPM-Geran', 'JPN-Geran'
+
+Elaun dan Gaji Jurulatih - Done
+=======================
+- auto populate field 'No. Pekerja' from profile field 'No. Fail'
+
+Kontrak Jurulatih
+==================
+- add fields 'Status Jurulatih' DD, 'Sukan' DD and it autopopulate from profil jurulatih
+- add fields 'Status Jurulatih' DD, 'Bahagian' DD into portion 'Cadangan Tempoh Kontrak'
+- add DD values for 'Gaji / Elaun'
+  -> Elaun - Sambilan
+  -> Elaun - Pinjaman
+  -> Elaun - Khas
+  -> Elaun - Pelepasan
+- need to check the pulling the 'Jumlah (RM)' is it take the latest if there is multiple records in Jurulatih Sukan.
+
+
+Jurulatih Profil
+===================
+- all the surats must change the 'Bil MSNM' to 'Rujukan MSN' and 'Tarikh' remove mandatory
+- 'Surat Setuju Terima (Lantikan Baru)' the add 'Sukan' after Jurulatih in the surat and
+change Saya akan melapor diri untuk bertugas mulai: _____________________ - remove the date let them fill in
+- 'Surat Tawaran' at last bottom '4. J-404' get from profil 'No Fail' if dont have then show until 3. only
+
+Pendidikan Atlet - Pertukaran/Penanguhan
+=========================================
+- after process kelulusan cannot delete or edit
+
+
+Comments on Jurulatih Modules 28 July 2017
+=============================================
+- DD Jurulatih in all for PSK only can see his own created Jurulatih - DONE
+- Kontrak Jurulatih after process kelulusan cannot edit anymore - DONE
+- Kontrak Jurulatih if lulus then will update to profile, Sukan tab and Jurulatih status in Peribadi
+
+
+,view_own_data;Data Sendiri
+,laporan;Laporan
+,pemberitahuan_emel_bantuan-elaun;Pemberitahuan Emel
+
+tawaran;Tawaran,view_own_data;Data Sendiri,podium;Podium,podium_kemas_kini;
+Podium Kemaskini,kemaskini_yang_hantar;Kemaskini Yang Hantar
+
+
+kelulusan;Kelulusan,sokongan_pn;Sokongan PN,pemberitahuan_emel_pengurusan-program-binaan;Pemberitahuan Emel,psk;PSK,usptn;USPTN
+
+
+
+<strong>abc</strong>
+
+
+810305024455 - PPN
+
+
+
+
+
+USPTN
+=====
+Profil PPN -> (change title) Profil Pegawai & Anggota USPTN
+-----------
+1. Sukan must be multiple
+2. after created account must send email user
+3. add 'kategori Jawatan' DD(Ketua Unit Negeri, Pegawai Pembangunan Negeri)
+
+Profil Pusat Latihan
+--------------------
+1. Kadar Sewaan make it freetext instead number (varchar 255)
+2. Kos Projek make it freetext instead number (varchar 255)
+3. "Sukan" make it multiple it table, Sukan DD should filter base one PPN login sukan
+4. "Program" make it multiple it table
+5. in Peralatan add "Sukan" DD, add "Status Peralatan" freetext
+6. in link to Permohonan Peralatan should auto pull the 'Sukan' and 'Negeri' from Profil Pusat Latihan
+7. Permohonan Peralatan should allow access in user role (Profil Pegawai & Anggota USPTN) and only can see his own permohonan
+8. Add "Hantar" process
+
+Laporan Pemantauan USPTN
+-----------------------------
+1. Pusat Latihan -> DD and pull from his own Profil Pusat Latihan
+2. Sukan DD should filter base one PPN login sukan
+3. Add "Hantar" process
+4. Add "Print" same like the hard copy form
+
+Laporan
+-------
+1. Laporan Pusat Latihan -> add column 'Negeri' before 'Sukan'
+2. PPN allow to see report but only base on their access negeri
+
+Maklumat Penyertaan (Sirkit Remaja / Karnival)
+------------------------------------------------
+1. print permohonan, sukan is not showing because changed to multiple sukan table
+2. Sukan DD should filter base one PPN login sukan
+3. notication email for status permohonan for pemohon PPN

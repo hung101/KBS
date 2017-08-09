@@ -306,12 +306,12 @@ class BantuanPenganjuranKejohananController extends Controller
                 //upload file to server
                 
                 // delete upload file
-                if($existingKertasKerja != ""){
+                /*if($existingKertasKerja != ""){
                     self::actionDeleteupload($id, 'kertas_kerja');
                 }
                 
                 $filename = $model->bantuan_penganjuran_kejohanan_id . "-kertas_kerja";
-                $model->kertas_kerja = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananFolder, $filename);
+                $model->kertas_kerja = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananFolder, $filename);*/
             } else {
                 //invalid file to upload
                 //remain existing file
@@ -325,19 +325,19 @@ class BantuanPenganjuranKejohananController extends Controller
                 //upload file to server
                 
                 // delete upload file
-                if($existingSuratRasmiBadanSukanzMsNegeri != ""){
+                /*if($existingSuratRasmiBadanSukanzMsNegeri != ""){
                     self::actionDeleteupload($id, 'surat_rasmi_badan_sukan_ms_negeri');
                 }
                 
                 $filename = $model->bantuan_penganjuran_kejohanan_id . "-surat_rasmi_badan_sukan_ms_negeri";
-                $model->surat_rasmi_badan_sukan_ms_negeri = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananFolder, $filename);
+                $model->surat_rasmi_badan_sukan_ms_negeri = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananFolder, $filename);*/
             } else {
                 //invalid file to upload
                 //remain existing file
                 $model->surat_rasmi_badan_sukan_ms_negeri = $existingSuratRasmiBadanSukanzMsNegeri;
             }
             
-            $file = UploadedFile::getInstance($model, 'permohonan_rasmi_dari_ahli_gabungan');
+            /*$file = UploadedFile::getInstance($model, 'permohonan_rasmi_dari_ahli_gabungan');
             $filename = $model->bantuan_penganjuran_kejohanan_id . "-permohonan_rasmi_dari_ahli_gabungan";
             if($file){
                 $model->permohonan_rasmi_dari_ahli_gabungan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananFolder, $filename);
@@ -353,7 +353,7 @@ class BantuanPenganjuranKejohananController extends Controller
             $filename = $model->bantuan_penganjuran_kejohanan_id . "-surat_kelulusan";
             if($file){
                 $model->surat_kelulusan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananFolder, $filename);
-            }
+            }*/
         }
         
         $queryPar = null;
@@ -380,9 +380,42 @@ class BantuanPenganjuranKejohananController extends Controller
         $dataProviderBantuanPenganjuranKejohananOlehMsn = $searchModelBantuanPenganjuranKejohananOlehMsn->search($queryPar);
 
         if (Yii::$app->request->post() && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kejohanan_id]);
-        } else {
-            return $this->render('update', [
+            $file = UploadedFile::getInstance($model, 'kertas_kerja');
+            $filename = $model->bantuan_penganjuran_kejohanan_id . "-kertas_kerja";
+            if($file){
+                $model->kertas_kerja = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'surat_rasmi_badan_sukan_ms_negeri');
+            $filename = $model->bantuan_penganjuran_kejohanan_id . "-surat_rasmi_badan_sukan_ms_negeri";
+            if($file){
+                $model->surat_rasmi_badan_sukan_ms_negeri = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'permohonan_rasmi_dari_ahli_gabungan');
+            $filename = $model->bantuan_penganjuran_kejohanan_id . "-permohonan_rasmi_dari_ahli_gabungan";
+            if($file){
+                $model->permohonan_rasmi_dari_ahli_gabungan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'maklumat_lain_sokongan');
+            $filename = $model->bantuan_penganjuran_kejohanan_id . "-maklumat_lain_sokongan";
+            if($file){
+                $model->maklumat_lain_sokongan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'surat_kelulusan');
+            $filename = $model->bantuan_penganjuran_kejohanan_id . "-surat_kelulusan";
+            if($file){
+                $model->surat_kelulusan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananFolder, $filename);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kejohanan_id]);
+            }
+        } 
+        
+        return $this->render('update', [
                 'model' => $model,
                 'searchModelBantuanPenganjuranKejohananKewangan' => $searchModelBantuanPenganjuranKejohananKewangan,
                 'dataProviderBantuanPenganjuranKejohananKewangan' => $dataProviderBantuanPenganjuranKejohananKewangan,
@@ -396,7 +429,6 @@ class BantuanPenganjuranKejohananController extends Controller
                 'dataProviderBantuanPenganjuranKejohananOlehMsn' => $dataProviderBantuanPenganjuranKejohananOlehMsn,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

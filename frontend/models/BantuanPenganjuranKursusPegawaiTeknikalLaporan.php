@@ -7,6 +7,7 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 /**
  * This is the model class for table "tbl_bantuan_penganjuran_kursus_pegawai_teknikal_laporan".
@@ -62,6 +63,9 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporan extends \yii\db\ActiveRecor
             [['penyata_perbelanjaan_resit_yang_telah_disahkan'], 'validateFileUploadRequired', 'skipOnEmpty' => false],
             [['laporan_bergambar', 'jadual_keputusan_pertandingan', 'senarai_peserta', 
                 'statistik_penyertaan', 'senarai_pegawai_penceramah', 'senarai_urusetia_sukarelawan'],'validateFileUpload', 'skipOnEmpty' => false],
+            [['tempat','tujuan_kursus_kejohanan','bilangan_pasukan', 'bilangan_peserta', 'bilangan_pembantu','bilangan_pegawai_teknikal','bilangan_penceramah','bilangan_urusetia'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -105,6 +109,12 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporan extends \yii\db\ActiveRecor
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
         }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
+        }
 
         if(!$file && $this->$attribute==""){
             $this->addError($attribute, GeneralMessage::uploadEmptyError);
@@ -119,6 +129,12 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporan extends \yii\db\ActiveRecor
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
     }
 }

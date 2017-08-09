@@ -62,6 +62,9 @@ class PenganjuranKursus extends \yii\db\ActiveRecord
             [['no_telefon'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_telefon'], 'integer', 'message' => GeneralMessage::yii_validation_integer],            
             [['tarikh_kursus_tamat'], 'compare', 'compareAttribute'=>'tarikh_kursus_mula', 'operator'=>'>=', 'message' => GeneralMessage::yii_validation_compare],
+            [['tempat_kursus','tempoh_kursus','kod_kursus','negeri','nama_penyelaras', 'nama_kursus', 'penganjur'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

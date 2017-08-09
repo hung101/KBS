@@ -6,7 +6,7 @@ use Yii;
 use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
-
+use common\models\general\GeneralFunction;
 use app\models\general\GeneralLabel;
 
 /**
@@ -64,7 +64,10 @@ class PermohonanProgramPendidikanKesihatan extends \yii\db\ActiveRecord
             [['tempat_program'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_tel_pemohon'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false]
+            [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false],
+            [['nama_program', 'nama_pemohon', 'pegawai_bertugas','tempat_program'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -84,7 +87,7 @@ class PermohonanProgramPendidikanKesihatan extends \yii\db\ActiveRecord
             'muat_naik' => GeneralLabel::muat_naik,
             'kelulusan_ceo' => GeneralLabel::kelulusan_ceo,
             'kelulusan_pbu' => GeneralLabel::kelulusan_pbu,
-			'tarikh_kelulusan' => GeneralLabel::tarikh_kelulusan,
+            'tarikh_kelulusan' => GeneralLabel::tarikh_kelulusan,
         ];
     }
     
@@ -96,6 +99,12 @@ class PermohonanProgramPendidikanKesihatan extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
     }
     

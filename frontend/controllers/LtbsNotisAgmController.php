@@ -139,7 +139,7 @@ class LtbsNotisAgmController extends Controller
             if($file){
                 //valid file to upload
                 //upload file to server
-                $model->notis_agm = Upload::uploadFile($file, Upload::ltbsMesyuaratFolder, $model->tbl_ltbs_id, Upload::ltbsNotisAGMSubFolder);
+                //$model->notis_agm = Upload::uploadFile($file, Upload::ltbsMesyuaratFolder, $model->tbl_ltbs_id, Upload::ltbsNotisAGMSubFolder);
             } else {
                 //invalid file to upload
                 //remain existing file

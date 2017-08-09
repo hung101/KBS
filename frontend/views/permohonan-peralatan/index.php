@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-peralatan']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::permohonan_peralatan, ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::permohonan_peralatan, ['create', 'profil_pusat_latihan_id' => $profil_pusat_latihan_id], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 
@@ -68,29 +68,34 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             //'program',
             [
+                'attribute' => 'negeri',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::negeri,
+                ],
+                'value' => 'refNegeri.desc'
+            ],
+            /*[
                 'attribute' => 'program',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::program,
                 ],
                 'value' => 'refProgram.desc'
-            ],
-             [
-                'attribute' => 'tarikh',
-                'filterInputOptions' => [
-                    'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh,
-                ],
-                 'value'=>function ($model) {
-                    return GeneralFunction::convert($model->tarikh, GeneralFunction::TYPE_DATETIME);
-                },
-            ],
+            ],*/
             // 'aktiviti',
-             [
+             /*[
                 'attribute' => 'jumlah_peralatan',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah_peralatan,
+                ]
+            ],*/
+            [
+                'attribute' => 'jumlah_permohonan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah_permohonan,
                 ]
             ],
             // 'nota_urus_setia',
@@ -102,6 +107,16 @@ $this->params['breadcrumbs'][] = $this->title;
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kelulusan,
                 ],
                 'value' => 'refKelulusan.desc'
+            ],
+            [
+                'attribute' => 'tarikh',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh,
+                ],
+                 'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh, GeneralFunction::TYPE_DATETIME);
+                },
             ],
 
             //['class' => 'yii\grid\ActionColumn'],
@@ -115,14 +130,19 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]);
 
                     },
-                    'update' => function ($url, $model) {
-                        $link =  Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                    'update' => function ($url, $model) use ($profil_pusat_latihan_id) {
+                        $link =  Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['update', 'id' => $model->permohonan_peralatan_id, 'profil_pusat_latihan_id' => $profil_pusat_latihan_id], [
                         'title' => Yii::t('yii', 'Update'),
                         ]);
                         
                         return ((isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-peralatan']['update']) 
                                 && $model->hantar_flag == 0) || 
                                 isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-peralatan']['kelulusan'])) ? $link : '';
+                    },
+                    'view' => function ($url, $model) use ($profil_pusat_latihan_id) {
+                        return  Html::a('<span class="glyphicon glyphicon-eye-open"></span>', ['view', 'id' => $model->permohonan_peralatan_id, 'profil_pusat_latihan_id' => $profil_pusat_latihan_id], [
+                        'title' => Yii::t('yii', 'View'),
+                        ]);
                     },
                 ],
                 'template' => $template,

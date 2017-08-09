@@ -86,6 +86,10 @@ class ProfilDelegasiTeknikalAhli extends \yii\db\ActiveRecord
             [['no_telefon_bimbit','no_telefon_pejabat'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_telefon_bimbit', 'no_telefon_pejabat'], 'string', 'max' => 14],
             [['emel', 'session_id'], 'string', 'max' => 100],
+            [['nama', 'jawatan', 'pekerjaan', 'jawatan_lain_lain','alamat_1', 'alamat_2', 'alamat_3', 'alamat_majikan_1', 'alamat_majikan_2', 'alamat_majikan_3',
+                'alamat_negeri', 'alamat_majikan_negeri','alamat_bandar', 'alamat_poskod', 'alamat_majikan_bandar', 'alamat_majikan_poskod','emel'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

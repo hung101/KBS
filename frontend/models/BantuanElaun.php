@@ -7,6 +7,7 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 /**
  * This is the model class for table "tbl_bantuan_elaun".
@@ -95,6 +96,10 @@ class BantuanElaun extends \yii\db\ActiveRecord
                         [['no_tel_bimbit', 'no_tel_persatuan_pejabat'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['catatan', 'surat_permohonan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
 			[['surat_permohonan'], 'validateFileUpload', 'skipOnEmpty' => false],
+            [['kursus','catatan','emel','nama', 'kelayakan_akademi','muatnaik_gambar', 'emel', 'muatnaik_dokumen', 'no_akaun','kewarganegara', 'alamat_negeri',
+                'catatan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -153,6 +158,12 @@ class BantuanElaun extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
 
         if(!$file && $this->$attribute==""){

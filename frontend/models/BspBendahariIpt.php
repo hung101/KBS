@@ -65,7 +65,10 @@ class BspBendahariIpt extends \yii\db\ActiveRecord
             [['no_kad_pengenalan'], 'string', 'min' => 12, 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max, 'tooShort' => GeneralMessage::yii_validation_string_min],
             ['new_password', 'validatePassword'],
             ['new_password', 'string', 'min' => 6, 'tooShort' => GeneralMessage::yii_validation_string_min],
-            [['username'], 'unique', 'message' => GeneralMessage::yii_validation_unique]
+            [['username'], 'unique', 'message' => GeneralMessage::yii_validation_unique],
+            [['username', 'email'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

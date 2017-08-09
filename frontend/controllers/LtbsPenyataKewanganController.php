@@ -148,8 +148,8 @@ class LtbsPenyataKewanganController extends Controller
             if($file){
                 //valid file to upload
                 //upload file to server
-                $filename = $model->penyata_kewangan_id . "-penyata_penerimaan_dan_pembayaran";
-                $model->penyata_penerimaan_dan_pembayaran = Upload::uploadFile($file, Upload::ltbsPenyataKewanganFolder, $filename);
+                /*$filename = $model->penyata_kewangan_id . "-penyata_penerimaan_dan_pembayaran";
+                $model->penyata_penerimaan_dan_pembayaran = Upload::uploadFile($file, Upload::ltbsPenyataKewanganFolder, $filename);*/
             } else {
                 //invalid file to upload
                 //remain existing file
@@ -161,8 +161,8 @@ class LtbsPenyataKewanganController extends Controller
             if($file){
                 //valid file to upload
                 //upload file to server
-                $filename = $model->penyata_kewangan_id . "-penyata_pendapatan_dan_perbelanjaan";
-                $model->penyata_pendapatan_dan_perbelanjaan = Upload::uploadFile($file, Upload::ltbsPenyataKewanganFolder, $filename);
+                /*$filename = $model->penyata_kewangan_id . "-penyata_pendapatan_dan_perbelanjaan";
+                $model->penyata_pendapatan_dan_perbelanjaan = Upload::uploadFile($file, Upload::ltbsPenyataKewanganFolder, $filename);*/
             } else {
                 //invalid file to upload
                 //remain existing file
@@ -174,8 +174,8 @@ class LtbsPenyataKewanganController extends Controller
             if($file){
                 //valid file to upload
                 //upload file to server
-                $filename = $model->penyata_kewangan_id . "-kunci_kira_kira";
-                $model->kunci_kira_kira = Upload::uploadFile($file, Upload::ltbsPenyataKewanganFolder, $filename);
+                /*$filename = $model->penyata_kewangan_id . "-kunci_kira_kira";
+                $model->kunci_kira_kira = Upload::uploadFile($file, Upload::ltbsPenyataKewanganFolder, $filename);*/
             } else {
                 //invalid file to upload
                 //remain existing file
@@ -184,13 +184,33 @@ class LtbsPenyataKewanganController extends Controller
         }
 
         if (Yii::$app->request->post() && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->penyata_kewangan_id]);
-        } else {
-            return $this->render('update', [
+            $file = UploadedFile::getInstance($model, 'penyata_penerimaan_dan_pembayaran');
+            $filename = $model->penyata_kewangan_id . "-penyata_penerimaan_dan_pembayaran";
+            if($file){
+                $model->penyata_penerimaan_dan_pembayaran = Upload::uploadFile($file, Upload::ltbsPenyataKewanganFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'penyata_pendapatan_dan_perbelanjaan');
+            $filename = $model->penyata_kewangan_id . "-penyata_pendapatan_dan_perbelanjaan";
+            if($file){
+                $model->penyata_pendapatan_dan_perbelanjaan = Upload::uploadFile($file, Upload::ltbsPenyataKewanganFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'kunci_kira_kira');
+            $filename = $model->penyata_kewangan_id . "-kunci_kira_kira";
+            if($file){
+                $model->kunci_kira_kira = Upload::uploadFile($file, Upload::ltbsPenyataKewanganFolder, $filename);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->penyata_kewangan_id]);
+            }
+        } 
+        
+        return $this->render('update', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

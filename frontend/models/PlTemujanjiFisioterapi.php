@@ -7,6 +7,7 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 /**
  * This is the model class for table "tbl_pl_temujanji".
@@ -62,7 +63,11 @@ class PlTemujanjiFisioterapi extends \yii\db\ActiveRecord
             [['catitan_ringkas', 'maklumbalas'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_kad_pengenalan'], 'string', 'min' => 12, 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max, 'tooShort' => GeneralMessage::yii_validation_string_min],
             [['no_kad_pengenalan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['muat_naik', 'gambar'],'validateFileUpload', 'skipOnEmpty' => false]
+            [['muat_naik', 'gambar'],'validateFileUpload', 'skipOnEmpty' => false],
+            [['doktor_pegawai_perubatan', 'makmal_perubatan', 'pegawai_yang_bertanggungjawab','nama_pesakit_luar','status_temujanji','jenis_sukan',
+                'catitan_ringkas', 'maklumbalas'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -115,6 +120,12 @@ class PlTemujanjiFisioterapi extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
     }
     

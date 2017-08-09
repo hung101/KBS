@@ -8,6 +8,7 @@ use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 /**
  * This is the model class for table "tbl_ltbs_minit_mesyuarat_jawatankuasa".
@@ -59,7 +60,6 @@ class LtbsMinitMesyuaratJawatankuasa extends \yii\db\ActiveRecord
             [['tarikh', 'masa', 'pengesahan'], 'safe'],
             [['jumlah_ahli_yang_hadir', 'korum_mesyuarat_jumlah_ahli_yang_hadir', 'profil_badan_sukan_id', 'status', 'profil_badan_sukan_id_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tempat'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['tempat'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['mengikut_perlembagaan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['agenda_mesyuarat', 'keputusan_mesyuarat'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['minit_ajk_muat_naik', 'notis_agm_muat_naik', 'laporan_aktiviti_muat_naik',
@@ -68,6 +68,9 @@ class LtbsMinitMesyuaratJawatankuasa extends \yii\db\ActiveRecord
                     return isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['maklumat-kewangan']);
                 }],
             [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tempat','mengikut_perlembagaan','agenda_mesyuarat', 'keputusan_mesyuarat','catatan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -109,6 +112,12 @@ class LtbsMinitMesyuaratJawatankuasa extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
 
         if(!$file && $this->$attribute==""){

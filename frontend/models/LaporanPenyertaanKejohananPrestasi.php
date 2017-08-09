@@ -60,6 +60,9 @@ class LaporanPenyertaanKejohananPrestasi extends \yii\db\ActiveRecord
             [['created', 'updated'], 'safe'],
             [['sasaran', 'pencapaian', 'catatan'], 'string', 'max' => 255],
             [['session_id'], 'string', 'max' => 100],
+            [['sasaran', 'pencapaian', 'catatan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

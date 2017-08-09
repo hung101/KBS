@@ -147,14 +147,14 @@ class ProfilKonsultanController extends Controller
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->profil_konsultan_id]);
             }
-        } else {
-            return $this->render('create', [
+        } 
+        
+        return $this->render('create', [
                 'model' => $model,
                 'searchModelProfilKonsultanKontrak' => $searchModelProfilKonsultanKontrak,
                 'dataProviderProfilKonsultanKontrak' => $dataProviderProfilKonsultanKontrak,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -188,11 +188,11 @@ class ProfilKonsultanController extends Controller
                 //upload file to server
                 
                 // delete upload file
-                if($existingGambar != ""){
+                /*if($existingGambar != ""){
                     self::actionDeleteupload($id, 'gambar');
                 }
                 
-                $model->gambar = Upload::uploadFile($file, Upload::profilKonsultanFolder, $model->profil_konsultan_id);
+                $model->gambar = Upload::uploadFile($file, Upload::profilKonsultanFolder, $model->profil_konsultan_id);*/
             } else {
                 //invalid file to upload
                 //remain existing file
@@ -209,15 +209,22 @@ class ProfilKonsultanController extends Controller
         }
 
         if (Yii::$app->request->post() && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->profil_konsultan_id]);
-        } else {
-            return $this->render('update', [
+            $file = UploadedFile::getInstance($model, 'gambar');
+            if($file){
+                $model->gambar = Upload::uploadFile($file, Upload::profilKonsultanFolder, $model->profil_konsultan_id);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->profil_konsultan_id]);
+            }
+        } 
+        
+        return $this->render('update', [
                 'model' => $model,
                 'searchModelProfilKonsultanKontrak' => $searchModelProfilKonsultanKontrak,
                 'dataProviderProfilKonsultanKontrak' => $dataProviderProfilKonsultanKontrak,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

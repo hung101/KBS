@@ -8,6 +8,7 @@ use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 /**
  * This is the model class for table "tbl_admin_e_biasiswa".
@@ -52,6 +53,9 @@ class AdminEBiasiswa extends \yii\db\ActiveRecord
             [['muat_naik_syarat_kelayakan'], 'validateFileUpload', 'skipOnEmpty' => false],
             //[['tarikh_mula'], 'compare', 'compareAttribute'=>'tarikh_tamat', 'operator'=>'<=', 'skipOnEmpty'=>true],
             [['tarikh_tamat'], 'compare', 'compareAttribute'=>'tarikh_mula', 'operator'=>'>=', 'message' => GeneralMessage::yii_validation_compare],
+            [['nama', 'tarikh_semakan_panggilan_temuduga', 'tarikh_semakan_keputusan_temuduga', 'tawaran_biasiswa_tarikh_masa', 'tawaran_biasiswa_tempat'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -82,6 +86,12 @@ class AdminEBiasiswa extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
 
         if(!$file && $this->$attribute==""){

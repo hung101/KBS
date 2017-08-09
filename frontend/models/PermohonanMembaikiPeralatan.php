@@ -67,7 +67,11 @@ class PermohonanMembaikiPeralatan extends \yii\db\ActiveRecord
             [['pemohon', 'nama_peralatan', 'pegawai_yang_bertanggungjawab'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['model', 'nombor_siri'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['kerosakan', 'simptom_kerosakan', 'komponen_utama', 'proses_pemeriksaan', 'pembaikan', 'cadangan', 'catitan_ringkas'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['status_permohonan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['status_permohonan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['pemohon', 'nama_peralatan', 'pegawai_yang_bertanggungjawab','model', 'nombor_siri','kerosakan', 'simptom_kerosakan', 'komponen_utama', 
+                'proses_pemeriksaan', 'pembaikan', 'cadangan', 'catitan_ringkas','status_permohonan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

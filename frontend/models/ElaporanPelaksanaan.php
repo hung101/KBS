@@ -86,6 +86,11 @@ class ElaporanPelaksanaan extends \yii\db\ActiveRecord
             [['muat_naik', 'creator_emel'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             //[['tarikh_pelaksanaan_mula'], 'compare', 'compareAttribute'=>'tarikh_pelaksanaan_akhir', 'operator'=>'<=', 'skipOnEmpty'=>true],
             [['tarikh_pelaksanaan_akhir'], 'compare', 'compareAttribute'=>'tarikh_pelaksanaan_mula', 'operator'=>'>=', 'message' => GeneralMessage::yii_validation_compare],
+            [['peringkat', 'rumusan_program','nama_projek_program_aktiviti_kejohanan', 'nama_penganjur_persatuan_kerjasama', 'dirasmikan_oleh', 'creator_nama',
+                'no_cek_eft','objektif_pelaksaan','alamat_tempat_pelaksanaan_1', 'alamat_tempat_pelaksanaan_2', 'alamat_tempat_pelaksanaan_3','alamat_tempat_pelaksanaan_bandar', 
+                'alamat_tempat_pelaksanaan_poskod','alamat_tempat_pelaksanaan_negeri', 'alamat_tempat_pelaksanaan_parlimen','creator_emel'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

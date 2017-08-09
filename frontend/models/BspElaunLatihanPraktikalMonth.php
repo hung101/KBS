@@ -51,7 +51,10 @@ class BspElaunLatihanPraktikalMonth extends \yii\db\ActiveRecord
         return [
             [['bulan', 'jumlah_hari'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['bsp_elaun_latihan_praktikal_id', 'jumlah_hari'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['bulan'], 'safe']
+            [['bulan'], 'safe'],
+            [['bulan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

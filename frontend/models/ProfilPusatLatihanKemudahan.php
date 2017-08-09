@@ -57,6 +57,9 @@ class ProfilPusatLatihanKemudahan extends \yii\db\ActiveRecord
             [['created', 'updated'], 'safe'],
             [['sukan'], 'string', 'max' => 255],
             [['session_id'], 'string', 'max' => 100],
+            [['sukan','jenis_kemudahan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

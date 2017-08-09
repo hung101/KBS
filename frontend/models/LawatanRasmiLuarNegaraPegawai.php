@@ -39,6 +39,9 @@ class LawatanRasmiLuarNegaraPegawai extends \yii\db\ActiveRecord
             [['created', 'updated'], 'safe'],
             [['nama_pegawai_terlibat'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['session_id'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_pegawai_terlibat'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

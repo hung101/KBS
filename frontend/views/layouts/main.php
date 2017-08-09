@@ -37,7 +37,8 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
 <?php if(Yii::$app->user->isGuest):?>
 <body>
 <?php else:?>
-<body onload="StartTimers(); timerCheckConcurrent();" onmousemove="ResetTimers();">
+<!--<body onload="StartTimers(); timerCheckConcurrent();" onmousemove="ResetTimers();">-->
+<body onload="timerCheckConcurrent();">
 <?php endif;?>
     <?php $this->beginBody() ?>
     <div class="wrap">
@@ -158,8 +159,8 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
 												['label' => GeneralLabel::laporan_statistik_permohonan_kemudahan_tiket, 'url' => ['/permohonan-kemudahan-ticket-kapal-terbang/laporan-statistik-permohonan-kemudahan-tiket'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-kemudahan-ticket-kapal-terbang']['module'])],
 												['label' => GeneralLabel::laporan_senarai_permohonan_kemudahan_tiket, 'url' => ['/permohonan-kemudahan-ticket-kapal-terbang/laporan-senarai-permohonan-kemudahan-tiket'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-kemudahan-ticket-kapal-terbang']['module'])],
 												['label' => GeneralLabel::laporan_senarai_penerbangan_kemudahan_tiket, 'url' => ['/permohonan-kemudahan-ticket-kapal-terbang/laporan-senarai-penerbangan-kemudahan-tiket'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-kemudahan-ticket-kapal-terbang']['module'])],
-												['label' => GeneralLabel::laporan_statistik_permohonan_peralatan, 'url' => ['/permohonan-peralatan/laporan-statistik-permohonan-peralatan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-peralatan']['module'])],
-												['label' => GeneralLabel::laporan_senarai_permohonan_peralatan, 'url' => ['/permohonan-peralatan/laporan-senarai-permohonan-peralatan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-peralatan']['module'])],
+												['label' => GeneralLabel::laporan_statistik_permohonan_peralatan, 'url' => ['/permohonan-peralatan/laporan-statistik-permohonan-peralatan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-peralatan']['laporan'])],
+												['label' => GeneralLabel::laporan_senarai_permohonan_peralatan, 'url' => ['/permohonan-peralatan/laporan-senarai-permohonan-peralatan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-peralatan']['laporan'])],
 											],
 										],
 									],
@@ -505,19 +506,19 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
 								[
                                                                     'label' => 'USPTN',
                                                                     'items' => [
-                                                                        ['label' => GeneralLabel::profil_ppn, 'url' => ['/ref-ppn/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['ref-ppn']['module'])],
+                                                                        ['label' => GeneralLabel::profil_ppn, 'url' => ['/profil-ppn/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-ppn']['module'])],
                                                                         ['label' => GeneralLabel::profil_pusat_latihan, 'url' => ['/profil-pusat-latihan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-pusat-latihan']['module'])],
                                                                         ['label' => GeneralLabel::pemantauan_usptn, 'url' => ['/pengurusan-upstn/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['module'])],
                                                                         [
                                                                                 'label' => GeneralLabel::laporan,
                                                                                 'items' => [
-                                                                                        ['label' => GeneralLabel::laporan_pusat_latihan, 'url' => ['/profil-pusat-latihan/laporan-pusat-latihan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-pusat-latihan']['module'])],
-                                                                                        ['label' => GeneralLabel::laporan_statistik_pemantauan, 'url' => ['/pengurusan-upstn/laporan-statistik-pemantauan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['module'])],
-                                                                                        ['label' => GeneralLabel::laporan_usptn_lawatan_pemantauan, 'url' => ['/pengurusan-upstn/laporan-usptn-lawatan-pemantauan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['module'])],
-                                                                                        ['label' => GeneralLabel::laporan_usptn_pecahan_kaum, 'url' => ['/pengurusan-upstn/laporan-usptn-pecahan-kaum'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['module'])],
-                                                                                        ['label' => GeneralLabel::laporan_usptn_pecahan_umur, 'url' => ['/pengurusan-upstn/laporan-usptn-pecahan-umur'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['module'])],
-                                                                                        ['label' => GeneralLabel::laporan_usptn_perjumpaan_atlet, 'url' => ['/pengurusan-upstn/laporan-usptn-perjumpaan-atlet'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['module'])],
-                                                                                        ['label' => GeneralLabel::laporan_usptn_perjumpaan_jurulatih, 'url' => ['/pengurusan-upstn/laporan-usptn-perjumpaan-jurulatih'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['module'])],
+                                                                                        ['label' => GeneralLabel::laporan_pusat_latihan, 'url' => ['/profil-pusat-latihan/laporan-pusat-latihan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-pusat-latihan']['laporan'])],
+                                                                                        ['label' => GeneralLabel::laporan_statistik_pemantauan, 'url' => ['/pengurusan-upstn/laporan-statistik-pemantauan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['laporan'])],
+                                                                                        ['label' => GeneralLabel::laporan_usptn_lawatan_pemantauan, 'url' => ['/pengurusan-upstn/laporan-usptn-lawatan-pemantauan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['laporan'])],
+                                                                                        ['label' => GeneralLabel::laporan_usptn_pecahan_kaum, 'url' => ['/pengurusan-upstn/laporan-usptn-pecahan-kaum'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['laporan'])],
+                                                                                        ['label' => GeneralLabel::laporan_usptn_pecahan_umur, 'url' => ['/pengurusan-upstn/laporan-usptn-pecahan-umur'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['laporan'])],
+                                                                                        ['label' => GeneralLabel::laporan_usptn_perjumpaan_atlet, 'url' => ['/pengurusan-upstn/laporan-usptn-perjumpaan-atlet'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['laporan'])],
+                                                                                        ['label' => GeneralLabel::laporan_usptn_perjumpaan_jurulatih, 'url' => ['/pengurusan-upstn/laporan-usptn-perjumpaan-jurulatih'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['laporan'])],
                                                                                 ],
                                                                         ],
                                                                     ],
@@ -1213,7 +1214,7 @@ function IdleTimeout() {
 
 
 // concurrent login checking - START
-var timer_checking = 3000; // 1 second
+var timer_checking = 7000; // 1000 = 1 second
 var checkConcurrentTimer;
 var auth_key_session = '<?=$auth_key_session?>';
 var current_user_auth_key = '<?=$current_user_auth_key?>';
@@ -1234,4 +1235,17 @@ function checkConcurrent(){
     timerCheckConcurrent();
 }
 // concurrent login checking - END
+<?php
+$whitelist = array(
+    '127.0.0.1',
+    '::1'
+);
+
+if(!in_array($_SERVER['REMOTE_ADDR'], $whitelist)){
+    // disable right click
+    echo "document.oncontextmenu = function() { 
+    return false; 
+};";
+}
+?>
 </script>

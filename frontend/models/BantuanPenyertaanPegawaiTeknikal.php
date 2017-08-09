@@ -109,6 +109,10 @@ class BantuanPenyertaanPegawaiTeknikal extends \yii\db\ActiveRecord
             [['surat_rasmi_badan_sukan_ms_negeri', 'surat_jemputan_lantikan_daripada_pengelola', 'butiran_perbelanjaan', 
                 'salinan_passport', 'maklumat_lain_sokongan', 'surat_kelulusan'],'validateFileUpload', 'skipOnEmpty' => false],
             ['tarikh','validateBeforePenganjuran', 'on' => 'create'],
+            [['badan_sukan', 'nama_bank', 'peringkat_lain_lain', 'jkb', 'negara','sukan', 'no_pendaftaran', 'alamat_1', 'alamat_2', 'alamat_3', 'no_akaun', 'peringkat',
+                'alamat_negeri','alamat_bandar', 'alamat_poskod','laman_sesawang', 'facebook', 'twitter','tujuan', 'nama_kejohanan','tempat','catatan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -173,6 +177,12 @@ class BantuanPenyertaanPegawaiTeknikal extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
     }
     

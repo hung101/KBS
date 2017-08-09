@@ -49,7 +49,10 @@ class PenyertaanSukanPerbelanjaan extends \yii\db\ActiveRecord
             [['penyertaan_sukan_id', 'kategori_perbelanjaan', 'orang_pohon', 'orang_cadang', 'orang_lulus', 'hari_pohon', 'hari_cadang', 'hari_lulus'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['harga_pohon', 'harga_cadang', 'harga_lulus', 'jumlah_pohon', 'jumlah_cadang', 'jumlah_lulus'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['session_id'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['catatan_pohon', 'catatan_cadang', 'catatan_lulus', 'perkara'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['catatan_pohon', 'catatan_cadang', 'catatan_lulus', 'perkara'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['catatan_pohon', 'catatan_cadang', 'catatan_lulus', 'perkara'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

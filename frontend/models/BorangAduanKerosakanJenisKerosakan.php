@@ -6,6 +6,7 @@ use Yii;
 
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 /**
  * This is the model class for table "tbl_borang_aduan_kerosakan_jenis_kerosakan".
  *
@@ -66,6 +67,10 @@ class BorangAduanKerosakanJenisKerosakan extends \yii\db\ActiveRecord
             [['lokasi', 'nama_pemeriksa', 'kategori_kerosakan', 'tindakan'], 'string', 'max' => 80],
             [['jenis_kerosakan', 'session_id'], 'string', 'max' => 100],
             [['catatan', 'ulasan_pemeriksa', 'gambar'], 'string', 'max' => 255],
+            [['gambar'], 'validateFileUpload', 'skipOnEmpty' => false],
+            [['lokasi', 'nama_pemeriksa', 'kategori_kerosakan', 'tindakan','jenis_kerosakan','catatan', 'ulasan_pemeriksa', 'gambar'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -115,6 +120,12 @@ class BorangAduanKerosakanJenisKerosakan extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
     }
     

@@ -61,6 +61,7 @@
     </tr>
 </table>
 <br />
+<section>
 <h4 class="text-underline"><?= strtoupper("Tuntutan Baki Dua Puluh Peratus (20%) Daripada Jumlah Kelulusan (Jika Ada)") ?></h4>
 <?php
 if(count($BantuanPenganjuranKejohananSirkitLaporanTuntutan) > 0){
@@ -69,8 +70,8 @@ if(count($BantuanPenganjuranKejohananSirkitLaporanTuntutan) > 0){
 		<tr>
 			<th>BIL</th>
 			<th>JUMLAH KELULUSAN(RM)</th>
-			<th>PENDAHULUAN (80%)(RM)</th>
-			<th>JUMLAH YANG DITUNTUT (20%)(RM)</th>
+			<!--<th>PENDAHULUAN (RM)</th>-->
+			<th>JUMLAH YANG DITUNTUT (RM)</th>
 		</tr>
 		<?php
 		$count = 1;
@@ -79,7 +80,7 @@ if(count($BantuanPenganjuranKejohananSirkitLaporanTuntutan) > 0){
 			<tr>
 				<td align="center"><?= $count ?></td>
 				<td align="center"><?= number_format($item->jumlah_kelulusan,2) ?></td>
-				<td align="center"><?= number_format($item->pendahuluan_80,2) ?></td>
+				<!--<td align="center"><?= number_format($item->pendahuluan_80,2) ?></td>-->
 				<td align="center"><?= number_format($item->jumlah_yang_dituntut_20,2) ?></td>
 			</tr>
 		<?php
@@ -93,7 +94,8 @@ if(count($BantuanPenganjuranKejohananSirkitLaporanTuntutan) > 0){
 }
 ?>
 <br />
-
+</section>
+<section>
 <div class="title-header-wrap" style="margin:20px 0px; padding:5px">
     AKUAN
 </div>
@@ -118,3 +120,4 @@ Saya mengaku bahawa maklumat yang telah diisi seperti di atas adalah benar serta
 		</td>
 	</tr>
 </table>
+</section>

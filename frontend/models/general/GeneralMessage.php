@@ -19,6 +19,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
 	    const confirmRemove = "Adakah anda pasti mahu mengeluarkan?";
             const confirmKelulusan = "Adakah anda pasti mahu meluluskan?";
 	    const uploadEmptyError = "Sila muat naik fail";
+            const uploadFileTypeError = "Jenis fail tidak sah";
 	    const selamat_datang = "Selamat Datang";
 	    const sistem_pengurusan_sukan_bersepadu = "SISTEM PENGURUSAN SUKAN BERSEPADU";
             
@@ -69,6 +70,7 @@ if($session->get('language') == "EN") {
 	    const confirmRemove = "Are you sure you want to remove?";
             const confirmKelulusan = "Are you sure you want to approve?";
 	    const uploadEmptyError = "Please upload a file";
+            const uploadFileTypeError = "Invalid file type";
 	    const selamat_datang = "Welcome";
 	    const sistem_pengurusan_sukan_bersepadu = "INTEGRATED SPORTS MANAGEMENT SYSTEM";
             

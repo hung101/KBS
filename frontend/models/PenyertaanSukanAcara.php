@@ -59,7 +59,10 @@ class PenyertaanSukanAcara extends \yii\db\ActiveRecord
             //[['tarikh_acara'], 'safe'],
             [['nama_acara', 'keputusan_acara', 'sasaran'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['catatan_rekod_baru', 'catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['tarikh_acara'],'validateTarikhAcara', 'skipOnEmpty' => false],  
+            [['tarikh_acara'],'validateTarikhAcara', 'skipOnEmpty' => false],
+            [['nama_acara', 'keputusan_acara', 'sasaran','catatan_rekod_baru', 'catatan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

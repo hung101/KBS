@@ -43,6 +43,9 @@ class BantuanPenganjuranKejohananBayaran extends \yii\db\ActiveRecord
             [['jenis_bayaran'], 'string', 'max' => 30],
             [['lain_lain'], 'string', 'max' => 80],
             [['session_id'], 'string', 'max' => 100],
+            [['jenis_bayaran','lain_lain'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

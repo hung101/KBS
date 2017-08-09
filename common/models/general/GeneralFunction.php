@@ -261,6 +261,81 @@ class GeneralFunction{
         }
     }
     
+    public static function filterXSS($value){
+        if($value != strip_tags($value)) {
+            return strip_tags(htmlspecialchars($value));
+        }
+        
+        return $value;
+    }
+    
+    public static function checkFileExtension($extension){
+        switch(strtolower($extension)){
+            case "jpg":
+                return true;
+                break;
+            case "pnm":
+                return true;
+                break;
+            case "ppm":
+                return true;
+                break;
+            case "bmp":
+                return true;
+                break;
+            case "png":
+                return true;
+                break;
+            case "gif":
+                return true;
+                break;
+            case "tiff":
+                return true;
+                break;
+            case "txt":
+                return true;
+                break;
+            case "pdf":
+                return true;
+                break;
+            case "doc":
+                return true;
+                break;
+            case "docx":
+                return true;
+                break;
+            case "key":
+                return true;
+                break;
+            case "ppt":
+                return true;
+                break;
+            case "pptx":
+                return true;
+                break;
+            case "pps":
+                return true;
+                break;
+            case "ppsx":
+                return true;
+                break;
+            case "odt":
+                return true;
+                break;
+            case "xls":
+                return true;
+                break;
+            case "xlsx":
+                return true;
+                break;
+            case "zip":
+                return true;
+                break;
+            default:
+                return false;
+        }
+    }
+    
     public static function getSukan($param = null){
         
         $sukan_dd_list = RefSukan::find()->where(['=', 'aktif', 1]); // defauilt show all the sukan

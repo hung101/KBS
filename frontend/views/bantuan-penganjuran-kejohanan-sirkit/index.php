@@ -22,12 +22,12 @@ $this->params['breadcrumbs'][] = $this->title;
         
         // Update Access
         if(isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kejohanan-sirkit']['update'])){
-            $template .= ' {update}';
+            //$template .= ' {update}';
         }
         
         // Delete Access
         if(isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kejohanan-sirkit']['delete'])){
-            $template .= ' {delete}';
+            //$template .= ' {delete}';
         }
         
         $template .= ' {report}';
@@ -141,12 +141,24 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn',
                 'buttons' => [
                     'delete' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                        $link = Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
                         'title' => Yii::t('yii', 'Delete'),
                         'data-confirm' => GeneralMessage::confirmDelete,
                         'data-method' => 'post',
                         ]);
-
+                        
+                        return ((isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kejohanan-sirkit']['delete']) 
+                                && $model->hantar_flag == 0) || 
+                                isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kejohanan-sirkit']['kelulusan'])) ? $link : '';
+                    },
+                    'update' => function ($url, $model) {
+                        $link =  Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                        'title' => Yii::t('yii', 'Update'),
+                        ]);
+                        
+                        return ((isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kejohanan-sirkit']['update']) 
+                                && $model->hantar_flag == 0) || 
+                                isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kejohanan-sirkit']['kelulusan'])) ? $link : '';
                     },
                     'report' => function ($url, $model) {
                         $laporanLink =  Html::a('<span class="glyphicon glyphicon-list-alt"></span>', 
@@ -156,7 +168,11 @@ $this->params['breadcrumbs'][] = $this->title;
                             'target' => '_blank'
                         ]);
                         
-                        return $model->status_permohonan == RefStatusBantuanPenganjuranKejohanan::LULUS ? $laporanLink : '';
+                        //return $model->status_permohonan == RefStatusBantuanPenganjuranKejohanan::LULUS ? $laporanLink : '';
+                        
+                        return ($model->status_permohonan == RefStatusBantuanPenganjuranKejohanan::LULUS &&
+        ((isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kejohanan-sirkit']['kelulusan']) && $model->laporan_hantar_flag == 1) ||
+        !isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kejohanan-sirkit']['kelulusan']))) ? $laporanLink : '';
                     },
                 ],
                 'template' => $template,

@@ -128,6 +128,7 @@ class PengurusanPenyeliaController extends Controller
         
         $model->peranan = UserPeranan::PERANAN_MSN_ADUAN_PENYELIA;
         $model->from_module = GeneralVariable::moduleMSNAduanPenyelia;
+        $model->jabatan_id = RefJabatanUser::MSN;
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             

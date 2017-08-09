@@ -55,7 +55,10 @@ class FarmasiUbatan extends \yii\db\ActiveRecord
             [['farmasi_permohonan_ubatan_id', 'kuantiti'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['harga'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['nama_ubat'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['size'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['size'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_ubat','size'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

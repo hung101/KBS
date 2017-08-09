@@ -291,13 +291,17 @@ $class_bootstrap_runner = 0;
             
             //if((Yii::$app->user->identity->peranan != UserPeranan::PERANAN_ADMIN && $moduleName != 'Peranan Pengguna') || Yii::$app->user->identity->peranan == UserPeranan::PERANAN_ADMIN){
                 echo '<tr class="'.trim($modelSystemModules->category).'">';
-                echo '<td>';
-                echo '<input type="checkbox" class="'.$category.' '.trim($modelSystemModules->category).'_agency" name="'
-                                        .trim($modelSystemModules->category).'['.trim($modelSystemModules->action).'][]" value="module" '.
-                                        (isset($peranan_akses_arr[trim($modelSystemModules->category)][$modelSystemModules->action]['module']) ? 'checked' : '') .' '.
-                                        ($readonly == true ? 'disabled' : '').' /> '
-                                        .$moduleName;
-                echo '</td>';
+                
+                if(Yii::$app->user->identity->peranan == UserPeranan::PERANAN_ADMIN || 
+                        isset(Yii::$app->user->identity->peranan_akses[trim($modelSystemModules->category)][$modelSystemModules->action]['module'])){
+                    echo '<td>';
+                    echo '<input type="checkbox" class="'.$category.' '.trim($modelSystemModules->category).'_agency" name="'
+                                            .trim($modelSystemModules->category).'['.trim($modelSystemModules->action).'][]" value="module" '.
+                                            (isset($peranan_akses_arr[trim($modelSystemModules->category)][$modelSystemModules->action]['module']) ? 'checked' : '') .' '.
+                                            ($readonly == true ? 'disabled' : '').' /> '
+                                            .$moduleName;
+                    echo '</td>';
+                }
 
                 if($modelSystemModules->functions && $modelSystemModules->functions != "no_function;"){
                     //echo ' - ';
@@ -318,29 +322,38 @@ $class_bootstrap_runner = 0;
 
                 if(strpos($modelSystemModules->functions, "no_function;") === false){
 
-                    // Module Create
-                    echo '<td>';
-                    echo ' <input type="checkbox" class="'.$category.'_create '.trim($modelSystemModules->category).'_agency" name="'
-                                            .trim($modelSystemModules->category).'['.trim($modelSystemModules->action).'][]" value="create" '.
-                                            (isset($peranan_akses_arr[trim($modelSystemModules->category)][$modelSystemModules->action]['create']) ? 'checked' : '') .' '.
-                                            ($readonly == true ? 'disabled' : '').' /> ' . GeneralLabel::create;
-                    echo '</td>';
+                    if(Yii::$app->user->identity->peranan == UserPeranan::PERANAN_ADMIN || 
+                        isset(Yii::$app->user->identity->peranan_akses[trim($modelSystemModules->category)][$modelSystemModules->action]['create'])){
+                        // Module Create
+                        echo '<td>';
+                        echo ' <input type="checkbox" class="'.$category.'_create '.trim($modelSystemModules->category).'_agency" name="'
+                                                .trim($modelSystemModules->category).'['.trim($modelSystemModules->action).'][]" value="create" '.
+                                                (isset($peranan_akses_arr[trim($modelSystemModules->category)][$modelSystemModules->action]['create']) ? 'checked' : '') .' '.
+                                                ($readonly == true ? 'disabled' : '').' /> ' . GeneralLabel::create;
+                        echo '</td>';
+                    }
 
-                    // Module Update
-                    echo '<td>';
-                    echo ' <input type="checkbox" class="'.$category.'_update '.trim($modelSystemModules->category).'_agency" name="'
-                                            .trim($modelSystemModules->category).'['.trim($modelSystemModules->action).'][]" value="update" '.
-                                            (isset($peranan_akses_arr[trim($modelSystemModules->category)][$modelSystemModules->action]['update']) ? 'checked' : '') .' '.
-                                            ($readonly == true ? 'disabled' : '').' /> ' . GeneralLabel::update;
-                    echo '</td>';
+                    if(Yii::$app->user->identity->peranan == UserPeranan::PERANAN_ADMIN || 
+                        isset(Yii::$app->user->identity->peranan_akses[trim($modelSystemModules->category)][$modelSystemModules->action]['update'])){
+                        // Module Update
+                        echo '<td>';
+                        echo ' <input type="checkbox" class="'.$category.'_update '.trim($modelSystemModules->category).'_agency" name="'
+                                                .trim($modelSystemModules->category).'['.trim($modelSystemModules->action).'][]" value="update" '.
+                                                (isset($peranan_akses_arr[trim($modelSystemModules->category)][$modelSystemModules->action]['update']) ? 'checked' : '') .' '.
+                                                ($readonly == true ? 'disabled' : '').' /> ' . GeneralLabel::update;
+                        echo '</td>';
+                    }
 
-                    // Module Delete
-                    echo '<td>';
-                    echo ' <input type="checkbox" class="'.$category.'_delete '.trim($modelSystemModules->category).'_agency" name="'
-                                            .trim($modelSystemModules->category).'['.trim($modelSystemModules->action).'][]" value="delete" '.
-                                            (isset($peranan_akses_arr[trim($modelSystemModules->category)][$modelSystemModules->action]['delete']) ? 'checked' : '') .' '.
-                                            ($readonly == true ? 'disabled' : '').' /> ' . GeneralLabel::delete;
-                    echo '</td>';
+                    if(Yii::$app->user->identity->peranan == UserPeranan::PERANAN_ADMIN || 
+                        isset(Yii::$app->user->identity->peranan_akses[trim($modelSystemModules->category)][$modelSystemModules->action]['delete'])){
+                        // Module Delete
+                        echo '<td>';
+                        echo ' <input type="checkbox" class="'.$category.'_delete '.trim($modelSystemModules->category).'_agency" name="'
+                                                .trim($modelSystemModules->category).'['.trim($modelSystemModules->action).'][]" value="delete" '.
+                                                (isset($peranan_akses_arr[trim($modelSystemModules->category)][$modelSystemModules->action]['delete']) ? 'checked' : '') .' '.
+                                                ($readonly == true ? 'disabled' : '').' /> ' . GeneralLabel::delete;
+                        echo '</td>';
+                    }
                 }
 
                 // Other functions
@@ -357,11 +370,13 @@ $class_bootstrap_runner = 0;
                             // skip those "no_function"
                             if($arrFunc[0] != "no_function"){
                                 $arrFunc[1] = trim($arrFunc[1]);
-
-                                echo '<input type="checkbox" class="'.$category.'_others '.trim($modelSystemModules->category).'_agency" name="'
-                                                .trim($modelSystemModules->category).'['.trim($modelSystemModules->action).'][]" value="'.$arrFunc[0].'" '.
-                                                (isset($peranan_akses_arr[trim($modelSystemModules->category)][$modelSystemModules->action][$arrFunc[0]]) ? 'checked' : '') .' '.
-                                                ($readonly == true ? 'disabled' : '').' /> ' . $arrFunc[1] . '&nbsp;&nbsp;&nbsp;&nbsp;';
+                                if(Yii::$app->user->identity->peranan == UserPeranan::PERANAN_ADMIN || 
+                                    isset(Yii::$app->user->identity->peranan_akses[trim($modelSystemModules->category)][$modelSystemModules->action][$arrFunc[0]])){
+                                    echo '<input type="checkbox" class="'.$category.'_others '.trim($modelSystemModules->category).'_agency" name="'
+                                                    .trim($modelSystemModules->category).'['.trim($modelSystemModules->action).'][]" value="'.$arrFunc[0].'" '.
+                                                    (isset($peranan_akses_arr[trim($modelSystemModules->category)][$modelSystemModules->action][$arrFunc[0]]) ? 'checked' : '') .' '.
+                                                    ($readonly == true ? 'disabled' : '').' /> ' . $arrFunc[1] . '&nbsp;&nbsp;&nbsp;&nbsp;';
+                                }
                             }
                         }
                     }

@@ -28,6 +28,9 @@ class PermohonanEBantuanLaporanStatusPermohonanBantuan extends Model
             [['jumlah_dilulus_dari', 'jumlah_dilulus_hingga', 'jumlah_dipohon_dari', 'jumlah_dipohon_hingga', 'negeri', 'tarikh_terima_dari', 'tarikh_terima_hingga'], 'safe'],
             [['jumlah_dilulus_dari', 'jumlah_dilulus_hingga', 'jumlah_dipohon_dari', 'jumlah_dipohon_hingga'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['tarikh_terima_hingga'], 'compare', 'compareAttribute'=>'tarikh_terima_dari', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
+            [['negeri'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

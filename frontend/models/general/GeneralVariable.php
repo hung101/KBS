@@ -140,6 +140,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         
         //User - From Module
         const moduleMSNAduanPenyelia= "MSN_Aduan-Penyelia";
+        const moduleMSNUsptnPpn= "MSN_USPTN-PPN";
         const modulePJSPersatuan = "PJS Persatuan";
         const moduleKBSeBiasiswa = "KBS_e-Biasiswa";
         const moduleKBSeBantuan= "KBS_e-Bantuan";
@@ -282,6 +283,7 @@ if($session->get('language') == "EN") {
         
         //User - From Module
         const moduleMSNAduanPenyelia= "MSN Aduan Penyelia";
+        const moduleMSNUsptnPpn= "MSN_USPTN-PPN";
         const modulePJSPersatuan = "PJS Persatuan";
         const moduleKBSeBiasiswa = "KBS_e-Biasiswa";
         const moduleKBSeBantuan= "KBS_e-Bantuan";

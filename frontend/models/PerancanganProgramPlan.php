@@ -6,7 +6,7 @@ use Yii;
 use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
-
+use common\models\general\GeneralFunction;
 use app\models\general\GeneralLabel;
 
 /**
@@ -63,6 +63,10 @@ class PerancanganProgramPlan extends \yii\db\ActiveRecord
             [['anggaran_perbelanjaan', 'perbelanjaan_diluluskan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['catatan', 'tempat'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false],
+            [['jumlah_atlet', 'jumlah_jurulatih', 'jumlah_pegawai','nama_program', 'bilangan_jkk_jkp', 'bilangan_jkb','kelulusan','lokasi',
+                'catatan', 'tempat'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
 /*             ['jenis_aktiviti', 'required', 'message' => GeneralMessage::yii_validation_required, 'when' => function ($model) {
                     return $model->bahagian != 1;
                 }, 'whenClient' => "function (attribute, value) {
@@ -121,6 +125,12 @@ class PerancanganProgramPlan extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
     }
     

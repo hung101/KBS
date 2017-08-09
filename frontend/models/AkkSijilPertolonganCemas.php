@@ -7,6 +7,7 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 /**
  * This is the model class for table "tbl_akk_sijil_pertolongan_cemas".
@@ -64,6 +65,9 @@ class AkkSijilPertolonganCemas extends \yii\db\ActiveRecord
             [['tahap'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['sijil', 'session_id'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['sijil'], 'validateFileUpload', 'skipOnEmpty' => false],
+            [['no_sijil','tahap'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -95,6 +99,12 @@ class AkkSijilPertolonganCemas extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
 
         if(!$file && $this->$attribute==""){

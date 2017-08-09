@@ -66,7 +66,10 @@ class PemberianJusPemulihan extends \yii\db\ActiveRecord
             [['created', 'updated', 'tarikh'], 'safe'],
             [['kategori_atlet', 'jantina'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['atlet', 'nama_jus', 'buah'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['session_id'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['session_id'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['kategori_atlet', 'jantina','atlet', 'nama_jus', 'buah'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

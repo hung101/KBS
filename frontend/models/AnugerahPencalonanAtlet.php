@@ -7,6 +7,7 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 /**
  * This is the model class for table "tbl_anugerah_pencalonan_atlet".
@@ -92,6 +93,12 @@ class AnugerahPencalonanAtlet extends \yii\db\ActiveRecord
                         [['no_telefon_1', 'no_telefon_2'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_telefon_1', 'no_telefon_2'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['gambar'],'validateFileUpload', 'skipOnEmpty' => false],
+            [['nama_atlet', 'nama_sukan', 'nama_acara', 'susan_ranking_kebangsaan', 'susan_ranking_asia', 'susan_ranking_asia_tenggara', 'susan_ranking_dunia', 
+                'nama_sukan_sebelum_dicalon', 'mewakili', 'pencalonan_olahragawan_tahun', 'pencalonan_olahragawati_tahun', 'pencalonan_pasukan_lelaki_kebangsaan_tahun', 
+                'pencalonan_pasukan_wanita_kebangsaan_tahun', 'pencalonan_olahragawan_harapan_tahun', 'pencalonan_olahragawati_harapan_tahun', 'nama_kategori',
+                'bil_mesyuarat', 'status_pencalonan', 'kejayaan', 'ulasan_kejayaan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -148,6 +155,12 @@ class AnugerahPencalonanAtlet extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
     }
     

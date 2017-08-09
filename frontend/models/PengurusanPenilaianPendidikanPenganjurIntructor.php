@@ -55,7 +55,10 @@ class PengurusanPenilaianPendidikanPenganjurIntructor extends \yii\db\ActiveReco
             [['pengurusan_permohonan_kursus_persatuan_id', 'tahap'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama_penganjuran_kursus', 'instructor', 'nama_penyelaras'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat_kursus'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['kod_kursus'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['kod_kursus'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_penganjuran_kursus', 'instructor', 'nama_penyelaras','tempat_kursus','kod_kursus'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

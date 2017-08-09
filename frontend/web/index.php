@@ -1,4 +1,17 @@
 <?php
+// Edward add quick fix for live server using HTTPS for iframe mix content issue  - START
+
+$whitelist = array(
+    '127.0.0.1',
+    '::1'
+);
+
+if(!in_array($_SERVER['REMOTE_ADDR'], $whitelist)){
+    // not valid
+    $_SERVER['HTTPS']='on';
+}
+// Edward add quick fix for live server using HTTPS for iframe mix content issue  - END
+
 defined('YII_DEBUG') or define('YII_DEBUG', true);
 defined('YII_ENV') or define('YII_ENV', 'dev');
 

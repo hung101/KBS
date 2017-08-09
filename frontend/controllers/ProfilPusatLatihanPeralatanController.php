@@ -94,15 +94,21 @@ class ProfilPusatLatihanPeralatanController extends Controller
                 $model->session_id = Yii::$app->session->id;
             }
         }
+        
+        if ($model->load(Yii::$app->request->post())) {
+            if($model->sukan){
+                $model->sukan = implode(",",$model->sukan);
+            }
+            
+            if($model->save()){
+                return '1';
+            }
+        } 
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return '1';
-        } else {
-            return $this->renderAjax('create', [
+        return $this->renderAjax('create', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -119,14 +125,20 @@ class ProfilPusatLatihanPeralatanController extends Controller
         
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return '1';
-        } else {
-            return $this->renderAjax('update', [
+        if ($model->load(Yii::$app->request->post())) {
+            if($model->sukan){
+                $model->sukan = implode(",",$model->sukan);
+            }
+            
+            if($model->save()){
+                return '1';
+            }
+        }  
+        
+        return $this->renderAjax('update', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

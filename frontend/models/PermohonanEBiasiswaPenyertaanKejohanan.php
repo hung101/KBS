@@ -60,7 +60,10 @@ class PermohonanEBiasiswaPenyertaanKejohanan extends \yii\db\ActiveRecord
             [['tarikh_mula', 'tarikh_akhir'], 'safe'],
             [['sukan', 'anjuran', 'acara', 'nama_kejohanan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['kejohanan_mewakili', 'pencapaian'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['sukan', 'anjuran', 'acara', 'nama_kejohanan','kejohanan_mewakili', 'pencapaian','tempat'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

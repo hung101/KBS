@@ -57,7 +57,10 @@ class LtbsMinitMesyuaratAgm extends \yii\db\ActiveRecord
             [['tarikh', 'masa'], 'safe'],
             [['jumlah_ahli_yang_hadir', 'jumlah_ahli_yang_layak_mengundi'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tempat'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['agenda_mesyuarat', 'keputusan_mesyuarat'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['agenda_mesyuarat', 'keputusan_mesyuarat'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tempat','agenda_mesyuarat', 'keputusan_mesyuarat'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

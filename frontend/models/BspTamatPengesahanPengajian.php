@@ -8,6 +8,7 @@ use app\models\general\Upload;
 
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 /**
  * This is the model class for table "tbl_bsp_tamat_pengesahan_pengajian".
@@ -58,7 +59,10 @@ class BspTamatPengesahanPengajian extends \yii\db\ActiveRecord
             [['nama_ipts', 'pengajian', 'bidang', 'nama_pelajar'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['cgpa_pngk'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['cgpa_pngk'], 'number', 'message' => GeneralMessage::yii_validation_number],
-            [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false]
+            [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false],
+            [['nama_ipts', 'pengajian', 'bidang', 'nama_pelajar'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -87,6 +91,12 @@ class BspTamatPengesahanPengajian extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
     }
     

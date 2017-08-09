@@ -111,8 +111,8 @@ class ElaporanPelaksanaanGambarController extends Controller
             if($file){
                 //valid file to upload
                 //upload file to server
-                $filename = $model->elaporan_pelaksanaan_gambar_id;
-                $model->muat_naik_gambar = Upload::uploadFile($file, Upload::eLaporanFolder, $filename, Upload::eLaporanGambarSubFolder);
+                /*$filename = $model->elaporan_pelaksanaan_gambar_id;
+                $model->muat_naik_gambar = Upload::uploadFile($file, Upload::eLaporanFolder, $filename, Upload::eLaporanGambarSubFolder);*/
             } else {
                 //invalid file to upload
                 //remain existing file
@@ -120,15 +120,23 @@ class ElaporanPelaksanaanGambarController extends Controller
             }
         }
 
-        if (Yii::$app->request->post()) {
-            return $model->save();
-            //return $this->redirect(['view', 'id' => $model->elaporan_pelaksanaan_gambar_id]);
-        } else {
-            return $this->renderAjax('update', [
+        if (Yii::$app->request->post() && $model->save()) {
+            $file = UploadedFile::getInstance($model, 'muat_naik_gambar');
+            $filename = $model->elaporan_pelaksanaan_gambar_id;
+            if($file){
+                $model->muat_naik_gambar = Upload::uploadFile($file, Upload::eLaporanFolder, $filename, Upload::eLaporanGambarSubFolder);
+            }
+            
+            if($model->save()){
+                return '1';
+                //return $this->redirect(['view', 'id' => $model->elaporan_pelaksanaan_gambar_id]);
+            }
+        } 
+        
+        return $this->renderAjax('update', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

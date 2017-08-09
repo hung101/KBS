@@ -136,11 +136,11 @@ class AdminEBiasiswaController extends Controller
                 //upload file to server
                 
                 // delete upload file
-                if($existingMuatNaikSyaratKelayakan != ""){
+                /*if($existingMuatNaikSyaratKelayakan != ""){
                     self::actionDeleteupload($id, 'muat_naik_syarat_kelayakan');
                 }
                 
-                $model->muat_naik_syarat_kelayakan = Upload::uploadFile($file, Upload::adminEBiasiswaFolder, $model->admin_e_biasiswa_id);
+                $model->muat_naik_syarat_kelayakan = Upload::uploadFile($file, Upload::adminEBiasiswaFolder, $model->admin_e_biasiswa_id);*/
             } else {
                 //invalid file to upload
                 //remain existing file
@@ -149,13 +149,20 @@ class AdminEBiasiswaController extends Controller
         }
 
         if (Yii::$app->request->post() && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->admin_e_biasiswa_id]);
-        } else {
-            return $this->render('update', [
+            $file = UploadedFile::getInstance($model, 'muat_naik_syarat_kelayakan');
+            if($file){
+                $model->muat_naik_syarat_kelayakan = Upload::uploadFile($file, Upload::adminEBiasiswaFolder, $model->admin_e_biasiswa_id);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->admin_e_biasiswa_id]);
+            }
+        } 
+        
+        return $this->render('update', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

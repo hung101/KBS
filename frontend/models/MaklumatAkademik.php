@@ -69,6 +69,9 @@ class MaklumatAkademik extends \yii\db\ActiveRecord
             [['no_matrik'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['fakulti', 'penasihat_akademik'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['semester'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_matrik','fakulti', 'penasihat_akademik','semester'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

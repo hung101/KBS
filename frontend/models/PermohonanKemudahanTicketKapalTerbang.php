@@ -71,7 +71,13 @@ class PermohonanKemudahanTicketKapalTerbang extends \yii\db\ActiveRecord
             [['destinasi', 'tarikh_ke', 'pulang_tarikh_dari', 'pulang_tarikh_ke', 'dari_pergi_2', 'ke_pergi_2', 'dari_pergi_3', 'ke_pergi_3', 'dari_pulang_2', 'ke_pulang_2',
                 'dari_pulang_3', 'ke_pulang_3'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_fail_kelulusan', 'kod_perbelanjaan', 'pri_masa_pergi', 'pri_masa_balik'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['pegawai_teknikal', 'catatan', 'pri_destinasi_pergi', 'pri_destinasi_balik'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['pegawai_teknikal', 'catatan', 'pri_destinasi_pergi', 'pri_destinasi_balik'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_pemohon', 'jawatan', 'nama_program', 'aktiviti', 'cawangan','bahagian','bilangan_jkb', 'pri_flight_pergi', 'pri_flight_balik',
+                'destinasi', 'tarikh_ke', 'pulang_tarikh_dari', 'pulang_tarikh_ke', 'dari_pergi_2', 'ke_pergi_2', 'dari_pergi_3', 'ke_pergi_3', 'dari_pulang_2', 'ke_pulang_2',
+                'dari_pulang_3', 'ke_pulang_3','no_fail_kelulusan', 'kod_perbelanjaan', 'pri_masa_pergi', 'pri_masa_balik',
+                'pegawai_teknikal', 'catatan', 'pri_destinasi_pergi', 'pri_destinasi_balik'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
         
         if(!isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-kemudahan-ticket-kapal-terbang']['psk'])){

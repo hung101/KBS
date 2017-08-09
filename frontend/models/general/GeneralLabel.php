@@ -212,6 +212,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const anggaran_kos_per_kategori = "Anggaran Kos Per Kategori";
         const anggaran_perbelanjaan  = "Anggaran Perbelanjaan (RM)";
         const anggaran_perbelanjaan_id = "Anggaran Perbelanjaan ID";
+        const anggaran_perbelanjaan_penganjuran = "Anggaran Perbelanjaan Penganjuran";
         const anggaran_perbelanjaan_title = "Anggaran Perbelanjaan";
         const perbelanjaan_diluluskan = "Perbelanjaan Diluluskan";
         const anjuran = "Anjuran";
@@ -688,6 +689,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jenis_kursus = "Kategori Kursus Penganjuran";
         const jenis_latihan_amali = "Jenis Latihan Amali";
         const jenis_lesen = "Jenis Lesen";
+        const jenis_maklumat = "Jenis Maklumat";
         const jenis_mesyuarat = "Jenis Mesyuarat";
         const minit_mesyuarat = "Minit Mesyuarat";
         const jenis_organ = "Jenis Organ";
@@ -736,6 +738,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jumlah_biasiswa = "Jumlah";
         const jumlah_caj_fi = "Jumlah Caj / Fi";
         const jumlah_cadangan = "Jumlah Cadangan (RM)";
+        const jumlah_cadangan_without_rm = "Jumlah Cadangan";
         const jumlah_unit_cadangan = "Jumlah Unit Cadangan";
         const skim_hadiah_kemenangan_mengikut_atlet = "Skim Hadiah Kemenangan Sukan Mengikut Atlet";
         const laporan_skim_hadiah_kemenangan_mengikut_atlet = "Laporan Skim Hadiah Kemenangan Sukan Mengikut Atlet";
@@ -1927,9 +1930,9 @@ perincian cadangan perbelanjaan<br>2.Sijil Pendaftaran persatuan<br>3.Salinan Pe
         const profil_delegasi_teknikal = "Profil Delegasi Teknikal";
         const profil_konsultan_id = "Profil Konsultan ID";
         const profil_pegawai_teknikal = "Profil Pegawai Teknikal";
-        const profil_ppn = "Profil PPN";
+        const profil_ppn = "Profil Pegawai & Anggota USPTN";
         const profil_psk = "Profil PSK";
-        const profil_pusat_latihan = "Profil Pusat Latihan";
+        const profil_pusat_latihan = "Permohonan / Maklumat Pusat Latihan";
         const profil_sukarelawan = "Profil Sukarelawan";
         const profil_syarikat = "Profil Syarikat/Badan Sukan";
         const profil_wartawan_sukan_id = "Profil Wartawan Sukan ID";
@@ -2194,6 +2197,7 @@ perincian cadangan perbelanjaan<br>2.Sijil Pendaftaran persatuan<br>3.Salinan Pe
         const status_kejurulatihan = "Status Kejurulatihan";
         const status_pembayaran_elaun = "Status Pembayaran Elaun";
         const status_pencalonan = "Status Pencalonan";
+        const status_peralatan = "Status Peralatan";
         const status_perlesenan = "Status Perlesenan";
         const status_permohonan = "Status Permohonan";
         const status_perokok = "Status Perokok";
@@ -3569,6 +3573,7 @@ perincian cadangan perbelanjaan<br>2.Sijil Pendaftaran persatuan<br>3.Salinan Pe
         const jenis_bantuan_skaks = "Jenis Bantuan Skak";
         const jenis_pinjamen = "Jenis Pinjamen";
         const kategori_elaporans = "Kategori e-Laporan";
+        const kategori_jawatan = "Kategori Jawatan";
         const kategori_jurulatih = "Kategori Jurulatih";
         const kategori_kursuses = "Kategori Kursuse";
         const kaunseling = "Kaunseling";
@@ -4098,6 +4103,7 @@ if($session->get('language') == "EN") {
         const anggaran_kos_per_kategori = "Estimated Cost Per Category";
         const anggaran_perbelanjaan  = "Estimated Expense (RM)";
         const anggaran_perbelanjaan_id = "Estimated Expense ID";
+        const anggaran_perbelanjaan_penganjuran = "Organization Expenditure Budget";
         const anggaran_perbelanjaan_title = "Estimated Expense";
         const anjuran = "Organised by the";
         const anthropometrics = "Anthropometric";
@@ -4575,6 +4581,7 @@ if($session->get('language') == "EN") {
         const jenis_kursus = "Organizing Course Category";
         const jenis_latihan_amali = "Types Of Internship";
         const jenis_lesen = "License Type";
+        const jenis_maklumat = "Information Type";
         const jenis_mesyuarat = "Meeting Type";
         const jenis_organ = "Type Of Organ";
         const jenis_pakaian = "Types Of Clothing";
@@ -4623,6 +4630,7 @@ if($session->get('language') == "EN") {
         const jumlah_biasiswa = "Total";
         const jumlah_caj_fi = "Total Charges / Fees";
         const jumlah_cadangan = "Total Proposal (RM)";
+        const jumlah_cadangan_without_rm = "Total Proposal";
         const jumlah_unit_cadangan = "Total Proposal Unit";
         const jumlah_unit = "Total Unit";
         const jumlah_delegasi = "Number Of Delegates";
@@ -5790,7 +5798,7 @@ details of the proposed spending most 2.Certificate Registration association mos
         const profil_delegasi_teknikal = "Technical Delegate profile";
         const profil_konsultan_id = "Profile Consultant ID";
         const profil_pegawai_teknikal = "Profile Technical Officer";
-        const profil_ppn = "Profile PPN";
+        const profil_ppn = "Staff Profile & USPTN Member";
         const profil_psk = "Profile PSK";
         const profil_pusat_latihan = "Profile Training Center";
         const profil_sukarelawan = "Profile Volunteer";
@@ -6033,6 +6041,7 @@ details of the proposed spending most 2.Certificate Registration association mos
         const status_kejurulatihan = "Coaching Status";
         const status_pembayaran_elaun = "Allowance Payment Status";
         const status_pencalonan = "Nomination Status";
+        const status_peralatan = "Equipment Status";
         const status_perlesenan = "Licensing Status";
         const status_permohonan = "Status Of Application";
         const status_perokok = "Status Of Smoker";
@@ -7444,6 +7453,7 @@ details of the proposed spending most 2.Certificate Registration association mos
         const jenis_bantuan_skaks = "Type Of Assistance Skak";
         const jenis_pinjamen = "Type Loan";
         const kategori_elaporans = "Category e-Laporan";
+        const kategori_jawatan = "Category Position";
         const kategori_jurulatih = "Category Coach";
         const kategori_kursuses = "Category Kursuse";
         const kaunseling = "Counseling";

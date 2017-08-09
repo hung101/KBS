@@ -65,7 +65,10 @@ class Bsp extends \yii\db\ActiveRecord
             [['no_kad_pengenalan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_tel_bimbit'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['bidang_pengajian', 'falkuti_pengajian', 'ipt'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['bidang_pengajian', 'falkuti_pengajian', 'ipt'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['peringkat_pengajian','bidang_pengajian', 'falkuti_pengajian', 'ipt'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

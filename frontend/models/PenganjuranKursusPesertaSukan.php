@@ -57,7 +57,7 @@ class PenganjuranKursusPesertaSukan extends \yii\db\ActiveRecord
             [['jenis_sukan', 'tahap', 'tahun'], 'required', 'message' => GeneralMessage::yii_validation_required],
             [['penganjuran_kursus_peserta_id', 'jenis_sukan', 'tahap', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tahun'], 'integer','min'=>GeneralVariable::yearMin,'max'=>GeneralVariable::yearMax, 'message' => GeneralMessage::yii_validation_integer, 'tooBig' => GeneralMessage::yii_validation_integer_max, 'tooSmall' => GeneralMessage::yii_validation_integer_min],
-            [['created', 'updated'], 'safe']
+            [['created', 'updated'], 'safe'],
         ];
     }
 

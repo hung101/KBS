@@ -38,6 +38,9 @@ class LaporanPenyertaanKejohananPegawai extends \yii\db\ActiveRecord
             [['created', 'updated'], 'safe'],
             [['nama'], 'string', 'max' => 255],
             [['session_id'], 'string', 'max' => 100],
+            [['nama'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

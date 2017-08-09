@@ -28,6 +28,9 @@ use common\models\general\GeneralFunction;
 use app\models\RefSukan;
 use app\models\RefPpn;
 use app\models\RefNegeri;
+use app\models\UserPeranan;
+use common\models\User;
+use app\models\ProfilPusatLatihan;
 
 /**
  * PengurusanUpstnController implements the CRUD actions for PengurusanUpstn model.
@@ -56,8 +59,18 @@ class PengurusanUpstnController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $queryParams = Yii::$app->request->queryParams;
+        
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['view_own_data'])){
+            $queryParams['PengurusanUpstnSearch']['created_by'] = Yii::$app->user->identity->id;
+        }
+        
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['kelulusan'])) {
+            $queryParams['PengurusanUpstnSearch']['hantar_flag'] = 1;
+        }
+        
         $searchModel = new PengurusanUpstnSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search($queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -81,11 +94,17 @@ class PengurusanUpstnController extends Controller
         $ref = RefSukan::findOne(['id' => $model->nama_sukan]);
         $model->nama_sukan = $ref['desc'];
         
-        $ref = RefPpn::findOne(['id' => $model->nama_pengurus_sukan]);
-        $model->nama_pengurus_sukan = $ref['desc'];
+        //$ref = RefPpn::findOne(['id' => $model->nama_pengurus_sukan]);
+        //$model->nama_pengurus_sukan = $ref['desc'];
+        
+        $ref = User::findOne(['id' => $model->nama_pengurus_sukan]);
+        $model->nama_pengurus_sukan = $ref['full_name'];
         
         $ref = RefNegeri::findOne(['id' => $model->negeri]);
         $model->negeri = $ref['desc'];
+        
+        $ref = ProfilPusatLatihan::findOne(['profil_pusat_latihan_id' => $model->tempat]);
+        $model->tempat = $ref['nama_pusat_latihan'];
         
         if($model->tarikh_lawatan != "") {$model->tarikh_lawatan = GeneralFunction::convert($model->tarikh_lawatan, GeneralFunction::TYPE_DATETIME);}
         
@@ -200,6 +219,28 @@ class PengurusanUpstnController extends Controller
             ]);
         }
     }
+    
+    /**
+     * Updates an existing PengurusanUpstn model.
+     * If approved is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionHantar($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = $this->findModel($id);
+        
+        $model->hantar_flag = 1; // set approved
+        $model->tarikh_hantar = GeneralFunction::getCurrentTimestamp(); // set date capture
+        
+        $model->save();
+        
+        return $this->redirect(['view', 'id' => $model->pengurusan_upstn_id]);
+    }
 
     /**
      * Deletes an existing PengurusanUpstn model.
@@ -216,6 +257,57 @@ class PengurusanUpstnController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+    
+    public function actionPrint($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }  
+        $model = $this->findModel($id);
+        
+        $ref = RefSukan::findOne(['id' => $model->nama_sukan]);
+        $model->nama_sukan = $ref['desc'];
+        
+        //$ref = RefPpn::findOne(['id' => $model->nama_pengurus_sukan]);
+        //$model->nama_pengurus_sukan = $ref['desc'];
+        
+        $ref = User::findOne(['id' => $model->nama_pengurus_sukan]);
+        $model->nama_pengurus_sukan = $ref['full_name'];
+        
+        $ref = RefNegeri::findOne(['id' => $model->negeri]);
+        $model->negeri = $ref['desc'];
+        
+        $pusat_latihan_id = $model->tempat;
+        $ref = ProfilPusatLatihan::findOne(['profil_pusat_latihan_id' => $model->tempat]);
+        $model->tempat = $ref['nama_pusat_latihan'];
+		
+        $PengurusanUpstnAtlet = PengurusanUpstnAtlet::find()->where(['pengurusan_upstn_id' => $model->pengurusan_upstn_id])->all();
+
+        $PengurusanUpstnJurulatih = PengurusanUpstnJurulatih::find()->where(['pengurusan_upstn_id' => $model->pengurusan_upstn_id])->all();
+        
+        $ProfilPusatLatihan = null; 
+        if (($ProfilPusatLatihan = ProfilPusatLatihan::findOne($pusat_latihan_id)) !== null) {
+            
+        }
+
+        $pdf = new \mPDF('utf-8', 'A4');
+
+        $pdf->title = 'Laporan Pemantauan USPTN';
+
+        $stylesheet = file_get_contents('css/report.css');
+
+        $pdf->WriteHTML($stylesheet,1);
+        
+        $pdf->WriteHTML($this->renderpartial('print', [
+            'model'  => $model,
+            'title' => $pdf->title,
+            'PengurusanUpstnAtlet' => $PengurusanUpstnAtlet,
+            'PengurusanUpstnJurulatih' => $PengurusanUpstnJurulatih,
+            'ProfilPusatLatihan' => $ProfilPusatLatihan,
+        ]));
+
+        $pdf->Output(str_replace(' ', '_', $pdf->title).'_'.$model->pengurusan_upstn_id.'.pdf', 'I');
     }
 
     /**

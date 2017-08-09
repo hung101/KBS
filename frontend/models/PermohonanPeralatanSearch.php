@@ -7,6 +7,9 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\PermohonanPeralatan;
 
+use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
+
 /**
  * PermohonanPeralatanSearch represents the model behind the search form about `app\models\PermohonanPeralatan`.
  */
@@ -22,8 +25,9 @@ class PermohonanPeralatanSearch extends PermohonanPeralatan
     public function rules()
     {
         return [
-            [['permohonan_peralatan_id', 'jumlah_peralatan', 'kelulusan_id', 'mesyuarat_id', 'sukan_id', 'program_id', 'hantar_flag'], 'integer'],
+            [['permohonan_peralatan_id', 'jumlah_peralatan', 'kelulusan_id', 'mesyuarat_id', 'sukan_id', 'program_id', 'hantar_flag', 'profil_pusat_latihan_id'], 'integer'],
             [['cawangan', 'negeri', 'sukan', 'program', 'tarikh', 'aktiviti', 'nota_urus_setia', 'kelulusan'], 'safe'],
+            [['jumlah_diluluskan', 'jumlah_permohonan', 'jumlah_cadangan'], 'number', 'message' => GeneralMessage::yii_validation_number],
         ];
     }
 
@@ -78,6 +82,8 @@ class PermohonanPeralatanSearch extends PermohonanPeralatan
             'sukan' => $this->sukan_id,
             'program' => $this->program_id,
             'tbl_permohonan_peralatan.hantar_flag' => $this->hantar_flag,
+            'profil_pusat_latihan_id' => $this->profil_pusat_latihan_id,
+            'tbl_permohonan_peralatan.created_by' => $this->created_by,
         ]);
 
         $query->andFilterWhere(['like', 'tbl_ref_cawangan.desc', $this->cawangan])
@@ -87,7 +93,10 @@ class PermohonanPeralatanSearch extends PermohonanPeralatan
             ->andFilterWhere(['like', 'tbl_ref_program_semasa_sukan_atlet.desc', $this->program])
             ->andFilterWhere(['like', 'aktiviti', $this->aktiviti])
             ->andFilterWhere(['like', 'nota_urus_setia', $this->nota_urus_setia])
-            ->andFilterWhere(['like', 'tbl_ref_kelulusan_peralatan.desc', $this->kelulusan]);
+            ->andFilterWhere(['like', 'tbl_ref_kelulusan_peralatan.desc', $this->kelulusan])
+                ->andFilterWhere(['like', 'jumlah_diluluskan', $this->jumlah_diluluskan])
+                ->andFilterWhere(['like', 'jumlah_permohonan', $this->jumlah_permohonan])
+                ->andFilterWhere(['like', 'jumlah_cadangan', $this->jumlah_cadangan]);
         
         // add filter base on sukan access role in tbl_user->sukan - START
         if(Yii::$app->user->identity->sukan){
@@ -106,6 +115,11 @@ class PermohonanPeralatanSearch extends PermohonanPeralatan
             $query->orFilterWhere(['tbl_permohonan_peralatan.created_by'=>Yii::$app->user->identity->id]);
         }
         // add filter base on sukan access role in tbl_user->sukan - END
+        
+        
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-peralatan']['kelulusan'])) {
+            $query->orFilterWhere(['tbl_permohonan_peralatan.created_by' => Yii::$app->user->identity->id]);
+        }
 
         return $dataProvider;
     }

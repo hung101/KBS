@@ -144,14 +144,14 @@ class PengurusanBeritaAntarabangsaController extends Controller
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->pengurusan_berita_antarabangsa_id]);
             }
-        } else {
-            return $this->render('create', [
+        } 
+        
+        return $this->render('create', [
                 'model' => $model,
                 'searchModelPengurusanBeritaAntarabangsaMuatnaik' => $searchModelPengurusanBeritaAntarabangsaMuatnaik,
                 'dataProviderPengurusanBeritaAntarabangsaMuatnaik' => $dataProviderPengurusanBeritaAntarabangsaMuatnaik,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -183,7 +183,7 @@ class PengurusanBeritaAntarabangsaController extends Controller
             if($file){
                 //valid file to upload
                 //upload file to server
-                $model->muatnaik = Upload::uploadFile($file, Upload::pengurusanBeritaAntarabangsaFolder, $model->pengurusan_berita_antarabangsa_id);
+                //$model->muatnaik = Upload::uploadFile($file, Upload::pengurusanBeritaAntarabangsaFolder, $model->pengurusan_berita_antarabangsa_id);
             } else {
                 //invalid file to upload
                 //remain existing file
@@ -192,15 +192,22 @@ class PengurusanBeritaAntarabangsaController extends Controller
         }
 
         if (Yii::$app->request->post() && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->pengurusan_berita_antarabangsa_id]);
-        } else {
-            return $this->render('update', [
+            $file = UploadedFile::getInstance($model, 'muatnaik');
+            if($file){
+                $model->muatnaik = Upload::uploadFile($file, Upload::pengurusanBeritaAntarabangsaFolder, $model->pengurusan_berita_antarabangsa_id);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->pengurusan_berita_antarabangsa_id]);
+            }
+        } 
+        
+        return $this->render('update', [
                 'model' => $model,
                 'searchModelPengurusanBeritaAntarabangsaMuatnaik' => $searchModelPengurusanBeritaAntarabangsaMuatnaik,
                 'dataProviderPengurusanBeritaAntarabangsaMuatnaik' => $dataProviderPengurusanBeritaAntarabangsaMuatnaik,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

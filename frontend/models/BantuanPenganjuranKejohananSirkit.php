@@ -7,6 +7,7 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 /**
  * This is the model class for table "tbl_bantuan_penganjuran_kejohanan".
@@ -67,6 +68,24 @@ class BantuanPenganjuranKejohananSirkit extends \yii\db\ActiveRecord
     {
         return 'tbl_bantuan_penganjuran_kejohanan_sirkit';
     }
+    
+    public function behaviors()
+    {
+        return [
+            'bedezign\yii2\audit\AuditTrailBehavior',
+            [
+                'class' => \yii\behaviors\BlameableBehavior::className(),
+                'createdByAttribute' => 'created_by',
+                'updatedByAttribute' => 'updated_by',
+            ],
+            [
+                'class' => \yii\behaviors\TimestampBehavior::className(),
+                'createdAtAttribute' => 'created',
+                'updatedAtAttribute' => 'updated',
+                'value' => new \yii\db\Expression('NOW()'),
+            ],
+        ];
+    }
 
     /**
      * @inheritdoc
@@ -74,8 +93,8 @@ class BantuanPenganjuranKejohananSirkit extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_kejohanan_pertandingan', 'peringkat', 'tarikh_mula', 'tarikh_tamat', 'tempat', 'tujuan', 'bil_pasukan',
-                'bil_peserta', 'negeri_penyertaan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['nama_kejohanan_pertandingan', 'peringkat', 'tarikh_mula', 'tarikh_tamat', 'tempat', 'bil_pasukan',
+                'bil_peserta', 'negeri_penyertaan', 'jumlah_bantuan_yang_dipohon'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_mula', 'tarikh_tamat', 'tarikh_permohonan', 'tarikh_jkb', 'created', 'updated'], 'safe'],
             [['bil_pasukan', 'bil_peserta', 'bil_pengadil_hakim', 'bil_pegawai_teknikal', 'bilangan_pembantu', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['anggaran_perbelanjaan', 'jumlah_bantuan_yang_dipohon', 'jumlah_dilulus'], 'number', 'message' => GeneralMessage::yii_validation_number],
@@ -92,6 +111,10 @@ class BantuanPenganjuranKejohananSirkit extends \yii\db\ActiveRecord
             [['tarikh_tamat'], 'compare', 'compareAttribute'=>'tarikh_mula', 'operator'=>'>=', 'message' => GeneralMessage::yii_validation_compare],
             //[[], 'validateFileUploadRequired', 'skipOnEmpty' => false],
             [['permohonan_rasmi_dari_ahli_gabungan', 'maklumat_lain_sokongan','kertas_kerja', 'surat_rasmi_badan_sukan_ms_negeri'],'validateFileUpload', 'skipOnEmpty' => false],
+            [['badan_sukan', 'nama_bank', 'jkb','sukan', 'no_pendaftaran', 'alamat_1', 'alamat_2', 'alamat_3', 'no_akaun', 'peringkat','alamat_negeri',
+                'laman_sesawang', 'facebook', 'twitter','tempat', 'tujuan', 'nama_kejohanan_pertandingan','catatan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -158,6 +181,12 @@ class BantuanPenganjuranKejohananSirkit extends \yii\db\ActiveRecord
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
         }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
+        }
 
         if(!$file && $this->$attribute==""){
             $this->addError($attribute, GeneralMessage::uploadEmptyError);
@@ -172,6 +201,12 @@ class BantuanPenganjuranKejohananSirkit extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
     }
     

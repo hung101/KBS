@@ -57,7 +57,10 @@ class AnugerahAhliJawantankuasaPemilihanItem extends \yii\db\ActiveRecord
             [['perwakilan', 'nama', 'jawatan'], 'required'],
             [['anugerah_ahli_jawantankuasa_pemilihan_id', 'created_by', 'updated_by'], 'integer'],
             [['created', 'updated'], 'safe'],
-            [['perwakilan', 'nama', 'jawatan', 'session_id'], 'string', 'max' => 80],
+            [['perwakilan', 'nama', 'jawatan', 'session_id'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['perwakilan', 'nama', 'jawatan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

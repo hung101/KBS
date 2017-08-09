@@ -163,12 +163,12 @@ class PermohonanEBantuanSenaraiSemakController extends Controller
                 //upload file to server
                 
                 // delete upload file
-                if($existingKertasKerjaProjekProgram != ""){
+                /*if($existingKertasKerjaProjekProgram != ""){
                     self::actionDeleteupload($id, 'kertas_kerja_projek_program');
                 }
                 
                 $filename = $model->senarai_semak_id . "-kertas_kerja_projek_program";
-                $model->kertas_kerja_projek_program = Upload::uploadFile($file, Upload::eBantuanFolder, $filename, Upload::eBantuanSenaraiSemakSubFolder);
+                $model->kertas_kerja_projek_program = Upload::uploadFile($file, Upload::eBantuanFolder, $filename, Upload::eBantuanSenaraiSemakSubFolder);*/
             } else {
                 //invalid file to upload
                 //remain existing file
@@ -182,12 +182,12 @@ class PermohonanEBantuanSenaraiSemakController extends Controller
                 //upload file to server
                 
                 // delete upload file
-                if($existingSalinanSijilPendaftaranPersatuanPertubuhan != ""){
+                /*if($existingSalinanSijilPendaftaranPersatuanPertubuhan != ""){
                     self::actionDeleteupload($id, 'salinan_sijil_pendaftaran_persatuan_pertubuhan');
                 }
                 
                 $filename = $model->senarai_semak_id . "-salinan_sijil_pendaftaran_persatuan_pertubuhan";
-                $model->salinan_sijil_pendaftaran_persatuan_pertubuhan = Upload::uploadFile($file, Upload::eBantuanFolder, $filename, Upload::eBantuanSenaraiSemakSubFolder);
+                $model->salinan_sijil_pendaftaran_persatuan_pertubuhan = Upload::uploadFile($file, Upload::eBantuanFolder, $filename, Upload::eBantuanSenaraiSemakSubFolder);*/
             } else {
                 //invalid file to upload
                 //remain existing file
@@ -201,12 +201,12 @@ class PermohonanEBantuanSenaraiSemakController extends Controller
                 //upload file to server
                 
                 // delete upload file
-                if($existingSalinanPerlembagaanPersatuanPertubuhan != ""){
+                /*if($existingSalinanPerlembagaanPersatuanPertubuhan != ""){
                     self::actionDeleteupload($id, 'salinan_perlembagaan_persatuan_pertubuhan');
                 }
                 
                 $filename = $model->senarai_semak_id . "-salinan_perlembagaan_persatuan_pertubuhan";
-                $model->salinan_perlembagaan_persatuan_pertubuhan = Upload::uploadFile($file, Upload::eBantuanFolder, $filename, Upload::eBantuanSenaraiSemakSubFolder);
+                $model->salinan_perlembagaan_persatuan_pertubuhan = Upload::uploadFile($file, Upload::eBantuanFolder, $filename, Upload::eBantuanSenaraiSemakSubFolder);*/
             } else {
                 //invalid file to upload
                 //remain existing file
@@ -220,12 +220,12 @@ class PermohonanEBantuanSenaraiSemakController extends Controller
                 //upload file to server
                 
                 // delete upload file
-                if($existingSalinanBukuBank != ""){
+                /*if($existingSalinanBukuBank != ""){
                     self::actionDeleteupload($id, 'salinan_buku_bank');
                 }
                 
                 $filename = $model->senarai_semak_id . "-salinan_buku_bank";
-                $model->salinan_buku_bank = Upload::uploadFile($file, Upload::eBantuanFolder, $filename, Upload::eBantuanSenaraiSemakSubFolder);
+                $model->salinan_buku_bank = Upload::uploadFile($file, Upload::eBantuanFolder, $filename, Upload::eBantuanSenaraiSemakSubFolder);*/
             } else {
                 //invalid file to upload
                 //remain existing file
@@ -233,15 +233,41 @@ class PermohonanEBantuanSenaraiSemakController extends Controller
             }
         }
 
-        if (Yii::$app->request->post()) {
+        if (Yii::$app->request->post() && $model->save()) {
+            $file = UploadedFile::getInstance($model, 'kertas_kerja_projek_program');
+            $filename = $model->senarai_semak_id . "-kertas_kerja_projek_program";
+            if($file){
+                $model->kertas_kerja_projek_program = Upload::uploadFile($file, Upload::eBantuanFolder, $filename, Upload::eBantuanSenaraiSemakSubFolder);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'salinan_sijil_pendaftaran_persatuan_pertubuhan');
+            $filename = $model->senarai_semak_id . "-salinan_sijil_pendaftaran_persatuan_pertubuhan";
+            if($file){
+                $model->salinan_sijil_pendaftaran_persatuan_pertubuhan = Upload::uploadFile($file, Upload::eBantuanFolder, $filename, Upload::eBantuanSenaraiSemakSubFolder);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'salinan_perlembagaan_persatuan_pertubuhan');
+            $filename = $model->senarai_semak_id . "-salinan_perlembagaan_persatuan_pertubuhan";
+            if($file){
+                $model->salinan_perlembagaan_persatuan_pertubuhan = Upload::uploadFile($file, Upload::eBantuanFolder, $filename, Upload::eBantuanSenaraiSemakSubFolder);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'salinan_buku_bank');
+            $filename = $model->senarai_semak_id . "-salinan_buku_bank";
+            if($file){
+                $model->salinan_buku_bank = Upload::uploadFile($file, Upload::eBantuanFolder, $filename, Upload::eBantuanSenaraiSemakSubFolder);
+            }
+            
             //return $this->renderAjax(['view', 'id' => $model->senarai_semak_id]);
-            return $model->save();
-        } else {
-            return $this->renderAjax('update', [
+            if($model->save()){
+                return '1';
+            }
+        }
+        
+        return $this->renderAjax('update', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

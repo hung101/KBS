@@ -59,6 +59,9 @@ class PinjamanPeralatan extends \yii\db\ActiveRecord
             [['nama_peralatan', 'nama_pegawai'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempoh_pinjaman'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tarikh_dipulang'], 'compare', 'compareAttribute'=>'tarikh_diberi', 'operator'=>'>=', 'message' => GeneralMessage::yii_validation_compare],
+            [['nama_peralatan', 'nama_pegawai','tempoh_pinjaman'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

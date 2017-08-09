@@ -54,7 +54,10 @@ class PermohonanEBantuanPendapatanTahunLepas extends \yii\db\ActiveRecord
             [['permohonan_e_bantuan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['jumlah_pendapatan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['jenis_pendapatan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['butir_butir'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['butir_butir'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['jenis_pendapatan','butir_butir'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

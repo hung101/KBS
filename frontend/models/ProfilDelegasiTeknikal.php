@@ -71,6 +71,9 @@ class ProfilDelegasiTeknikal extends \yii\db\ActiveRecord
             [['sukan'], 'string', 'max' => 90],
             [['alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 30],
             [['alamat_negeri'], 'string', 'max' => 3],
+            [['temasya', 'peringkat', 'nama_badan_sukan','negeri', 'alamat_bandar', 'alamat_poskod','sukan','alamat_1', 'alamat_2', 'alamat_3','alamat_negeri'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

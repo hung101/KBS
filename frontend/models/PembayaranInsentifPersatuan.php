@@ -61,6 +61,9 @@ class PembayaranInsentifPersatuan extends \yii\db\ActiveRecord
             [['created', 'updated'], 'safe'],
             [['session_id'], 'string', 'max' => 100],
             [['no_akaun_bank'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_akaun_bank'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

@@ -6,7 +6,7 @@ use Yii;
 use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
-
+use common\models\general\GeneralFunction;
 use app\models\general\GeneralLabel;
 
 /**
@@ -69,7 +69,11 @@ class PengurusanPerhimpunanKem extends \yii\db\ActiveRecord
             [['nama_ppn', 'pengurus_pn', 'nama_penganjuran', 'kategori_penganjuran', 'sub_kategori_penganjuran', 'tahap_penganjuran', 'kategori_sukan', 'activiti'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['negeri'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false]
+            [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false],
+            [['nama_ppn', 'pengurus_pn', 'nama_penganjuran', 'kategori_penganjuran', 'sub_kategori_penganjuran', 'tahap_penganjuran', 'kategori_sukan', 'activiti',
+                'negeri','tempat'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -109,6 +113,12 @@ class PengurusanPerhimpunanKem extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
     }
     

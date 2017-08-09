@@ -288,14 +288,14 @@ class PermohonanEBiasiswaController extends Controller
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->permohonan_e_biasiswa_id]);
             }
-        } else {
-            return $this->render('create', [
+        } 
+        
+        return $this->render('create', [
                 'model' => $model,
                 'searchModelPermohonanEBiasiswaPenyertaanKejohanan' => $searchModelPermohonanEBiasiswaPenyertaanKejohanan,
                 'dataProviderPermohonanEBiasiswaPenyertaanKejohanan' => $dataProviderPermohonanEBiasiswaPenyertaanKejohanan,
                 'readonly' => false,
             ]);
-        }
     }
     
     /**
@@ -347,14 +347,14 @@ class PermohonanEBiasiswaController extends Controller
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->permohonan_e_biasiswa_id]);
             }
-        } else {
-            return $this->render('update', [
+        } 
+        
+        return $this->render('update', [
                 'model' => $model,
                 'searchModelPermohonanEBiasiswaPenyertaanKejohanan' => $searchModelPermohonanEBiasiswaPenyertaanKejohanan,
                 'dataProviderPermohonanEBiasiswaPenyertaanKejohanan' => $dataProviderPermohonanEBiasiswaPenyertaanKejohanan,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

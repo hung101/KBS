@@ -51,7 +51,10 @@ class AtletPembangunanKemahiran extends \yii\db\ActiveRecord
             [['atlet_id', 'jenis_kemahiran', 'tarikh_mula', 'tarikh_tamat', 'penganjur', 'lokasi'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['jenis_kemahiran'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['nama_kemahiran'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['nama_kemahiran'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['jenis_kemahiran','nama_kemahiran'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

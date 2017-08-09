@@ -56,7 +56,10 @@ class BspPertukaranProgramPengajian extends \yii\db\ActiveRecord
             [['tarikh', 'bidang_pengajian_kursus', 'fakulti', 'tarikh_mula_pengajian', 'tarikh_tamat_pengajian', 'tempoh_perlanjutan_semester'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['bsp_pemohon_id', 'tempoh_perlanjutan_semester'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh', 'tarikh_mula_pengajian', 'tarikh_tamat_pengajian'], 'safe'],
-            [['bidang_pengajian_kursus', 'fakulti'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['bidang_pengajian_kursus', 'fakulti'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['bidang_pengajian_kursus', 'fakulti'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

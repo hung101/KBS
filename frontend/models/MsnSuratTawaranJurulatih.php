@@ -24,6 +24,9 @@ class MsnSuratTawaranJurulatih extends Model
         return [
             [['format', 'jurulatih_id', 'bil_msnm', 'bahasa'], 'required', 'message' => GeneralMessage::yii_validation_required],
             [['tarikh', 'bil_msnm', 'jurulatih_id', 'tarikh_luput', 'bahasa', 'tarikh', 'jurulatih_status_desc'], 'safe'],
+            [['tarikh', 'bil_msnm', 'jurulatih_status_desc'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

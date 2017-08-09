@@ -7,6 +7,7 @@ use Yii;
 use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 /**
  * Signup form
@@ -55,6 +56,10 @@ class AdminPublicUserEBantuan extends Model
             [['nama_persatuan_e_bantuan', 'jawatan_e_bantuan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             ['sijil_pendaftaran', 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['sijil_pendaftaran'],'validateFileUploadWithRequired', 'skipOnEmpty' => false],
+            
+            [['username','email','full_name','nama_persatuan_e_bantuan', 'jawatan_e_bantuan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
     
@@ -118,6 +123,12 @@ class AdminPublicUserEBantuan extends Model
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
 
         if(!$file && $this->$attribute==""){

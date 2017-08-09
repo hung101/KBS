@@ -107,7 +107,14 @@ class PermohonanPendidikan extends \yii\db\ActiveRecord
                 'sekolah_unit_sukan_pdd_psk_pencadang', 'nama_pengesahan', 'jawatan_pengesahan', 'sekolah_unit_sukan_pdd_psk_pengesahan',
                 'nama_ipta_ipts', 'kursus_pengajian'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['catatan', 'pilihan_program'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['muat_naik'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['muat_naik'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_rumah_1', 'alamat_rumah_2', 'alamat_rumah_3', 'alamat_pendidikan_1', 'alamat_pendidikan_2', 'alamat_pendidikan_3','alamat_rumah_negeri', 
+                'tahap_pendidikan', 'alamat_pendidikan_negeri', 'kategori_atlet', 'pmn_prau_utk4_sem','alamat_rumah_bandar', 'alamat_pendidikan_bandar',
+                'nama_ibu_bapa_penjaga', 'aliran', 'pilihan_aliran_spm', 'nama_pencadang', 'jawatan_pencadang', 
+                'sekolah_unit_sukan_pdd_psk_pencadang', 'nama_pengesahan', 'jawatan_pengesahan', 'sekolah_unit_sukan_pdd_psk_pengesahan',
+                'nama_ipta_ipts', 'kursus_pengajian'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

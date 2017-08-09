@@ -59,6 +59,9 @@ class PengurusanPermohonanKursusPersatuanPenasihat extends \yii\db\ActiveRecord
             [['nama', 'silibus', 'tarikh_mula_bertugas', 'tarikh_tamat_bertugas'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['pengurusan_permohonan_kursus_persatuan_id', 'nama', 'silibus', 'created_by', 'updated_by'], 'integer'],
             [['tarikh_mula_bertugas', 'tarikh_tamat_bertugas', 'created', 'updated'], 'safe'],
+            [['nama', 'silibus' ], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

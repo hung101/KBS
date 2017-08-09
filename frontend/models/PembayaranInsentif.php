@@ -75,6 +75,14 @@ class PembayaranInsentif extends \yii\db\ActiveRecord
                 }, 'whenClient' => "function (attribute, value) {
                     return $('#pembayaraninsentif-kejohanan').val() == '" . RefInsentifKejohanan::INDIVIDU . "';
                 }"],
+            [['catatan_atlet','catatan', 'catatan_atlet', 'catatan_jurulatih', 'catatan_persatuan','tempat','no_vaucer'], 'filter', 'filter' => function ($value) {
+                /*return \yii\helpers\HtmlPurifier::process($value, function ($config) {
+                    $config->getHTMLDefinition(false);
+                });*/
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+                
+                //return \yii\helpers\BaseHtmlPurifier::process($value);
+            }],
             /*[['nilai_sikap', 'persatuan'], 'required', 'message' => GeneralMessage::yii_validation_required, 'when' => function ($model) {
                     return ($model->acara == RefAcaraInsentif::BERPASUKAN_KURANG_5_ORANG || $model->acara == RefAcaraInsentif::BERPASUKAN_LEBIH_5_ORANG);
                 }, 'whenClient' => "function (attribute, value) {

@@ -56,7 +56,10 @@ class AnugerahPelaksaanMajlis extends \yii\db\ActiveRecord
             [['tarikh_majlis_anugerah', 'nama_ahli_jawatan_kuasa', 'tarikh_pelantikan', 'tempoh'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_majlis_anugerah', 'tarikh_pelantikan'], 'safe'],
             [['nama_ahli_jawatan_kuasa', 'jawatan', 'nama_tugas'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['tempoh', 'status_tugas'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['tempoh', 'status_tugas'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_ahli_jawatan_kuasa', 'jawatan', 'nama_tugas','tempoh', 'status_tugas'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

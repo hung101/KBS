@@ -53,7 +53,10 @@ class ElaporanKomposisiPenyertaan extends \yii\db\ActiveRecord
             [['elaporan_pelaksaan_id', 'kumpulan_penyertaan', 'jenis_komposisi', 'bilangan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['elaporan_pelaksaan_id', 'bilangan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['kumpulan_penyertaan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['jenis_komposisi'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['jenis_komposisi'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['kumpulan_penyertaan','jenis_komposisi'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

@@ -57,6 +57,9 @@ class JurulatihKesihatanMasalah extends \yii\db\ActiveRecord
             [['created', 'updated'], 'safe'],
             [['masalah_kesihatan'], 'string', 'max' => 30],
             [['session_id'], 'string', 'max' => 100],
+            [['masalah_kesihatan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

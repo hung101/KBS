@@ -7,6 +7,7 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 /**
  * This is the model class for table "tbl_bantuan_penganjuran_kejohanan_laporan".
@@ -61,6 +62,9 @@ class BantuanPenganjuranKejohananLaporan extends \yii\db\ActiveRecord
             [['penyata_perbelanjaan_resit_yang_telah_disahkan'], 'validateFileUploadRequired', 'skipOnEmpty' => false],
             [['laporan_bergambar', 'jadual_keputusan_pertandingan', 'senarai_pasukan', 'senarai_statistik_penyertaan', 
                 'senarai_pegawai_pembantu_teknikal', 'senarai_urusetia_sukarelawan', 'senarai_pegawai_pembantu_perubatan'],'validateFileUpload', 'skipOnEmpty' => false],
+            [['tempat','tujuan_penganjuran'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -104,6 +108,12 @@ class BantuanPenganjuranKejohananLaporan extends \yii\db\ActiveRecord
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
         }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
+        }
 
         if(!$file && $this->$attribute==""){
             $this->addError($attribute, GeneralMessage::uploadEmptyError);
@@ -118,6 +128,12 @@ class BantuanPenganjuranKejohananLaporan extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
     }
 }

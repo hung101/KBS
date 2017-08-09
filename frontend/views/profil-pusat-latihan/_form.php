@@ -20,6 +20,8 @@ use app\models\RefStatusPusatLatihan;
 use app\models\RefSukan;
 use app\models\RefProgramMsn;
 use app\models\RefStatusBantuanPenganjuranKejohanan;
+use app\models\RefJenisMaklumatPusatLatihan;
+use app\models\RefKategoriPusatLatihan;
 
 // contant values
 use app\models\general\Placeholder;
@@ -46,8 +48,6 @@ use app\models\general\GeneralMessage;
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName()]); ?>
-    
-    
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -55,6 +55,82 @@ use app\models\general\GeneralMessage;
     'autoGenerateColumns' => true,
     'rows' => [
         [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'jenis_maklumat' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-jenis-maklumat-pusat-latihan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefJenisMaklumatPusatLatihan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::jenis],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
+            ],
+        ],
+    ]
+]);
+    ?>
+    
+    <?php
+    $displayKategori = 'none';
+    if($readonly){
+        if($model->jenis_maklumat == "Permohonan"){
+            $displayKategori = '';
+        }
+    }
+    ?>
+    <div id="divKategori" style="display:<?=$displayKategori?>;">
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'kategori' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-kategori-pusat-latihan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefKategoriPusatLatihan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::kategori],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
+            ],
+        ],
+    ]
+]);
+    ?>
+        </div>
+    
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        /*[
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
@@ -93,7 +169,7 @@ use app\models\general\GeneralMessage;
                         ],],
                     'columnOptions'=>['colspan'=>3]],
             ],
-        ],
+        ],*/
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
@@ -187,7 +263,7 @@ use app\models\general\GeneralMessage;
                     ],
                     'columnOptions'=>['colspan'=>3]],
                 'tahun_siap_pembinaan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>4]],
-                'kos_project' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
+                'kos_project' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>255]],
                 'keluasan_venue' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>50]],
             ]
         ],
@@ -196,7 +272,7 @@ use app\models\general\GeneralMessage;
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                 'hakmilik' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>80]],
-                'kadar_sewaan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
+                'kadar_sewaan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>255]],
                 'status' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -208,7 +284,7 @@ use app\models\general\GeneralMessage;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefStatusPusatLatihan::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefStatusPusatLatihan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::status],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -226,9 +302,6 @@ use app\models\general\GeneralMessage;
     ]
 ]);
     ?>
-    <br>
-    
-    <h3><?php echo GeneralLabel::jurulatih; ?></h3>
     
     <?php 
             Modal::begin([
@@ -245,6 +318,135 @@ use app\models\general\GeneralMessage;
             
             Modal::end();
         ?>
+    
+    <h3><?php echo GeneralLabel::sukan; ?></h3>
+    
+    <?php Pjax::begin(['id' => 'profilPusatLatihanSukanGrid', 'timeout' => 100000]); ?>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderProfilPusatLatihanSukan,
+        //'filterModel' => $searchModelProfilPusatLatihanSukan,
+        'formatter' => ['class' => 'yii\i18n\Formatter','nullDisplay' => ''],
+        'id' => 'profilPusatLatihanSukanGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+            [
+                'attribute' => 'sukan',
+                'value' => 'refSukan.desc'
+            ],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['profil-pusat-latihan-sukan/delete', 'id' => $model->profil_pusat_latihan_sukan_id]).'", "'.GeneralMessage::confirmDelete.'", "profilPusatLatihanSukanGrid");',
+                        //'data-confirm' => 'Czy na pewno usunąć ten rekord?',
+                        ]);
+
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['profil-pusat-latihan-sukan/update', 'id' => $model->profil_pusat_latihan_sukan_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::sukan.'");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['profil-pusat-latihan-sukan/view', 'id' => $model->profil_pusat_latihan_sukan_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::sukan.'");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+    
+    <?php Pjax::end(); ?>
+    
+     <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        $profil_pusat_latihan_id = "";
+        
+        if(isset($model->profil_pusat_latihan_id)){
+            $profil_pusat_latihan_id = $model->profil_pusat_latihan_id;
+        }
+        
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['profil-pusat-latihan-sukan/create', 'profil_pusat_latihan_id' => $profil_pusat_latihan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::sukan.'");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
+    
+    <br>
+    
+    <h3><?php echo GeneralLabel::program; ?></h3>
+    
+    <?php Pjax::begin(['id' => 'profilPusatLatihanProgramGrid', 'timeout' => 100000]); ?>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderProfilPusatLatihanProgram,
+        //'filterModel' => $searchModelProfilPusatLatihanProgram,
+        'formatter' => ['class' => 'yii\i18n\Formatter','nullDisplay' => ''],
+        'id' => 'profilPusatLatihanProgramGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+            [
+                'attribute' => 'program',
+                'value' => 'refProgramSemasaSukanAtlet.desc'
+            ],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['profil-pusat-latihan-program/delete', 'id' => $model->profil_pusat_latihan_program_id]).'", "'.GeneralMessage::confirmDelete.'", "profilPusatLatihanProgramGrid");',
+                        //'data-confirm' => 'Czy na pewno usunąć ten rekord?',
+                        ]);
+
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['profil-pusat-latihan-program/update', 'id' => $model->profil_pusat_latihan_program_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::program.'");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['profil-pusat-latihan-program/view', 'id' => $model->profil_pusat_latihan_program_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::program.'");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+    
+    <?php Pjax::end(); ?>
+    
+     <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        $profil_pusat_latihan_id = "";
+        
+        if(isset($model->profil_pusat_latihan_id)){
+            $profil_pusat_latihan_id = $model->profil_pusat_latihan_id;
+        }
+        
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['profil-pusat-latihan-program/create', 'profil_pusat_latihan_id' => $profil_pusat_latihan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::program.'");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
+    
+    <br>
+    
+    <h3><?php echo GeneralLabel::jurulatih; ?></h3>
+
     
     <?php Pjax::begin(['id' => 'profilPusatLatihanJurulatihGrid', 'timeout' => 100000]); ?>
 
@@ -265,6 +467,14 @@ use app\models\general\GeneralMessage;
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jurulatih,
                 ],
                 'value' => 'refJurulatih.nama'
+            ],
+            [
+                'attribute' => 'status',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status,
+                ],
+                'value' => 'refStatusJurulatih.desc'
             ],
             //'session_id',
             //'created_by',
@@ -306,11 +516,7 @@ use app\models\general\GeneralMessage;
      <?php if(!$readonly): ?>
     <p>
         <?php 
-        $profil_pusat_latihan_id = "";
         
-        if(isset($model->profil_pusat_latihan_id)){
-            $profil_pusat_latihan_id = $model->profil_pusat_latihan_id;
-        }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
                         'onclick' => 'loadModalRenderAjax("'.Url::to(['profil-pusat-latihan-jurulatih/create', 'profil_pusat_latihan_id' => $profil_pusat_latihan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::jurulatih.'");',
@@ -430,7 +636,30 @@ use app\models\general\GeneralMessage;
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_peralatan,
                 ],
             ],
-            //'session_id',
+            [
+                'attribute' => 'status_peralatan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status_peralatan,
+                ],
+            ],
+            [
+                'attribute' => 'sukan',
+                'value'=>function ($model) {
+                    $SukanListID = explode(',', $model->sukan);
+                    $SukanListName = "";
+
+                    foreach($SukanListID as $SukanID){
+                        $ref = RefSukan::findOne(['id' => $SukanID]);
+                        if($SukanListName != ""){
+                            $SukanListName .= ', ';
+                        }
+                        $SukanListName .= $ref['desc'];
+                    }
+                    
+                    return $SukanListName;
+                },
+            ],
             //'created_by',
             // 'updated_by',
             // 'created',
@@ -544,3 +773,42 @@ use app\models\general\GeneralMessage;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+
+$JENIS_PERMOHONAN = RefJenisMaklumatPusatLatihan::PERMOHONAN;
+$JENIS_MAKLUMAT = RefJenisMaklumatPusatLatihan::MAKLUMAT;
+
+$script = <<< JS
+        
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
+        
+$(document).ready(function(){
+    changeJenisMaklumat();
+});
+
+$('#profilpusatlatihan-jenis_maklumat').change(function(){
+    changeJenisMaklumat();
+});
+
+function changeJenisMaklumat(){
+    if($('#profilpusatlatihan-jenis_maklumat').val() != ''){		
+        if($('#profilpusatlatihan-jenis_maklumat').val() == '$JENIS_PERMOHONAN'){
+            $('#divKategori').show();
+        }else if($('#profilpusatlatihan-jenis_maklumat').val() == '$JENIS_MAKLUMAT'){
+            $('#profilpusatlatihan-kategori').val('').trigger("change");
+            $('#divKategori').hide();
+        }
+    }
+}
+
+        
+JS;
+        
+$this->registerJs($script);
+?>

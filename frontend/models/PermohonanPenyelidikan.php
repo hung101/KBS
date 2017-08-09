@@ -7,6 +7,7 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 /**
  * This is the model class for table "tbl_permohonan_penyelidikan".
@@ -69,6 +70,11 @@ class PermohonanPenyelidikan extends \yii\db\ActiveRecord
                 'semak_salinan_sebelum_kelulusan_etika', 'semak_salinan_cadangan_penyelidikan_sepenuhnya', 'semak_salinan_kunci_maklumat', 'semak_salinan_borang_kebenaran', 
                 'semak_salinan_penepian_persetujuan', 'semak_salinan_surat_pemberitahuan_kepada_isn', 'semak_salinan_surat_tawaran_pengajian_daripada_institusi', 
                 'semak_salinan_dokumen_dokumen_sokongan', 'semak_salinan_soal_selidik'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['nama_permohon', 'akademik_nama', 'akademik_nama_yang_dicadangkan','ringkasan_permohonan', 'pengecualian_persetujuan', 
+                'sebab_tiada_penyertaan_lembaran_maklumat', 'sebab_tiada_borang_persetujuan_penyertaan', 'tajuk_penyelidikan','isnrp_no', 'akademik_no_kakitangan',
+                'akademik_emel'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -134,6 +140,12 @@ class PermohonanPenyelidikan extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
     }
 }

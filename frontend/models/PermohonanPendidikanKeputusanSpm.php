@@ -56,6 +56,9 @@ class PermohonanPendidikanKeputusanSpm extends \yii\db\ActiveRecord
             [['created', 'updated'], 'safe'],
             [['keputusan'], 'string', 'max' => 20],
             [['session_id'], 'string', 'max' => 100],
+            [['subjek','keputusan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

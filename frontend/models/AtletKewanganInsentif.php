@@ -62,7 +62,10 @@ class AtletKewanganInsentif extends \yii\db\ActiveRecord
             [['tarikh_mula', 'tarikh_tamat', 'rekods'], 'safe'],
             [['jumlah'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['jenis_insentif', 'pencapaian'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['kejohanan'], 'string', 'max' => 60, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['kejohanan'], 'string', 'max' => 60, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['jenis_insentif', 'pencapaian','kejohanan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

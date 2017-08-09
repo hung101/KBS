@@ -9,8 +9,8 @@ use app\models\general\GeneralLabel;
 
 //$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::permohonan_peralatan.': ' . ' ' . $model->permohonan_peralatan_id;
 $this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::permohonan_peralatan;
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_peralatan, 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::permohonan_peralatan, 'url' => ['view', 'id' => $model->permohonan_peralatan_id]];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_peralatan, 'url' => ['index', 'profil_pusat_latihan_id' => $profil_pusat_latihan_id]];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::permohonan_peralatan, 'url' => ['view', 'id' => $model->permohonan_peralatan_id, 'profil_pusat_latihan_id' => $profil_pusat_latihan_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-peralatan-update">
@@ -24,6 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'searchModelPermohonanPeralatanPenggunaan' => $searchModelPermohonanPeralatanPenggunaan,
         'dataProviderPermohonanPeralatanPenggunaan' => $dataProviderPermohonanPeralatanPenggunaan,
+        'profil_pusat_latihan_id' => $profil_pusat_latihan_id,
     ]) ?>
 
 </div>

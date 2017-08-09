@@ -13,6 +13,7 @@ use app\models\Atlet;
 use app\models\Jurulatih;
 use app\models\RefLatarbelakangKes;
 use app\models\RefJenisKlien;
+use app\models\PermohonanBimbinganKaunseling;
 
 // contant values
 use app\models\general\Placeholder;
@@ -96,7 +97,9 @@ if(!$readonly && $model->isNewRecord === false){//update
 										'asButton' => true
 									]
 								] : null,
-								'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
+								//'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
+                                                            'data'=>ArrayHelper::map(PermohonanBimbinganKaunseling::find()->joinWith(['atlet'])
+                                                                    ->groupBy('atlet_id')->where(['<>', 'tbl_atlet.atlet_id', ''])->all(),'atlet_id', 'atlet.nameAndIC'),
 								'options' => ['placeholder' => Placeholder::atlet, 'id' => 'atletID'],
 		'pluginOptions' => [
 									'allowClear' => true
@@ -130,7 +133,9 @@ if(!$readonly && $model->isNewRecord === false){//update
 										'asButton' => true
 									]
 								] : null,
-								'data'=>ArrayHelper::map(GeneralFunction::getJurulatih(),'jurulatih_id', 'nameAndIC'),
+								//'data'=>ArrayHelper::map(GeneralFunction::getJurulatih(),'jurulatih_id', 'nameAndIC'),
+                                                            'data'=>ArrayHelper::map(PermohonanBimbinganKaunseling::find()->joinWith(['refJurulatih'])
+                                                                    ->groupBy('jurulatih')->where(['<>', 'tbl_jurulatih.jurulatih_id', ''])->all(),'jurulatih', 'refJurulatih.nameAndIC'),
 								'options' => ['placeholder' => Placeholder::jurulatih, 'id' => 'jurulatihID'],
 		'pluginOptions' => [
 									'allowClear' => true

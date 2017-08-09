@@ -27,6 +27,7 @@ use app\models\RefTahapProgramBinaan;
 use app\models\RefKategoriProgramBinaan;
 use app\models\RefJantina;
 use app\models\RefBahagianProgramBinaan;
+use app\models\UserPeranan;
 
 // contant values
 use app\models\general\Placeholder;
@@ -70,6 +71,18 @@ if(isset($model->jenis_permohonan))
     {
         $model->jenis_permohonan = $jenisPermohonan;
     }
+}
+
+// auto populate info if is PPN login
+$disable_ppn_info = false;
+
+if(Yii::$app->user->identity->peranan && Yii::$app->user->identity->peranan == UserPeranan::PERANAN_MSN_PPN && !$readonly){
+    //$model->nama_pengurus_sukan = Yii::$app->user->identity->id;
+    //$model->nama_sukan = Yii::$app->user->identity->ppn_sukan;
+    $model->negeri = Yii::$app->user->identity->ppn_negeri;
+    
+    $disable_ppn_info = true;
+    $disableJenisPermohonan = $disable_ppn_info;
 }
 ?>
 
@@ -162,7 +175,7 @@ if(isset($model->jenis_permohonan))
                                     ]
                                 ] : null,
                                 'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                                'options' => ['placeholder' => Placeholder::negeri],
+                                'options' => ['placeholder' => Placeholder::negeri, 'disabled'=>$disable_ppn_info],
         'pluginOptions' => [
                                     'allowClear' => true
                                 ],],
@@ -488,13 +501,13 @@ if(isset($model->jenis_permohonan))
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-sukan/update', 'id' => $model->pengurusan_program_binaan_sukan_id]).'", "'.GeneralLabel::updateTitle . ' Sukan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-sukan/update', 'id' => $model->pengurusan_program_binaan_sukan_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::sukan.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-sukan/view', 'id' => $model->pengurusan_program_binaan_sukan_id]).'", "'.GeneralLabel::viewTitle . ' Sukan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-sukan/view', 'id' => $model->pengurusan_program_binaan_sukan_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::sukan.'");',
                         ]);
                     }
                 ],
@@ -509,7 +522,7 @@ if(isset($model->jenis_permohonan))
     <p>
         <?php 
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-sukan/create', 'pengurusan_program_binaan_id' => $pengurusan_program_binaan_id]).'", "'.GeneralLabel::createTitle . ' Sukan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-sukan/create', 'pengurusan_program_binaan_id' => $pengurusan_program_binaan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::sukan.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
@@ -1205,6 +1218,7 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
     $("form#{$model->formName()} input").prop("disabled", false);
     
     $("#pengurusanprogrambinaan-jenis_permohonan").prop("disabled", false);
+    $("#pengurusanprogrambinaan-negeri").prop("disabled", false);
 });
         
 $(document).ready(function(){

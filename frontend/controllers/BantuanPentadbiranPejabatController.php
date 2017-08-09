@@ -152,16 +152,16 @@ class BantuanPentadbiranPejabatController extends Controller
         $dataProviderInformasiPermohonan = $searchModelInformasiPermohonan->search($queryPar);
         
         if($model->load(Yii::$app->request->post())){
-            $oldStatusPermohonan = $model->getOldAttribute('status_permohonan');
-			
-			$file = UploadedFile::getInstance($model, 'surat_permohonan');
+            $oldStatusPermohonan = $model->getOldAttribute('status_permohonan');	
+        }
+
+        if (Yii::$app->request->post() && $model->save()) {
+            
+            $file = UploadedFile::getInstance($model, 'surat_permohonan');
             $filename = $model->bantuan_pentadbiran_pejabat_id . "-surat_permohonan";
             if($file){
                 $model->surat_permohonan = Upload::uploadFile($file, Upload::bantuanPentadbiranPejabatFolder, $filename);
             }
-        }
-
-        if (Yii::$app->request->post() && $model->save()) {
 			
             if(isset(Yii::$app->session->id)){
                 InformasiPermohonan::updateAll(['bantuan_pentadbiran_pejabat_id' => $model->bantuan_pentadbiran_pejabat_id], 'session_id = "'.Yii::$app->session->id.'"');
@@ -193,15 +193,17 @@ Majlis Sukan Negara Malaysia.
                 }
             }
             
-            return $this->redirect(['view', 'id' => $model->bantuan_pentadbiran_pejabat_id]);
-        } else {
-            return $this->render('create', [
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->bantuan_pentadbiran_pejabat_id]);
+            }
+        } 
+        
+        return $this->render('create', [
                 'model' => $model,
                 'searchModelInformasiPermohonan' => $searchModelInformasiPermohonan,
                 'dataProviderInformasiPermohonan' => $dataProviderInformasiPermohonan,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -237,8 +239,8 @@ Majlis Sukan Negara Malaysia.
             if($file){
                 //valid file to upload
                 //upload file to server
-                $filename = $model->bantuan_pentadbiran_pejabat_id . "-surat_permohonan";
-                $model->surat_permohonan = Upload::uploadFile($file,  Upload::bantuanPentadbiranPejabatFolder, $filename);
+                //$filename = $model->bantuan_pentadbiran_pejabat_id . "-surat_permohonan";
+                //$model->surat_permohonan = Upload::uploadFile($file,  Upload::bantuanPentadbiranPejabatFolder, $filename);
             } else {
                 //invalid file to upload
                 //remain existing file
@@ -247,6 +249,12 @@ Majlis Sukan Negara Malaysia.
         }
 
         if (Yii::$app->request->post() && $model->save()) {
+            $file = UploadedFile::getInstance($model, 'surat_permohonan');
+            $filename = $model->bantuan_pentadbiran_pejabat_id . "-surat_permohonan";
+            if($file){
+                $model->surat_permohonan = Upload::uploadFile($file, Upload::bantuanPentadbiranPejabatFolder, $filename);
+            }
+            
             if($model->emel && $model->emel != "" && $model->status_permohonan ){
                 if($model->status_permohonan != $oldStatusPermohonan){
                     try {
@@ -274,15 +282,17 @@ Sekian.
                 }
             }
             
-            return $this->redirect(['view', 'id' => $model->bantuan_pentadbiran_pejabat_id]);
-        } else {
-            return $this->render('update', [
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->bantuan_pentadbiran_pejabat_id]);
+            }
+        } 
+        
+        return $this->render('update', [
                 'model' => $model,
                 'searchModelInformasiPermohonan' => $searchModelInformasiPermohonan,
                 'dataProviderInformasiPermohonan' => $dataProviderInformasiPermohonan,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

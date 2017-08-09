@@ -57,7 +57,10 @@ class PengurusanPenginapan extends \yii\db\ActiveRecord
             [['tarikh_masa_penginapan_mula', 'tarikh_masa_penginapan_akhir'], 'safe'],
             [['nama_pegawai', 'nama_penginapan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['lokasi'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_pegawai', 'nama_penginapan','lokasi','catatan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

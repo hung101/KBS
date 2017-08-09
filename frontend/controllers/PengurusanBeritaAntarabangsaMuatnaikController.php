@@ -136,7 +136,7 @@ class PengurusanBeritaAntarabangsaMuatnaikController extends Controller
             if($file){
                 //valid file to upload
                 //upload file to server
-                $model->muatnaik = Upload::uploadFile($file, Upload::pengurusanBeritaAntarabangsaMuatnaikFolder, $model->pengurusan_berita_antarabangsa_muatnaik_id);
+                //$model->muatnaik = Upload::uploadFile($file, Upload::pengurusanBeritaAntarabangsaMuatnaikFolder, $model->pengurusan_berita_antarabangsa_muatnaik_id);
             } else {
                 //invalid file to upload
                 //remain existing file
@@ -145,13 +145,19 @@ class PengurusanBeritaAntarabangsaMuatnaikController extends Controller
         }
 
         if (Yii::$app->request->post() && $model->save()) {
-            return '1';
-        } else {
-            return $this->renderAjax('update', [
+            $file = UploadedFile::getInstance($model, 'muatnaik');
+            if($file){
+                $model->muatnaik = Upload::uploadFile($file, Upload::pengurusanBeritaAntarabangsaMuatnaikFolder, $model->pengurusan_berita_antarabangsa_muatnaik_id);
+            }
+            if($model->save()){
+                return '1';
+            }
+        } 
+        
+        return $this->renderAjax('update', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

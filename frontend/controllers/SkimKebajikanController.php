@@ -253,7 +253,7 @@ Nama Atlet:  ' . $nama_atlet . '
                                         ->setTo($model->emel_penerima)
                                         ->setFrom('noreply@spsb.com')
                                         ->setSubject('Status Permohonan Skim Kebajikan')
-                                        ->setHtmlBody('Salam Sejahtera,
+                                        ->setHtmlBody('Assalamualaikum dan Salam Sejahtera, 
 <br><br>
 Tuan/Puan,
 <br><br>
@@ -414,7 +414,7 @@ Nama Atlet:  ' . $nama_atlet . '
                                         ->setTo($model->emel_penerima)
                                         ->setFrom('noreply@spsb.com')
                                         ->setSubject('Status Permohonan Skim Kebajikan')
-                                        ->setHtmlBody('Salam Sejahtera,
+                                        ->setHtmlBody('Assalamualaikum dan Salam Sejahtera, 
 <br><br>
 Tuan/Puan,
 <br><br>

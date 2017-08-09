@@ -54,7 +54,10 @@ class MesyuaratSenaraiNamaHadir extends \yii\db\ActiveRecord
             [['no_tel'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_tel'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],            
             [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email],
-            [['nama'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['nama'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama', 'jawatan','organisasi','emel'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

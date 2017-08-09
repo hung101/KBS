@@ -41,6 +41,9 @@ class LaporanPenyertaanKejohananRanking extends \yii\db\ActiveRecord
             [['created', 'updated'], 'safe'],
             [['negara'], 'string', 'max' => 255],
             [['session_id'], 'string', 'max' => 100],
+            [['negara'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

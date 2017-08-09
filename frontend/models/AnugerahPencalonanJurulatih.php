@@ -7,6 +7,7 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 /**
  * This is the model class for table "tbl_anugerah_pencalonan_jurulatih".
@@ -63,13 +64,15 @@ class AnugerahPencalonanJurulatih extends \yii\db\ActiveRecord
             [['kategori', 'sukan', 'nama_jurulatih', 'no_kad_pengenalan', 'no_telefon_1', 'no_telefon_2', 'sijil_kejurulatihan_spesifik'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['sijil_kejurulatihan_spesifik', 'kelulusan', 'created_by', 'updated_by'], 'integer'],
             [['created', 'updated'], 'safe'],
-            [['sukan', 'nama_jurulatih'], 'string', 'max' => 80],
-            [['no_kad_pengenalan'], 'string', 'max' => 12],
+            [['sukan', 'nama_jurulatih'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
                         [['no_telefon_1', 'no_telefon_2'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['no_telefon_1', 'no_telefon_2'], 'string', 'max' => 14],
             [['no_telefon_1', 'no_telefon_2'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],            
-            [['ulasan_pencapaian'], 'string', 'max' => 255],
+            [['ulasan_pencapaian'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['gambar'],'validateFileUpload', 'skipOnEmpty' => false],
+            [['sukan', 'nama_jurulatih','ulasan_pencapaian'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -104,6 +107,12 @@ class AnugerahPencalonanJurulatih extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
     }
     

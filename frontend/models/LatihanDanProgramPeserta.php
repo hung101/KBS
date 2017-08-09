@@ -63,7 +63,10 @@ class LatihanDanProgramPeserta extends \yii\db\ActiveRecord
             [['no_tel_bimbit'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_tel_bimbit', 'no_kad_pengenalan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['emel'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email]
+            [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email],
+            [['nama', 'nama_badan_sukan', 'jawatan', 'tempoh_memegang_jawatan','no_pendaftaran_sukan', 'jenis_jawatankuasa','emel'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

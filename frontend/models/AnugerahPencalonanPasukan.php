@@ -7,6 +7,7 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 /**
  * This is the model class for table "tbl_anugerah_pencalonan_pasukan".
@@ -59,11 +60,14 @@ class AnugerahPencalonanPasukan extends \yii\db\ActiveRecord
             [['kategori', 'sukan', 'nama_pasukan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['created_by', 'updated_by'], 'integer'],
             [['created', 'updated'], 'safe'],
-            [['kategori', 'sukan'], 'string', 'max' => 30],
-            [['nama_pasukan'], 'string', 'max' => 80],
-            [['gambar_pasukan'], 'string', 'max' => 100],
-            [['ulasan_pencapaian', 'asas_pencalonan', 'sumbangan_pencapaian'], 'string', 'max' => 255],
+            [['kategori', 'sukan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_pasukan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['gambar_pasukan'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['ulasan_pencapaian', 'asas_pencalonan', 'sumbangan_pencapaian'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['gambar_pasukan'],'validateFileUpload', 'skipOnEmpty' => false],
+            [['kategori', 'sukan','nama_pasukan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -96,6 +100,12 @@ class AnugerahPencalonanPasukan extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
     }
     

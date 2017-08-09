@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralMessage;
 use app\models\general\GeneralLabel;
 
 /**
@@ -39,12 +40,15 @@ class BantuanPenganjuranKejohananSirkitElemen extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['bantuan_penganjuran_kejohanan_id', 'bilangan', 'hari', 'created_by', 'updated_by'], 'integer'],
+            [['bantuan_penganjuran_kejohanan_id', 'bilangan', 'hari', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['elemen_bantuan', 'sub_elemen', 'kadar', 'bilangan', 'hari', 'jumlah'], 'required'],
-            [['kadar', 'jumlah'], 'number'],
+            [['kadar', 'jumlah'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['created', 'updated'], 'safe'],
             [['elemen_bantuan', 'sub_elemen'], 'string', 'max' => 30],
             [['session_id'], 'string', 'max' => 100],
+            [['elemen_bantuan','sub_elemen'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

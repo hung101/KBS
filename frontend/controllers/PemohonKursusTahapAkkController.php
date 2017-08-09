@@ -136,7 +136,7 @@ class PemohonKursusTahapAkkController extends Controller
             if($file){
                 //valid file to upload
                 //upload file to server
-                $model->muatnaik_sijil = Upload::uploadFile($file, Upload::akademiAkkFolder, $model->pemohon_kursus_tahap_akk_id, Upload::akademiAkkPemohonKursusTahapAkkFolder);
+                //$model->muatnaik_sijil = Upload::uploadFile($file, Upload::akademiAkkFolder, $model->pemohon_kursus_tahap_akk_id, Upload::akademiAkkPemohonKursusTahapAkkFolder);
             } else {
                 //invalid file to upload
                 //remain existing file
@@ -145,13 +145,20 @@ class PemohonKursusTahapAkkController extends Controller
         }
 
         if (Yii::$app->request->post() && $model->save()) {
-            return '1';
-        } else {
-            return $this->renderAjax('update', [
+            $file = UploadedFile::getInstance($model, 'muatnaik_sijil');
+            if($file){
+                $model->muatnaik_sijil = Upload::uploadFile($file, Upload::akademiAkkFolder, $model->pemohon_kursus_tahap_akk_id, Upload::akademiAkkPemohonKursusTahapAkkFolder);
+            }
+            
+            if($model->save()){
+                return '1';
+            }
+        } 
+        
+        return $this->renderAjax('update', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

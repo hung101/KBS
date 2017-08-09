@@ -56,6 +56,9 @@ class PermohonanPendidikanKursusPengajian extends \yii\db\ActiveRecord
             [['created', 'updated'], 'safe'],
             [['kursus_pengajian', 'universiti'], 'string', 'max' => 80],
             [['session_id'], 'string', 'max' => 100],
+            [['kursus_pengajian', 'universiti'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

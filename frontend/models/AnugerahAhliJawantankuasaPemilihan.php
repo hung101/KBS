@@ -40,7 +40,10 @@ class AnugerahAhliJawantankuasaPemilihan extends \yii\db\ActiveRecord
             [['tahun'], 'required'],
             [['created_by', 'updated_by', 'tahun'], 'integer'],
             [['created', 'updated'], 'safe'],
-            [['perwakilan', 'nama', 'jawatan'], 'string', 'max' => 80],
+            [['perwakilan', 'nama', 'jawatan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['perwakilan', 'nama', 'jawatan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

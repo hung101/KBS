@@ -48,6 +48,13 @@ $this->params['breadcrumbs'][] = $this->title;
             //'permohonan_bimbingan_kaunseling_id',
             //'atlet_id',
             [
+                'attribute' => 'nama_pemohon_rujukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama,
+                ],
+            ],
+            [
                 'attribute' => 'atlet_id',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
@@ -94,12 +101,21 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn',
                 'buttons' => [
                     'delete' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                        $link =  Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
                         'title' => Yii::t('yii', 'Delete'),
                         'data-confirm' => GeneralMessage::confirmDelete,
                         'data-method' => 'post',
                         ]);
+                        
+                        return (isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-bimbingan-kaunseling']['kelulusan'])) ? $link : '';
 
+                    },
+                    'update' => function ($url, $model) {
+                        $link =  Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                        'title' => Yii::t('yii', 'Update'),
+                        ]);
+                        
+                        return (isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-bimbingan-kaunseling']['kelulusan'])) ? $link : '';
                     },
                 ],
                 'template' => $template,

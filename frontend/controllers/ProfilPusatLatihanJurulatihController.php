@@ -13,6 +13,7 @@ use app\models\general\GeneralVariable;
 
 // table reference
 use app\models\Jurulatih;
+use app\models\RefStatusJurulatih;
 
 /**
  * ProfilPusatLatihanJurulatihController implements the CRUD actions for ProfilPusatLatihanJurulatih model.
@@ -68,6 +69,9 @@ class ProfilPusatLatihanJurulatihController extends Controller
         
         $ref = Jurulatih::findOne(['jurulatih_id' => $model->jurulatih]);
         $model->jurulatih = $ref['nameAndIC'];
+        
+        $ref = RefStatusJurulatih::findOne(['id' => $model->status]);
+        $model->status = $ref['desc'];
         
         return $this->renderAjax('view', [
             'model' => $model,

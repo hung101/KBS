@@ -331,19 +331,19 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanController extends Controlle
                 //upload file to server
                 
                 // delete upload file
-                if($existingPenyataPerbelanjaan != ""){
+                /*if($existingPenyataPerbelanjaan != ""){
                     self::actionDeleteupload($id, 'penyata_perbelanjaan_resit_yang_telah_disahkan');
                 }
                 
                 $filename = $model->bantuan_penganjuran_kejohanan_id . "-penyata_perbelanjaan_resit_yang_telah_disahkan";
-                $model->penyata_perbelanjaan_resit_yang_telah_disahkan = Upload::uploadFile($file, Upload::bantuanPenganjuranKursusPegawaiTeknikalLaporanFolder, $filename);
+                $model->penyata_perbelanjaan_resit_yang_telah_disahkan = Upload::uploadFile($file, Upload::bantuanPenganjuranKursusPegawaiTeknikalLaporanFolder, $filename);*/
             } else {
                 //invalid file to upload
                 //remain existing file
                 $model->penyata_perbelanjaan_resit_yang_telah_disahkan = $existingPenyataPerbelanjaan;
             }
             
-            $file = UploadedFile::getInstance($model, 'laporan_bergambar');
+            /*$file = UploadedFile::getInstance($model, 'laporan_bergambar');
             $filename = $model->bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id . "-laporan_bergambar";
             if($file){
                 $model->laporan_bergambar = Upload::uploadFile($file, Upload::bantuanPenganjuranKursusPegawaiTeknikalLaporanFolder, $filename);
@@ -377,7 +377,7 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanController extends Controlle
             $filename = $model->bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id . "-senarai_urusetia_sukarelawan";
             if($file){
                 $model->senarai_urusetia_sukarelawan = Upload::uploadFile($file, Upload::bantuanPenganjuranKursusPegawaiTeknikalLaporanFolder, $filename);
-            }
+            }*/
         }
         
         $queryPar = null;
@@ -388,15 +388,59 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanController extends Controlle
         $dataProviderBantuanPenganjuranKursusPegawaiTeknikalLaporanTuntutan = $searchModelBantuanPenganjuranKursusPegawaiTeknikalLaporanTuntutan->search($queryPar);
 
         if (Yii::$app->request->post() && $model->save() && $allowSubmit) {
-            return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id]);
-        } else {
-            return $this->render('update', [
+            $file = UploadedFile::getInstance($model, 'laporan_bergambar');
+            $filename = $model->bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id . "-laporan_bergambar";
+            if($file){
+                $model->laporan_bergambar = Upload::uploadFile($file, Upload::bantuanPenganjuranKursusPegawaiTeknikalLaporanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'penyata_perbelanjaan_resit_yang_telah_disahkan');
+            $filename = $model->bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id . "-penyata_perbelanjaan_resit_yang_telah_disahkan";
+            if($file){
+                $model->penyata_perbelanjaan_resit_yang_telah_disahkan = Upload::uploadFile($file, Upload::bantuanPenganjuranKursusPegawaiTeknikalLaporanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'jadual_keputusan_pertandingan');
+            $filename = $model->bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id . "-jadual_keputusan_pertandingan";
+            if($file){
+                $model->jadual_keputusan_pertandingan = Upload::uploadFile($file, Upload::bantuanPenganjuranKursusPegawaiTeknikalLaporanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'senarai_peserta');
+            $filename = $model->bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id . "-senarai_peserta";
+            if($file){
+                $model->senarai_peserta = Upload::uploadFile($file, Upload::bantuanPenganjuranKursusPegawaiTeknikalLaporanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'statistik_penyertaan');
+            $filename = $model->bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id . "-statistik_penyertaan";
+            if($file){
+                $model->statistik_penyertaan = Upload::uploadFile($file, Upload::bantuanPenganjuranKursusPegawaiTeknikalLaporanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'senarai_pegawai_penceramah');
+            $filename = $model->bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id . "-senarai_pegawai_penceramah";
+            if($file){
+                $model->senarai_pegawai_penceramah = Upload::uploadFile($file, Upload::bantuanPenganjuranKursusPegawaiTeknikalLaporanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'senarai_urusetia_sukarelawan');
+            $filename = $model->bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id . "-senarai_urusetia_sukarelawan";
+            if($file){
+                $model->senarai_urusetia_sukarelawan = Upload::uploadFile($file, Upload::bantuanPenganjuranKursusPegawaiTeknikalLaporanFolder, $filename);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id]);
+            }
+        } 
+        
+        return $this->render('update', [
                 'model' => $model,
                 'searchModelBantuanPenganjuranKursusPegawaiTeknikalLaporanTuntutan' => $searchModelBantuanPenganjuranKursusPegawaiTeknikalLaporanTuntutan,
                 'dataProviderBantuanPenganjuranKursusPegawaiTeknikalLaporanTuntutan' => $dataProviderBantuanPenganjuranKursusPegawaiTeknikalLaporanTuntutan,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

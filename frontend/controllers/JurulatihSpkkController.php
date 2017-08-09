@@ -222,7 +222,7 @@ class JurulatihSpkkController extends Controller
             if($file){
                 //valid file to upload
                 //upload file to server
-                $model->muatnaik_sijil = Upload::uploadFile($file, Upload::jurulatihKelayakan, $model->jurulatih_spkk_id);
+                //$model->muatnaik_sijil = Upload::uploadFile($file, Upload::jurulatihKelayakan, $model->jurulatih_spkk_id);
             } else {
                 //invalid file to upload
                 //remain existing file
@@ -231,14 +231,20 @@ class JurulatihSpkkController extends Controller
         }
 
         if (Yii::$app->request->post() && $model->save()) {
-            //return $this->redirect(['view', 'id' => $model->jurulatih_spkk_id]);
-            return self::actionView($model->jurulatih_spkk_id);
-        } else {
-            return $this->renderAjax('update', [
+            $file = UploadedFile::getInstance($model, 'muatnaik_sijil');
+            if($file){
+                $model->muatnaik_sijil = Upload::uploadFile($file, Upload::jurulatihKelayakan, $model->jurulatih_spkk_id);
+            }
+            
+            if($model->save()){
+                return self::actionView($model->jurulatih_spkk_id);
+            }
+        } 
+        
+        return $this->renderAjax('update', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

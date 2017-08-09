@@ -217,8 +217,9 @@ class PengurusanPerhimpunanKemController extends Controller
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->pengurusan_perhimpunan_kem_id]);
             }
-        } else {
-            return $this->render('create', [
+        } 
+        
+        return $this->render('create', [
                 'model' => $model,
                 'searchModelPerhimpunanKemKos' => $searchModelPerhimpunanKemKos,
                 'dataProviderPerhimpunanKemKos' => $dataProviderPerhimpunanKemKos,
@@ -226,7 +227,6 @@ class PengurusanPerhimpunanKemController extends Controller
                 'dataProviderPerhimpunanKemPeserta' => $dataProviderPerhimpunanKemPeserta,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -263,8 +263,9 @@ class PengurusanPerhimpunanKemController extends Controller
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->pengurusan_perhimpunan_kem_id]);
             }
-        } else {
-            return $this->render('update', [
+        }
+        
+        return $this->render('update', [
                 'model' => $model,
                 'searchModelPerhimpunanKemKos' => $searchModelPerhimpunanKemKos,
                 'dataProviderPerhimpunanKemKos' => $dataProviderPerhimpunanKemKos,
@@ -272,7 +273,6 @@ class PengurusanPerhimpunanKemController extends Controller
                 'dataProviderPerhimpunanKemPeserta' => $dataProviderPerhimpunanKemPeserta,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

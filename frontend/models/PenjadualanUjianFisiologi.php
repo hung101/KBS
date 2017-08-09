@@ -56,7 +56,10 @@ class PenjadualanUjianFisiologi extends \yii\db\ActiveRecord
             //[['bilangan_atlet'], 'integer', 'min' => 1, 'max' => 100, 'tooBig' => GeneralMessage::yii_validation_integer_max, 'tooSmall' => GeneralMessage::yii_validation_integer_min],
             [['tarikh_masa', 'ujian_sub', 'peralatan', 'ujian'], 'safe'],
             [['perkhidmatan', 'pegawai_yang_bertanggungjawab'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['catitan_ringkas'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['catitan_ringkas'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['perkhidmatan', 'pegawai_yang_bertanggungjawab','catitan_ringkas','tempat'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

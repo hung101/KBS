@@ -8,6 +8,7 @@ use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 /**
  * This is the model class for table "tbl_penganjuran_kursus_peserta".
@@ -122,6 +123,13 @@ class PenganjuranKursusPeserta extends \yii\db\ActiveRecord
             [['muatnaik_gambar','dokumen_lampiran'], 'validateFileUpload', 'skipOnEmpty' => false],
             [['tahun_berkhidmat_tamat'], 'compare', 'compareAttribute'=>'tahun_berkhidmat_mula', 'operator'=>'>=', 'message' => GeneralMessage::yii_validation_compare],
             [['tarikh_tamat_tempoh_sah_laku_sijil'], 'compare', 'compareAttribute'=>'tarikh_mula_tempoh_sah_laku_sijil', 'operator'=>'>=', 'message' => GeneralMessage::yii_validation_compare],
+            [['kategori_kursus', 'nama_kursus', 'tempat', 'nama_penuh', 'pekerjaan', 'nama_majikan', 'kelulusan_akademi', 'nama_kelulusan', 
+                'kelulusan_sukan_spesifik', 'nama_sukan_akademi', 'kelulusan_sains_sukan', 'sijil_spkk_msn', 'lesen_kejurulatihan_msn', 
+                'lantikan', 'nama_sukan_jurulatih', 'catatan','kod_kursus', 'alamat_negeri', 'alamat_majikan_negeri', 'status_jurulatih', 'no_lesen','emel',
+                'taraf_perkahwinan', 'kaum','no_passport','no_kp_polis_tentera','alamat_1', 'alamat_2', 'alamat_3', 'alamat_majikan_1', 'alamat_majikan_2', 'alamat_majikan_3',
+                'alamat_bandar', 'alamat_majikan_bandar','pencapaian','maklumat_persamaan_taraf'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -195,6 +203,12 @@ class PenganjuranKursusPeserta extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
     }
     

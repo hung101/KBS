@@ -123,11 +123,11 @@ class PublicUserEBantuanController extends Controller
                 //upload file to server
                 
                 // delete upload file
-                if($existingSijilPendaftaran != ""){
+                /*if($existingSijilPendaftaran != ""){
                     self::actionDeleteupload($id, 'sijil_pendaftaran');
                 }
                 
-                $model->sijil_pendaftaran = Upload::uploadFile($file, Upload::eBantuanPublicUserFolder, $model->id);
+                $model->sijil_pendaftaran = Upload::uploadFile($file, Upload::eBantuanPublicUserFolder, $model->id);*/
             } else {
                 //invalid file to upload
                 //remain existing file
@@ -141,15 +141,20 @@ class PublicUserEBantuanController extends Controller
                 $model->setPassword($model->new_password);
             }
             
+            $file = UploadedFile::getInstance($model, 'sijil_pendaftaran');
+            if($file){
+                $model->sijil_pendaftaran = Upload::uploadFile($file, Upload::eBantuanPublicUserFolder, $model->id);
+            }
+            
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->id]);
             }
-        } else {
-            return $this->render('update', [
+        } 
+        
+        return $this->render('update', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

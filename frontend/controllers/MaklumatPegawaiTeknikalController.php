@@ -153,14 +153,14 @@ class MaklumatPegawaiTeknikalController extends Controller
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_dicadangkan_id]);
             }
-        } else {
-            return $this->render('create', [
+        } 
+        
+        return $this->render('create', [
                 'model' => $model,
                 'searchModelMaklumatPegawaiTeknikalKejohanan' => $searchModelMaklumatPegawaiTeknikalKejohanan,
                 'dataProviderMaklumatPegawaiTeknikalKejohanan' => $dataProviderMaklumatPegawaiTeknikalKejohanan,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -194,14 +194,14 @@ class MaklumatPegawaiTeknikalController extends Controller
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_dicadangkan_id]);
             }
-        } else {
-            return $this->render('update', [
+        } 
+        
+        return $this->render('update', [
                 'model' => $model,
                 'searchModelMaklumatPegawaiTeknikalKejohanan' => $searchModelMaklumatPegawaiTeknikalKejohanan,
                 'dataProviderMaklumatPegawaiTeknikalKejohanan' => $dataProviderMaklumatPegawaiTeknikalKejohanan,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

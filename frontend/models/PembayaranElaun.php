@@ -60,7 +60,10 @@ class PembayaranElaun extends \yii\db\ActiveRecord
             [['jumlah_elaun'], 'string', 'max' => 10, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempoh_elaun'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['sebab_elaun'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['kelulusan_jkb'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['kelulusan_jkb'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['kategori_elaun','tempoh_elaun','sebab_elaun','kelulusan_jkb'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

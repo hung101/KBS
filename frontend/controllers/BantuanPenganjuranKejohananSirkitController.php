@@ -15,6 +15,8 @@ use app\models\BantuanPenganjuranKejohananSirkitDianjurkan;
 use frontend\models\BantuanPenganjuranKejohananSirkitDianjurkanSearch;
 use app\models\BantuanPenganjuranKejohananSirkitOlehMsn;
 use frontend\models\BantuanPenganjuranKejohananSirkitOlehMsnSearch;
+use app\models\BantuanPenganjuranKejohananSirkitSukan;
+use frontend\models\BantuanPenganjuranKejohananSirkitSukanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -66,8 +68,18 @@ class BantuanPenganjuranKejohananSirkitController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $queryParams = Yii::$app->request->queryParams;
+        
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kejohanan-sirkit']['data-sendiri'])){
+            $queryParams['BantuanPenganjuranKejohananSirkitSearch']['created_by'] = Yii::$app->user->identity->id;
+        }
+        
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kejohanan-sirkit']['kelulusan'])) {
+            $queryParams['BantuanPenganjuranKejohananSirkitSearch']['hantar_flag'] = 1;
+        }
+        
         $searchModel = new BantuanPenganjuranKejohananSirkitSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search($queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -125,6 +137,7 @@ class BantuanPenganjuranKejohananSirkitController extends Controller
         $queryPar['BantuanPenganjuranKejohananSirkitElemenSearch']['bantuan_penganjuran_kejohanan_id'] = $id;
         $queryPar['BantuanPenganjuranKejohananSirkitDianjurkanSearch']['bantuan_penganjuran_kejohanan_id'] = $id;
         $queryPar['BantuanPenganjuranKejohananSirkitOlehMsnSearch']['bantuan_penganjuran_kejohanan_id'] = $id;
+        $queryPar['BantuanPenganjuranKejohananSirkitSukanSearch']['bantuan_penganjuran_kejohanan_id'] = $id;
         
         $searchModelBantuanPenganjuranKejohananSirkitKewangan  = new BantuanPenganjuranKejohananSirkitKewanganSearch();
         $dataProviderBantuanPenganjuranKejohananSirkitKewangan = $searchModelBantuanPenganjuranKejohananSirkitKewangan->search($queryPar);
@@ -141,6 +154,9 @@ class BantuanPenganjuranKejohananSirkitController extends Controller
         $searchModelBantuanPenganjuranKejohananSirkitOlehMsn = new BantuanPenganjuranKejohananSirkitOlehMsnSearch();
         $dataProviderBantuanPenganjuranKejohananSirkitOlehMsn = $searchModelBantuanPenganjuranKejohananSirkitOlehMsn->search($queryPar);
         
+        $searchModelBantuanPenganjuranKejohananSirkitSukan = new BantuanPenganjuranKejohananSirkitSukanSearch();
+        $dataProviderBantuanPenganjuranKejohananSirkitSukan= $searchModelBantuanPenganjuranKejohananSirkitSukan->search($queryPar);
+        
         return $this->render('view', [
             'model' => $model,
             'searchModelBantuanPenganjuranKejohananSirkitKewangan' => $searchModelBantuanPenganjuranKejohananSirkitKewangan,
@@ -153,6 +169,8 @@ class BantuanPenganjuranKejohananSirkitController extends Controller
             'dataProviderBantuanPenganjuranKejohananSirkitDianjurkan' => $dataProviderBantuanPenganjuranKejohananSirkitDianjurkan,
             'searchModelBantuanPenganjuranKejohananSirkitOlehMsn' => $searchModelBantuanPenganjuranKejohananSirkitOlehMsn,
             'dataProviderBantuanPenganjuranKejohananSirkitOlehMsn' => $dataProviderBantuanPenganjuranKejohananSirkitOlehMsn,
+            'searchModelBantuanPenganjuranKejohananSirkitSukan' => $searchModelBantuanPenganjuranKejohananSirkitSukan,
+            'dataProviderBantuanPenganjuranKejohananSirkitSukan' => $dataProviderBantuanPenganjuranKejohananSirkitSukan,
             'readonly' => true,
         ]);
     }
@@ -170,8 +188,6 @@ class BantuanPenganjuranKejohananSirkitController extends Controller
         
         $model = new BantuanPenganjuranKejohananSirkit();
         
-        $model->tarikh_permohonan = GeneralFunction::getCurrentTimestamp();
-        $model->status_permohonan = RefStatusBantuanPenganjuranKejohanan::SEDANG_DIPROSES;
         
         $queryPar = null;
         
@@ -183,6 +199,7 @@ class BantuanPenganjuranKejohananSirkitController extends Controller
             $queryPar['BantuanPenganjuranKejohananSirkitElemenSearch']['session_id'] = Yii::$app->session->id;
             $queryPar['BantuanPenganjuranKejohananSirkitDianjurkanSearch']['session_id'] = Yii::$app->session->id;
             $queryPar['BantuanPenganjuranKejohananSirkitOlehMsnSearch']['session_id'] = Yii::$app->session->id;
+            $queryPar['BantuanPenganjuranKejohananSirkitSukanSearch']['session_id'] = Yii::$app->session->id;
         }
         
         $searchModelBantuanPenganjuranKejohananSirkitKewangan  = new BantuanPenganjuranKejohananSirkitKewanganSearch();
@@ -199,6 +216,9 @@ class BantuanPenganjuranKejohananSirkitController extends Controller
         
         $searchModelBantuanPenganjuranKejohananSirkitOlehMsn = new BantuanPenganjuranKejohananSirkitOlehMsnSearch();
         $dataProviderBantuanPenganjuranKejohananSirkitOlehMsn = $searchModelBantuanPenganjuranKejohananSirkitOlehMsn->search($queryPar);
+        
+        $searchModelBantuanPenganjuranKejohananSirkitSukan = new BantuanPenganjuranKejohananSirkitSukanSearch();
+        $dataProviderBantuanPenganjuranKejohananSirkitSukan= $searchModelBantuanPenganjuranKejohananSirkitSukan->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $file = UploadedFile::getInstance($model, 'kertas_kerja');
@@ -240,36 +260,12 @@ class BantuanPenganjuranKejohananSirkitController extends Controller
                 
                 BantuanPenganjuranKejohananSirkitOlehMsn::updateAll(['bantuan_penganjuran_kejohanan_id' => $model->bantuan_penganjuran_kejohanan_id], 'session_id = "'.Yii::$app->session->id.'"');
                 BantuanPenganjuranKejohananSirkitOlehMsn::updateAll(['session_id' => ''], 'bantuan_penganjuran_kejohanan_id = "'.$model->bantuan_penganjuran_kejohanan_id.'"');
+                
+                BantuanPenganjuranKejohananSirkitSukan::updateAll(['bantuan_penganjuran_kejohanan_id' => $model->bantuan_penganjuran_kejohanan_id], 'session_id = "'.Yii::$app->session->id.'"');
+                BantuanPenganjuranKejohananSirkitSukan::updateAll(['session_id' => ''], 'bantuan_penganjuran_kejohanan_id = "'.$model->bantuan_penganjuran_kejohanan_id.'"');
             }
             
             if($model->save()){
-                if (($modelUsers = User::find()->joinWith('refUserPeranan')->andFilterWhere(['like', 'tbl_user_peranan.peranan_akses', 'pemberitahuan_emel_bantuan-penganjuran-kejohanan-sirkit'])->groupBy('id')->all()) !== null) {
-                    foreach($modelUsers as $modelUser){
-
-                        if($modelUser->email && $modelUser->email != ""){
-                            //echo "E-mail: " . $modelUser->email . "\n";
-                            Yii::$app->mailer->compose()
-                            ->setTo($modelUser->email)
-                            ->setFrom('noreply@spsb.com')
-                            ->setSubject('Pemberitahuan - Permohonan Baru: Maklumat Penyertaan (Sirkit Remaja / Karnival)')
-                            ->setHtmlBody("Salam Sejahtera,
-    <br><br>
-    Berikut adalah butir permohonan telah dihantar : 
-    <br>
-    Nama Kejohanan / Pertandingan: " . $model->nama_kejohanan_pertandingan . '
-    <br>Tempat: ' . $model->tempat . '
-    <br>Tarikh Mula: ' . $model->tarikh_mula . '
-    <br>Tarikh Tamat: ' . $model->tarikh_tamat . '
-    <br><br>
-    Link: ' . BaseUrl::to(['bantuan-penganjuran-kejohanan/view', 'id' => $model->bantuan_penganjuran_kejohanan_id], true) . '
-    <br><br>
-    "KE ARAH KECEMERLANGAN SUKAN"<br>
-    Majlis Sukan Negara Malaysia.
-        ')->send();
-                        }
-                    }
-                }
-            
                 return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kejohanan_id]);
             }
         } 
@@ -286,6 +282,8 @@ class BantuanPenganjuranKejohananSirkitController extends Controller
                 'dataProviderBantuanPenganjuranKejohananSirkitDianjurkan' => $dataProviderBantuanPenganjuranKejohananSirkitDianjurkan,
                 'searchModelBantuanPenganjuranKejohananSirkitOlehMsn' => $searchModelBantuanPenganjuranKejohananSirkitOlehMsn,
                 'dataProviderBantuanPenganjuranKejohananSirkitOlehMsn' => $dataProviderBantuanPenganjuranKejohananSirkitOlehMsn,
+                'searchModelBantuanPenganjuranKejohananSirkitSukan' => $searchModelBantuanPenganjuranKejohananSirkitSukan,
+                'dataProviderBantuanPenganjuranKejohananSirkitSukan' => $dataProviderBantuanPenganjuranKejohananSirkitSukan,
                 'readonly' => false,
             ]);
     }
@@ -308,6 +306,8 @@ class BantuanPenganjuranKejohananSirkitController extends Controller
         $model->status_permohonan_id = $model->status_permohonan;
         
         if($model->load(Yii::$app->request->post())){
+            $oldStatusPermohonan = $model->getOldAttribute('status_permohonan');
+            
             $file = UploadedFile::getInstance($model, 'kertas_kerja');
 
             if($file){
@@ -315,12 +315,12 @@ class BantuanPenganjuranKejohananSirkitController extends Controller
                 //upload file to server
                 
                 // delete upload file
-                if($existingKertasKerja != ""){
+                /*if($existingKertasKerja != ""){
                     self::actionDeleteupload($id, 'kertas_kerja');
                 }
                 
                 $filename = $model->bantuan_penganjuran_kejohanan_id . "-kertas_kerja";
-                $model->kertas_kerja = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananSirkitFolder, $filename);
+                $model->kertas_kerja = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananSirkitFolder, $filename);*/
             } else {
                 //invalid file to upload
                 //remain existing file
@@ -334,19 +334,19 @@ class BantuanPenganjuranKejohananSirkitController extends Controller
                 //upload file to server
                 
                 // delete upload file
-                if($existingSuratRasmiBadanSukanzMsNegeri != ""){
+                /*if($existingSuratRasmiBadanSukanzMsNegeri != ""){
                     self::actionDeleteupload($id, 'surat_rasmi_badan_sukan_ms_negeri');
                 }
                 
                 $filename = $model->bantuan_penganjuran_kejohanan_id . "-surat_rasmi_badan_sukan_ms_negeri";
-                $model->surat_rasmi_badan_sukan_ms_negeri = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananSirkitFolder, $filename);
+                $model->surat_rasmi_badan_sukan_ms_negeri = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananSirkitFolder, $filename);*/
             } else {
                 //invalid file to upload
                 //remain existing file
                 $model->surat_rasmi_badan_sukan_ms_negeri = $existingSuratRasmiBadanSukanzMsNegeri;
             }
             
-            $file = UploadedFile::getInstance($model, 'permohonan_rasmi_dari_ahli_gabungan');
+            /*$file = UploadedFile::getInstance($model, 'permohonan_rasmi_dari_ahli_gabungan');
             $filename = $model->bantuan_penganjuran_kejohanan_id . "-permohonan_rasmi_dari_ahli_gabungan";
             if($file){
                 $model->permohonan_rasmi_dari_ahli_gabungan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananSirkitFolder, $filename);
@@ -356,7 +356,7 @@ class BantuanPenganjuranKejohananSirkitController extends Controller
             $filename = $model->bantuan_penganjuran_kejohanan_id . "-maklumat_lain_sokongan";
             if($file){
                 $model->maklumat_lain_sokongan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananSirkitFolder, $filename);
-            }
+            }*/
         }
         
         $queryPar = null;
@@ -366,6 +366,7 @@ class BantuanPenganjuranKejohananSirkitController extends Controller
         $queryPar['BantuanPenganjuranKejohananSirkitElemenSearch']['bantuan_penganjuran_kejohanan_id'] = $id;
         $queryPar['BantuanPenganjuranKejohananSirkitDianjurkanSearch']['bantuan_penganjuran_kejohanan_id'] = $id;
         $queryPar['BantuanPenganjuranKejohananSirkitOlehMsnSearch']['bantuan_penganjuran_kejohanan_id'] = $id;
+        $queryPar['BantuanPenganjuranKejohananSirkitSukanSearch']['bantuan_penganjuran_kejohanan_id'] = $id;
         
         $searchModelBantuanPenganjuranKejohananSirkitKewangan  = new BantuanPenganjuranKejohananSirkitKewanganSearch();
         $dataProviderBantuanPenganjuranKejohananSirkitKewangan = $searchModelBantuanPenganjuranKejohananSirkitKewangan->search($queryPar);
@@ -381,11 +382,83 @@ class BantuanPenganjuranKejohananSirkitController extends Controller
         
         $searchModelBantuanPenganjuranKejohananSirkitOlehMsn = new BantuanPenganjuranKejohananSirkitOlehMsnSearch();
         $dataProviderBantuanPenganjuranKejohananSirkitOlehMsn = $searchModelBantuanPenganjuranKejohananSirkitOlehMsn->search($queryPar);
+        
+        $searchModelBantuanPenganjuranKejohananSirkitSukan = new BantuanPenganjuranKejohananSirkitSukanSearch();
+        $dataProviderBantuanPenganjuranKejohananSirkitSukan= $searchModelBantuanPenganjuranKejohananSirkitSukan->search($queryPar);
 
         if (Yii::$app->request->post() && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kejohanan_id]);
-        } else {
-            return $this->render('update', [
+            $file = UploadedFile::getInstance($model, 'kertas_kerja');
+            $filename = $model->bantuan_penganjuran_kejohanan_id . "-kertas_kerja";
+            if($file){
+                $model->kertas_kerja = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananSirkitFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'surat_rasmi_badan_sukan_ms_negeri');
+            $filename = $model->bantuan_penganjuran_kejohanan_id . "-surat_rasmi_badan_sukan_ms_negeri";
+            if($file){
+                $model->surat_rasmi_badan_sukan_ms_negeri = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananSirkitFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'permohonan_rasmi_dari_ahli_gabungan');
+            $filename = $model->bantuan_penganjuran_kejohanan_id . "-permohonan_rasmi_dari_ahli_gabungan";
+            if($file){
+                $model->permohonan_rasmi_dari_ahli_gabungan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananSirkitFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'maklumat_lain_sokongan');
+            $filename = $model->bantuan_penganjuran_kejohanan_id . "-maklumat_lain_sokongan";
+            if($file){
+                $model->maklumat_lain_sokongan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananSirkitFolder, $filename);
+            }
+            
+            if (($modelUser = User::findOne($model->created_by)) !== null) {
+                    if($modelUser->email && $modelUser->email != '' && $model->status_permohonan){
+                        if($model->status_permohonan != $oldStatusPermohonan){
+                        
+                            $ref = RefStatusBantuanPenganjuranKejohanan::findOne(['id' => $model->status_permohonan]);
+                            $model->status_permohonan = $ref['desc'];
+
+                            try {
+                                Yii::$app->mailer->compose()
+                                        ->setTo($modelUser->email)
+                                        ->setFrom('noreply@spsb.com')
+                                        ->setSubject('Status Permohonan Maklumat Penyertaan (Sirkit Remaja / Karnival)')
+                                        ->setHtmlBody('Assalamualaikum dan Salam Sejahtera,
+<br><br>
+Tuan/Puan,
+<br><br>
+MAKLUMAN PERMOHONAN
+<br><br>
+Dengan hormatnya saya ingin menarik perhatian Tuan/Puan mengenai perkara di atas adalah berkaitan.
+<br><br>
+2. Adalah dimaklumkan bahawa permohonan bantuan dan peruntukan pihak Tuan/Puan telah <b>'.strtoupper($model->status_permohonan).'</b>, seperti berikut:
+    <br>
+    <br>Nama Kejohanan / Pertandingan: ' . $model->nama_kejohanan_pertandingan . '
+    <br>Tempat: ' . $model->tempat . '
+    <br>Tarikh Mula: ' . $model->tarikh_mula . '
+    <br>Tarikh Tamat: ' . $model->tarikh_tamat . '
+    <br>Jumlah bantuan yang dipohon : RM ' . $model->jumlah_bantuan_yang_dipohon . '
+<br><br>
+3. Segala kerjasama dan perhatian pihak tuan diucapkan ribuan terima kasih.
+    <br><br>
+    "KE ARAH KECEMERLANGAN SUKAN"<br>
+    Majlis Sukan Negara Malaysia.')->send();
+                            }
+                            catch(\Swift_SwiftException $exception)
+                            {
+                                Yii::$app->getSession()->setFlash('error', 'Can sent mail due to the following exception: '.print_r($exception));
+                                //return 'Can sent mail due to the following exception'.print_r($exception);
+                            }
+                        }
+                    }
+                }
+                
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kejohanan_id]);
+            }
+        } 
+        
+        return $this->render('update', [
                 'model' => $model,
                 'searchModelBantuanPenganjuranKejohananSirkitKewangan' => $searchModelBantuanPenganjuranKejohananSirkitKewangan,
                 'dataProviderBantuanPenganjuranKejohananSirkitKewangan' => $dataProviderBantuanPenganjuranKejohananSirkitKewangan,
@@ -397,9 +470,10 @@ class BantuanPenganjuranKejohananSirkitController extends Controller
                 'dataProviderBantuanPenganjuranKejohananSirkitDianjurkan' => $dataProviderBantuanPenganjuranKejohananSirkitDianjurkan,
                 'searchModelBantuanPenganjuranKejohananSirkitOlehMsn' => $searchModelBantuanPenganjuranKejohananSirkitOlehMsn,
                 'dataProviderBantuanPenganjuranKejohananSirkitOlehMsn' => $dataProviderBantuanPenganjuranKejohananSirkitOlehMsn,
+                'searchModelBantuanPenganjuranKejohananSirkitSukan' => $searchModelBantuanPenganjuranKejohananSirkitSukan,
+                'dataProviderBantuanPenganjuranKejohananSirkitSukan' => $dataProviderBantuanPenganjuranKejohananSirkitSukan,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -426,6 +500,57 @@ class BantuanPenganjuranKejohananSirkitController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+    
+    /**
+     * Updates an existing BantuanPenganjuranKejohananSirkit model.
+     * If approved is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionHantar($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = $this->findModel($id);
+        
+        $model->hantar_flag = 1; // set approved
+        $model->tarikh_hantar = GeneralFunction::getCurrentTimestamp(); // set date capture
+
+        $model->tarikh_permohonan = GeneralFunction::getCurrentTimestamp();
+        $model->status_permohonan = RefStatusBantuanPenganjuranKejohanan::SEDANG_DIPROSES;
+        
+        $model->save();
+        
+        
+        if (($modelUsers = User::find()->joinWith('refUserPeranan')->andFilterWhere(['like', 'tbl_user_peranan.peranan_akses', 'pemberitahuan_emel_bantuan-penganjuran-kejohanan-sirkit'])->groupBy('id')->all()) !== null) {
+                    foreach($modelUsers as $modelUser){
+
+                        if($modelUser->email && $modelUser->email != ""){
+                            //echo "E-mail: " . $modelUser->email . "\n";
+                            Yii::$app->mailer->compose()
+                            ->setTo($modelUser->email)
+                            ->setFrom('noreply@spsb.com')
+                            ->setSubject('Pemberitahuan - Permohonan Baru: Maklumat Penyertaan (Sirkit Remaja / Karnival)')
+                            ->setHtmlBody("Assalamualaikum dan Salam Sejahtera, 
+    <br><br>
+    Terdapat permohonan baru yang diterima: 
+    <br>Nama Kejohanan / Pertandingan: " . $model->nama_kejohanan_pertandingan . '
+    <br>Tempat: ' . $model->tempat . '
+    <br>Tarikh Mula: ' . $model->tarikh_mula . '
+    <br>Tarikh Tamat: ' . $model->tarikh_tamat . '
+    <br>Jumlah bantuan yang dipohon : RM  ' . $model->jumlah_bantuan_yang_dipohon . '
+    <br><br>
+    "KE ARAH KECEMERLANGAN SUKAN"<br>
+    Majlis Sukan Negara Malaysia.
+        ')->send();
+                        }
+                    }
+                }
+        
+        return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kejohanan_id]);
     }
 
     /**
@@ -500,10 +625,13 @@ class BantuanPenganjuranKejohananSirkitController extends Controller
         $ref = RefStatusBantuanPenganjuranKejohanan::findOne(['id' => $model->status_permohonan]);
         $model->status_permohonan = $ref['desc'];
         
+        $BantuanPenganjuranKejohananSirkitSukan = BantuanPenganjuranKejohananSirkitSukan::find()->joinWith(['refSukan'])
+													->where(['bantuan_penganjuran_kejohanan_id' => $model->bantuan_penganjuran_kejohanan_id])->all();
+        
         $BantuanPenganjuranKejohananSirkitKewangan = BantuanPenganjuranKejohananSirkitKewangan::find()->joinWith(['refSumberKewanganBantuanPenganjuranKejohanan'])
 													->where(['bantuan_penganjuran_kejohanan_id' => $model->bantuan_penganjuran_kejohanan_id])->all();
 													
-		$BantuanPenganjuranKejohananSirkitBayaran = BantuanPenganjuranKejohananSirkitBayaran::find()->joinWith(['refJenisBayaranBantuanPenganjuranKejohanan'])
+	$BantuanPenganjuranKejohananSirkitBayaran = BantuanPenganjuranKejohananSirkitBayaran::find()->joinWith(['refJenisBayaranBantuanPenganjuranKejohanan'])
 													->where(['bantuan_penganjuran_kejohanan_id' => $model->bantuan_penganjuran_kejohanan_id])->all();
 
         $BantuanPenganjuranKejohananSirkitElemen = BantuanPenganjuranKejohananSirkitElemen::find()->joinWith(['refElemenBantuanPenganjuranKejohanan', 'refSubElemenBantuanPenganjuranKejohanan'])
@@ -523,6 +651,7 @@ class BantuanPenganjuranKejohananSirkitController extends Controller
         $pdf->WriteHTML($stylesheet,1);
         
         $pdf->WriteHTML($this->renderpartial('print', [
+            'BantuanPenganjuranKejohananSirkitSukan'  => $BantuanPenganjuranKejohananSirkitSukan,
 		     'BantuanPenganjuranKejohananSirkitKewangan'  => $BantuanPenganjuranKejohananSirkitKewangan,
 			 'BantuanPenganjuranKejohananSirkitBayaran'  => $BantuanPenganjuranKejohananSirkitBayaran,
 			 'BantuanPenganjuranKejohananSirkitElemen'  => $BantuanPenganjuranKejohananSirkitElemen,

@@ -47,6 +47,9 @@ class BantuanPenyertaanPegawaiTeknikalOlehMsn extends \yii\db\ActiveRecord
             [['status_penganjuran'], 'string', 'max' => 30],
             [['session_id'], 'string', 'max' => 100],
             [['kejohanan'], 'string', 'max' => 255],
+            [['jumlah_bantuan', 'status_penganjuran_lain_lain','tempat','status_penganjuran','kejohanan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

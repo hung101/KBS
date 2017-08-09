@@ -87,6 +87,10 @@ class PermohonanBimbinganKaunseling extends \yii\db\ActiveRecord
                     return $('#agensi').val() == '" . RefAgensiKaunseling::MAJLIS_SUKAN_NEGERI . "';
                 }"],
             [['jurulatih, atlet_id'], 'validateJurulatihAtlet', 'skipOnEmpty' => false],
+            [['kes_latarbelakang', 'agensi', 'jantina', 'taraf_perkahwinan', 'no_rujukan_kes','nama_pemohon_rujukan', 'pekerjaan_bapa', 'pekerjaan_ibu', 'cawangan_isn',
+                'notis', 'diagnosis', 'cadangan', 'tindakan_kaunselor','emel'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

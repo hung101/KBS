@@ -7,7 +7,7 @@ use app\models\general\GeneralVariable;
 
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
-
+use common\models\general\GeneralFunction;
 use yii\web\UploadedFile;
 use app\models\general\Upload;
 
@@ -62,6 +62,9 @@ class JurulatihPendidikan extends \yii\db\ActiveRecord
             [['tahap_pendidikan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['gred', 'salinan_sijil'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['salinan_sijil'], 'validateFileUpload', 'skipOnEmpty' => false],
+            [['sekolah_kolej_universiti','tahap_pendidikan','gred'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -89,6 +92,12 @@ class JurulatihPendidikan extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
 
         if(!$file && $this->$attribute==""){

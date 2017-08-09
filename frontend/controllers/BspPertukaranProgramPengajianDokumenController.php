@@ -127,11 +127,11 @@ class BspPertukaranProgramPengajianDokumenController extends Controller
                 //upload file to server
                 
                 // delete upload file
-                if($existingUpload != ""){
+                /*if($existingUpload != ""){
                     self::actionDeleteupload($id, 'upload');
                 }
                 
-                $model->upload = Upload::uploadFile($file, Upload::bspPertukaranProgramPengajianDokumenFolder, $model->bsp_pertukaran_program_pengajian_dokumen_id);
+                $model->upload = Upload::uploadFile($file, Upload::bspPertukaranProgramPengajianDokumenFolder, $model->bsp_pertukaran_program_pengajian_dokumen_id);*/
             } else {
                 //invalid file to upload
                 //remain existing file
@@ -139,7 +139,12 @@ class BspPertukaranProgramPengajianDokumenController extends Controller
             }
         }
 
-        if (Yii::$app->request->post()) {
+        if (Yii::$app->request->post() && $model->save()) {
+            $file = UploadedFile::getInstance($model, 'upload');
+            if($file){
+                $model->upload = Upload::uploadFile($file, Upload::bspPertukaranProgramPengajianDokumenFolder, $model->bsp_pertukaran_program_pengajian_dokumen_id);
+            }
+            
             if($model->save()){
                 return '1';
             }

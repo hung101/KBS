@@ -59,7 +59,11 @@ class PertukaranPengajian extends \yii\db\ActiveRecord
             [['sebab_pemohonan', 'sebab_pertukaran', 'sebab_penangguhan', 'sebab'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['kategori_pengajian', 'tempoh_penangguhan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['nama_pengajian_sekarang', 'nama_pertukaran_pengajian', 'kejohanan_program'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['nama_pengajian_sekarang', 'nama_pertukaran_pengajian', 'kejohanan_program'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['program', 'sukan', 'sebab_pemohonan', 'sebab_pertukaran', 'sebab_penangguhan', 'sebab','kategori_pengajian', 'tempoh_penangguhan','tempat',
+                'nama_pengajian_sekarang', 'nama_pertukaran_pengajian', 'kejohanan_program'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
     

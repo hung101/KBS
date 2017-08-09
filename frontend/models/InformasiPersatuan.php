@@ -66,7 +66,10 @@ class InformasiPersatuan extends \yii\db\ActiveRecord
             [['alamat_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_tel', 'no_faks'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_tel', 'no_faks'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['emel', 'laman_web'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['emel', 'laman_web'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_persatuan','alamat_1', 'alamat_2', 'alamat_3','alamat_negeri','alamat_bandar','alamat_poskod','emel', 'laman_web'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

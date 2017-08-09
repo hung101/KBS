@@ -41,6 +41,9 @@ class PermohonanKemudahanTicketKapalTerbangAtlet extends \yii\db\ActiveRecord
             [['flight_no_pergi', 'flight_no_balik'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['session_id', 'passport_no', 'ic_no'], 'string', 'max' => 100],
             [['destinasi_pergi', 'destinasi_balik', 'catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['hp_no', 'masa_pergi', 'masa_balik','flight_no_pergi', 'flight_no_balik', 'passport_no', 'ic_no','destinasi_pergi', 'destinasi_balik', 'catatan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

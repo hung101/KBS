@@ -7,6 +7,7 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 /**
  * This is the model class for table "tbl_forum_seminar_persidangan_di_luar_negara".
@@ -63,6 +64,9 @@ class ForumSeminarPersidanganDiLuarNegara extends \yii\db\ActiveRecord
             [['surat_permohonan', 'surat_jemputan'], 'validateFileUpload', 'skipOnEmpty' => false],
             [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email],
             [['tarikh_tamat'], 'compare', 'compareAttribute'=>'tarikh', 'operator'=>'>=', 'message' => GeneralMessage::yii_validation_compare],
+            [['nama','emel','negara', 'bilangan_jkb','catatan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -107,6 +111,12 @@ class ForumSeminarPersidanganDiLuarNegara extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
 
         if(!$file && $this->$attribute==""){

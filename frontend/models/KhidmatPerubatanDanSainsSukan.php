@@ -7,7 +7,7 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
-
+use common\models\general\GeneralFunction;
 /**
  * This is the model class for table "tbl_khidmat_perubatan_dan_sains_sukan".
  *
@@ -53,6 +53,9 @@ class KhidmatPerubatanDanSainsSukan extends \yii\db\ActiveRecord
             [['muat_naik'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['kecederaan_jika_ada'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false],
+            [['tempat','status', 'mod_latihan', 'sasaran','kecederaan_jika_ada'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -91,6 +94,12 @@ class KhidmatPerubatanDanSainsSukan extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
     }
     

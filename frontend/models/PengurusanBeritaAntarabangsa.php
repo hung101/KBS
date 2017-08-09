@@ -8,6 +8,7 @@ use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 /**
  * This is the model class for table "tbl_pengurusan_berita_antarabangsa".
@@ -70,7 +71,12 @@ class PengurusanBeritaAntarabangsa extends \yii\db\ActiveRecord
             [['catatan', 'public_transportation'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muatnaik'],'validateFileUpload', 'skipOnEmpty' => false],
             //[['no_telefon'],'validateInternationalPhoneNo', 'skipOnEmpty' => true],
-            [['no_telefon', 'no_faks'], 'match', 'pattern' => '/^[0-9-+.]+$/', 'message' => GeneralMessage::yii_validation_match] //only allow international number
+            [['no_telefon', 'no_faks'], 'match', 'pattern' => '/^[0-9-+.]+$/', 'message' => GeneralMessage::yii_validation_match], //only allow international number
+            [['kategori_berita', 'nama_berita', 'nama_pegawai_embassy', 'climate', 'region', 'state', 'goverment_mayor',
+                'area_municipality', 'economy_gpp', 'popular_sports','alamat_1', 'alamat_2', 'alamat_3', 'area_code',
+                'gps','currency', 'timezone', 'malaysian_timezone','catatan', 'public_transportation'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -124,6 +130,12 @@ class PengurusanBeritaAntarabangsa extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
 
         if(!$file && $this->$attribute==""){

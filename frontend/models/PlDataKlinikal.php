@@ -70,7 +70,11 @@ class PlDataKlinikal extends \yii\db\ActiveRecord
             [['haid_kali_terakhir_hari_pertama', 'kali_terakhir_bersalin'], 'safe'],
             [['penglihatan_tanpa_cermin_mata_kiri', 'penglihatan_tanpa_cermin_mata_kanan', 'penglihatan_cermin_mata_kiri', 'penglihatan_cermin_mata_kanan', 'status_haid', 'status_perokok', 'jenis_alkohol', 'diet_harian'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['haid_kitaran'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['masalah_haid','supplements'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['masalah_haid','supplements'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['penglihatan_tanpa_cermin_mata_kiri', 'penglihatan_tanpa_cermin_mata_kanan', 'penglihatan_cermin_mata_kiri', 'penglihatan_cermin_mata_kanan', 
+                'status_haid', 'status_perokok', 'jenis_alkohol', 'diet_harian','haid_kitaran','masalah_haid','supplements'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

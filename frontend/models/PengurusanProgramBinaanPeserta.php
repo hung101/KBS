@@ -55,7 +55,10 @@ class PengurusanProgramBinaanPeserta extends \yii\db\ActiveRecord
             [['pengurusan_program_binaan_id', 'atlet_id', 'jurulatih_id', 'peranan_peserta'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['kategori_peserta'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['nama_peserta'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['jantina'], 'string', 'max' => 1, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['jantina'], 'string', 'max' => 1, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['kategori_peserta','nama_peserta'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

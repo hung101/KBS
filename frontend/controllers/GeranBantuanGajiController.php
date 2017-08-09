@@ -178,14 +178,17 @@ class GeranBantuanGajiController extends Controller
             if($file){
                 $model->salinan_tawaran = $upload->uploadFile($file, Upload::geranBantuanGajiFolder, $model->geran_bantuan_gaji_id);
             }
+            
             $file = UploadedFile::getInstance($model, 'persetujuan_terima');
             if($file){
                 $model->persetujuan_terima = $upload->uploadFile($file, Upload::geranBantuanGajiFolder, $model->geran_bantuan_gaji_id);
             }
-			if(isset(Yii::$app->session->id)){
+            
+            if(isset(Yii::$app->session->id)){
                 GeranBantuanGajiLampiran::updateAll(['geran_bantuan_gaji_id' => $model->geran_bantuan_gaji_id], 'session_id = "'.Yii::$app->session->id.'"');
                 GeranBantuanGajiLampiran::updateAll(['session_id' => ''], 'geran_bantuan_gaji_id = "'.$model->geran_bantuan_gaji_id.'"');
             }
+            
             if($model->save()){
                 $query = RefKelulusanGeranBantuanGajiJurulatih::find()->where(['id' => $model->kelulusan])->andWhere(['or',
                 ['like', 'desc', 'lulus'],
@@ -197,14 +200,14 @@ class GeranBantuanGajiController extends Controller
                 
                 return $this->redirect(['view', 'id' => $model->geran_bantuan_gaji_id]);
             }
-        } else {
-            return $this->render('create', [
+        } 
+        
+        return $this->render('create', [
                 'model' => $model,
-				'searchModelGeranBantuanGajiLampiran' => $searchModelGeranBantuanGajiLampiran,
-				'dataProviderGeranBantuanGajiLampiran' => $dataProviderGeranBantuanGajiLampiran,
+                'searchModelGeranBantuanGajiLampiran' => $searchModelGeranBantuanGajiLampiran,
+                'dataProviderGeranBantuanGajiLampiran' => $dataProviderGeranBantuanGajiLampiran,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -222,7 +225,7 @@ class GeranBantuanGajiController extends Controller
         $model = $this->findModel($id);
         $oriKelulusan = $model->kelulusan;
 		
-		$queryPar = null;
+        $queryPar = null;
         
         $queryPar['GeranBantuanGajiLampiranSearch']['geran_bantuan_gaji_id'] = $id;
         
@@ -239,6 +242,7 @@ class GeranBantuanGajiController extends Controller
             if($file){
                 $model->persetujuan_terima = $upload->uploadFile($file, Upload::geranBantuanGajiFolder, $model->geran_bantuan_gaji_id);
             }
+            
             if($model->save()){
                 if($oriKelulusan != $model->kelulusan) {
                     $query = RefKelulusanGeranBantuanGajiJurulatih::find()->where(['id' => $model->kelulusan])->andWhere(['or',
@@ -252,14 +256,14 @@ class GeranBantuanGajiController extends Controller
 
                 return $this->redirect(['view', 'id' => $model->geran_bantuan_gaji_id]);
             }
-        } else {
-            return $this->render('update', [
+        } 
+        
+        return $this->render('update', [
                 'model' => $model,
-				'searchModelGeranBantuanGajiLampiran' => $searchModelGeranBantuanGajiLampiran,
-				'dataProviderGeranBantuanGajiLampiran' => $dataProviderGeranBantuanGajiLampiran,
+                'searchModelGeranBantuanGajiLampiran' => $searchModelGeranBantuanGajiLampiran,
+                'dataProviderGeranBantuanGajiLampiran' => $dataProviderGeranBantuanGajiLampiran,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

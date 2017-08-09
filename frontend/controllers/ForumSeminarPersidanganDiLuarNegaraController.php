@@ -186,17 +186,19 @@ class ForumSeminarPersidanganDiLuarNegaraController extends Controller
                 ForumSeminarPeserta::updateAll(['session_id' => ''], 'forum_seminar_persidangan_di_luar_negara_id = "'.$model->forum_seminar_persidangan_di_luar_negara_id.'"');
             }
             
-            return $this->redirect(['view', 'id' => $model->forum_seminar_persidangan_di_luar_negara_id]);
-        } else {
-            return $this->render('create', [
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->forum_seminar_persidangan_di_luar_negara_id]);
+            }
+        } 
+        
+        return $this->render('create', [
                 'model' => $model,
                 'searchModelInformasiPermohonanProgramAntarabangsa' => $searchModelInformasiPermohonanProgramAntarabangsa,
                 'dataProviderInformasiPermohonanProgramAntarabangsa' => $dataProviderInformasiPermohonanProgramAntarabangsa,
-				'searchModelForumSeminarPeserta' => $searchModelForumSeminarPeserta,
-				'dataProviderForumSeminarPeserta' => $dataProviderForumSeminarPeserta,
+                'searchModelForumSeminarPeserta' => $searchModelForumSeminarPeserta,
+                'dataProviderForumSeminarPeserta' => $dataProviderForumSeminarPeserta,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -221,12 +223,12 @@ class ForumSeminarPersidanganDiLuarNegaraController extends Controller
         $queryPar = null;
         
         $queryPar['InformasiPermohonanProgramAntarabangsaSearch']['forum_seminar_persidangan_di_luar_negara_id'] = $id;
-		$queryPar['ForumSeminarPesertaSearch']['forum_seminar_persidangan_di_luar_negara_id'] = $id;
+        $queryPar['ForumSeminarPesertaSearch']['forum_seminar_persidangan_di_luar_negara_id'] = $id;
         
         $searchModelInformasiPermohonanProgramAntarabangsa  = new InformasiPermohonanProgramAntarabangsaSearch();
         $dataProviderInformasiPermohonanProgramAntarabangsa = $searchModelInformasiPermohonanProgramAntarabangsa->search($queryPar);
 		
-		$searchModelForumSeminarPeserta = new ForumSeminarPesertaSearch();
+        $searchModelForumSeminarPeserta = new ForumSeminarPesertaSearch();
         $dataProviderForumSeminarPeserta = $searchModelForumSeminarPeserta->search($queryPar);
 
         if($model->load(Yii::$app->request->post())){
@@ -237,23 +239,37 @@ class ForumSeminarPersidanganDiLuarNegaraController extends Controller
             if($file){
                 //valid file to upload
                 //upload file to server
-                $filename = $model->forum_seminar_persidangan_di_luar_negara_id . "-surat_permohonan";
-                $model->surat_permohonan = Upload::uploadFile($file,  Upload::forumSeminarPersidanganDiLuarNegaraFolder, $filename);
+                /*$filename = $model->forum_seminar_persidangan_di_luar_negara_id . "-surat_permohonan";
+                $model->surat_permohonan = Upload::uploadFile($file,  Upload::forumSeminarPersidanganDiLuarNegaraFolder, $filename);*/
             } else {
                 $model->surat_permohonan = $existingSurat;
             }
 			
-			$file = UploadedFile::getInstance($model, 'surat_jemputan');
+            $file = UploadedFile::getInstance($model, 'surat_jemputan');
 
             if($file){
-                $filename = $model->forum_seminar_persidangan_di_luar_negara_id . "-surat_jemputan";
-                $model->surat_jemputan = Upload::uploadFile($file,  Upload::forumSeminarPersidanganDiLuarNegaraFolder, $filename);
+                /*$filename = $model->forum_seminar_persidangan_di_luar_negara_id . "-surat_jemputan";
+                $model->surat_jemputan = Upload::uploadFile($file,  Upload::forumSeminarPersidanganDiLuarNegaraFolder, $filename);*/
             } else {
                 $model->surat_jemputan = $existingJemputan;
             }
         }
 		
         if (Yii::$app->request->post() && $model->save()) {
+            $file = UploadedFile::getInstance($model, 'surat_permohonan');
+            $filename = $model->forum_seminar_persidangan_di_luar_negara_id . "-surat_permohonan";
+            if($file){
+                $model->surat_permohonan = Upload::uploadFile($file, Upload::forumSeminarPersidanganDiLuarNegaraFolder, $filename);
+				$model->save();
+            }			
+			
+            $file = UploadedFile::getInstance($model, 'surat_jemputan');
+            $filename = $model->forum_seminar_persidangan_di_luar_negara_id . "-surat_jemputan";
+            if($file){
+                $model->surat_jemputan = Upload::uploadFile($file, Upload::forumSeminarPersidanganDiLuarNegaraFolder, $filename);
+				$model->save();
+            }
+            
             if($model->emel && $model->emel != "" && $model->status_permohonan ){
                 if($model->status_permohonan != $oldStatusPermohonan){
                     try {
@@ -281,17 +297,19 @@ Sekian.
                 }
             }
             
-            return $this->redirect(['view', 'id' => $model->forum_seminar_persidangan_di_luar_negara_id]);
-        } else {
-            return $this->render('update', [
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->forum_seminar_persidangan_di_luar_negara_id]);
+            }
+        } 
+        
+        return $this->render('update', [
                 'model' => $model,
                 'searchModelInformasiPermohonanProgramAntarabangsa' => $searchModelInformasiPermohonanProgramAntarabangsa,
                 'dataProviderInformasiPermohonanProgramAntarabangsa' => $dataProviderInformasiPermohonanProgramAntarabangsa,
-				'searchModelForumSeminarPeserta' => $searchModelForumSeminarPeserta,
-				'dataProviderForumSeminarPeserta' => $dataProviderForumSeminarPeserta,
+                'searchModelForumSeminarPeserta' => $searchModelForumSeminarPeserta,
+                'dataProviderForumSeminarPeserta' => $dataProviderForumSeminarPeserta,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

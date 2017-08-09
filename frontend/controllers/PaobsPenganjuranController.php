@@ -247,14 +247,14 @@ class PaobsPenganjuranController extends Controller
                 
                 return $this->redirect(['view', 'id' => $model->penganjuran_id]);
             }
-        } else {
-            return $this->render('create', [
+        } 
+        
+        return $this->render('create', [
                 'model' => $model,
                 'readonly' => false,
                 'searchModelPaobsPenganjuranSumberKewangan' => $searchModelPaobsPenganjuranSumberKewangan,
                 'dataProviderPaobsPenganjuranSumberKewangan' => $dataProviderPaobsPenganjuranSumberKewangan,
             ]);
-        }
     }
 
     /**

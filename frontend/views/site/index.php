@@ -68,7 +68,7 @@ $this->title = GeneralLabel::kementerian_belia_dan_sukan_malaysia_dashboard;
             // Atlet Jumlah START
 
             $command = $connection->createCommand('
-                SELECT COUNT(*) as JUMLAH FROM tbl_atlet', [':year' => date("Y")]);
+                SELECT COUNT(*) as JUMLAH FROM tbl_atlet WHERE tawaran = 2', [':year' => date("Y")]);
 
             $result = $command->queryAll();
 
@@ -102,7 +102,7 @@ $this->title = GeneralLabel::kementerian_belia_dan_sukan_malaysia_dashboard;
             // Jurulatih Jumlah START
 
             $command = $connection->createCommand('
-                SELECT COUNT(*) as JUMLAH FROM tbl_jurulatih', [':year' => date("Y")]);
+                SELECT COUNT(*) as JUMLAH FROM tbl_jurulatih WHERE approved = 1', [':year' => date("Y")]);
 
             $result = $command->queryAll();
 
@@ -378,10 +378,10 @@ $this->title = GeneralLabel::kementerian_belia_dan_sukan_malaysia_dashboard;
                                             (SELECT COUNT(*) AS JUMLAH,
                                                 (SELECT (SELECT r.desc FROM tbl_ref_program_semasa_sukan_atlet r WHERE r.id = ass.program_semasa) FROM tbl_atlet_sukan ass WHERE ass.atlet_id = att.atlet_id ORDER BY ass.tarikh_mula_menyertai_program_msn DESC LIMIT 1 ) AS PROGRAM
                                                 FROM `tbl_atlet` att 
-                                                WHERE att.cacat = 0
+                                                WHERE att.cacat = 0 AND att.tawaran = 2
                                                 GROUP BY PROGRAM) inner1 ) AS JUMLAH_KESELURUHAN
                                         FROM `tbl_atlet` a 
-                                        WHERE a.cacat = 0
+                                        WHERE a.cacat = 0 AND a.tawaran = 2
                                         GROUP BY PROGRAM
                                     ) final ', [':year' => date("Y")]);
 
@@ -445,10 +445,10 @@ $this->title = GeneralLabel::kementerian_belia_dan_sukan_malaysia_dashboard;
                                             (SELECT COUNT(*) AS JUMLAH,
                                                 (SELECT (SELECT r.desc FROM tbl_ref_program_semasa_sukan_atlet r WHERE r.id = ass.program_semasa) FROM tbl_atlet_sukan ass WHERE ass.atlet_id = att.atlet_id ORDER BY ass.tarikh_mula_menyertai_program_msn DESC LIMIT 1 ) AS PROGRAM
                                                 FROM `tbl_atlet` att 
-                                                WHERE att.cacat = 0
+                                                WHERE att.cacat = 0 AND att.tawaran = 2
                                                 GROUP BY PROGRAM) inner1 ) AS JUMLAH_KESELURUHAN
                                         FROM `tbl_atlet` a 
-                                        WHERE a.cacat = 0
+                                        WHERE a.cacat = 0 AND a.tawaran = 2
                                         GROUP BY SUKAN
                                     ) final 
                                     GROUP BY final.SUKAN_ID
@@ -549,10 +549,10 @@ $this->title = GeneralLabel::kementerian_belia_dan_sukan_malaysia_dashboard;
                                             (SELECT COUNT(*) AS JUMLAH,
                                                 (SELECT (SELECT r.desc FROM tbl_ref_program_semasa_sukan_atlet r WHERE r.id = ass.program_semasa) FROM tbl_atlet_sukan ass WHERE ass.atlet_id = att.atlet_id ORDER BY ass.tarikh_mula_menyertai_program_msn DESC LIMIT 1 ) AS PROGRAM
                                                 FROM `tbl_atlet` att 
-                                                WHERE att.cacat = 1
+                                                WHERE att.cacat = 1 AND att.tawaran = 2
                                                 GROUP BY PROGRAM) inner1 ) AS JUMLAH_KESELURUHAN
                                         FROM `tbl_atlet` a 
-                                        WHERE a.cacat = 1
+                                        WHERE a.cacat = 1 AND a.tawaran = 2
                                         GROUP BY PROGRAM
                                     ) final ', [':year' => date("Y")]);
 
@@ -616,10 +616,10 @@ $this->title = GeneralLabel::kementerian_belia_dan_sukan_malaysia_dashboard;
                                             (SELECT COUNT(*) AS JUMLAH,
                                                 (SELECT (SELECT r.desc FROM tbl_ref_program_semasa_sukan_atlet r WHERE r.id = ass.program_semasa) FROM tbl_atlet_sukan ass WHERE ass.atlet_id = att.atlet_id ORDER BY ass.tarikh_mula_menyertai_program_msn DESC LIMIT 1 ) AS PROGRAM
                                                 FROM `tbl_atlet` att 
-                                                WHERE att.cacat = 1
+                                                WHERE att.cacat = 1 AND att.tawaran = 2
                                                 GROUP BY PROGRAM) inner1 ) AS JUMLAH_KESELURUHAN
                                         FROM `tbl_atlet` a 
-                                        WHERE a.cacat = 1
+                                        WHERE a.cacat = 1 AND a.tawaran = 2
                                         GROUP BY SUKAN_ID,PROGRAM
                                     ) final 
                                     GROUP BY final.SUKAN_ID
@@ -719,8 +719,9 @@ $this->title = GeneralLabel::kementerian_belia_dan_sukan_malaysia_dashboard;
                                     (
                                         SELECT COUNT(*) AS JUMLAH,
                                         (SELECT r.'.$sql_desc_selector.' FROM tbl_ref_status_jurulatih r WHERE r.id = p.status_jurulatih) AS STATUS_JURULATIH,
-                                        (SELECT COUNT(*) FROM `tbl_jurulatih` pe ) AS JUMLAH_KESELURUHAN
-                                        FROM `tbl_jurulatih` p
+                                        (SELECT COUNT(*) FROM `tbl_jurulatih` pe WHERE pe.approved = 1 ) AS JUMLAH_KESELURUHAN
+                                        FROM `tbl_jurulatih` p 
+                                        WHERE p.approved = 1
                                         GROUP BY p.status_jurulatih
                                     ) final 
                                     ORDER BY PERATUS DESC', [':year' => date("Y")]);
@@ -779,8 +780,10 @@ $this->title = GeneralLabel::kementerian_belia_dan_sukan_malaysia_dashboard;
                                             (SELECT COUNT(*) AS JUMLAH,
                                                 (SELECT (SELECT r.desc FROM tbl_ref_program_jurulatih r WHERE r.id = ass.program) FROM tbl_jurulatih_sukan ass WHERE ass.jurulatih_id = att.jurulatih_id ORDER BY ass.created DESC LIMIT 1 ) AS PROGRAM
                                                 FROM `tbl_jurulatih` att 
+                                                WHERE att.approved = 1
                                                 GROUP BY PROGRAM) inner1 ) AS JUMLAH_KESELURUHAN
                                         FROM `tbl_jurulatih` a 
+                                        WHERE a.approved = 1
                                         GROUP BY PROGRAM_ID
                                     ) final ', [':year' => date("Y")]);
 
@@ -836,8 +839,9 @@ $this->title = GeneralLabel::kementerian_belia_dan_sukan_malaysia_dashboard;
                                     (
                                         SELECT COUNT(*) AS JUMLAH,
                                         (SELECT r.desc FROM tbl_ref_negara r WHERE r.id = p.warganegara) AS NEGARA,
-                                        (SELECT COUNT(*) FROM `tbl_jurulatih` pe ) AS JUMLAH_KESELURUHAN
+                                        (SELECT COUNT(*) FROM `tbl_jurulatih` pe WHERE pe.approved = 1) AS JUMLAH_KESELURUHAN
                                         FROM `tbl_jurulatih` p
+                                        WHERE p.approved = 1
                                         GROUP BY p.warganegara
                                     ) final 
                                     ORDER BY PERATUS DESC', [':year' => date("Y")]);
@@ -902,8 +906,10 @@ $this->title = GeneralLabel::kementerian_belia_dan_sukan_malaysia_dashboard;
                                             (SELECT COUNT(*) AS JUMLAH,
                                                 (SELECT (SELECT r.desc FROM tbl_ref_program_jurulatih r WHERE r.id = ass.program) FROM tbl_jurulatih_sukan ass WHERE ass.jurulatih_id = att.jurulatih_id ORDER BY ass.created DESC LIMIT 1 ) AS PROGRAM
                                                 FROM `tbl_jurulatih` att 
+                                                WHERE att.approved = 1
                                                 GROUP BY PROGRAM) inner1 ) AS JUMLAH_KESELURUHAN
                                         FROM `tbl_jurulatih` a 
+                                        WHERE a.approved = 1
                                         GROUP BY SUKAN_ID
                                     ) final  
                                     ORDER BY PERATUS DESC', [':year' => date("Y")]);
@@ -2048,7 +2054,7 @@ $this->registerJs($script);
             // Atlet Jumlah START
 
             $command = $connection->createCommand('
-                SELECT COUNT(*) as JUMLAH FROM tbl_atlet WHERE cacat=0', [':year' => date("Y")]);
+                SELECT COUNT(*) as JUMLAH FROM tbl_atlet WHERE cacat=0 AND tawaran = 2', [':year' => date("Y")]);
 
             $result = $command->queryAll();
 
@@ -2080,7 +2086,7 @@ $this->registerJs($script);
             // Atlet Paralimik Jumlah START
 
             $command = $connection->createCommand('
-                SELECT COUNT(*) as JUMLAH FROM tbl_atlet WHERE cacat=1', [':year' => date("Y")]);
+                SELECT COUNT(*) as JUMLAH FROM tbl_atlet WHERE cacat=1 AND tawaran = 2', [':year' => date("Y")]);
 
             $result = $command->queryAll();
 
@@ -2139,9 +2145,11 @@ $this->registerJs($script);
 			(SELECT COUNT(*) AS JUMLAH,
 			    (SELECT (SELECT r.desc FROM tbl_ref_program_semasa_sukan_atlet r WHERE r.id = ass.program_semasa) FROM tbl_atlet_sukan ass WHERE ass.atlet_id = att.atlet_id ORDER BY ass.tarikh_mula_menyertai_program_msn DESC LIMIT 1 ) AS PROGRAM
 			    FROM `tbl_atlet` att 
+                            WHERE att.tawaran = 2
 			    GROUP BY PROGRAM) inner1 
 			    WHERE inner1.PROGRAM LIKE "%Podium%" ) AS JUMLAH_KESELURUHAN
                     FROM `tbl_atlet` a 
+                    WHERE a.tawaran = 2
                     GROUP BY CAWANGAN_ID,PROGRAM
                 ) final 
                 WHERE final.PROGRAM LIKE "%Podium%"
@@ -2177,9 +2185,11 @@ $this->registerJs($script);
 			(SELECT COUNT(*) AS JUMLAH,
 			    (SELECT (SELECT r.desc FROM tbl_ref_program_semasa_sukan_atlet r WHERE r.id = ass.program_semasa) FROM tbl_atlet_sukan ass WHERE ass.atlet_id = att.atlet_id ORDER BY ass.tarikh_mula_menyertai_program_msn DESC LIMIT 1 ) AS PROGRAM
 			    FROM `tbl_atlet` att 
+                            WHERE att.tawaran = 2
 			    GROUP BY PROGRAM) inner1 
 			    WHERE inner1.PROGRAM LIKE "%Podium%" ) AS JUMLAH_KESELURUHAN
                     FROM `tbl_atlet` a 
+                    WHERE a.tawaran = 2
                     GROUP BY NEGERI_ID,PROGRAM
                 ) final 
                 WHERE final.PROGRAM LIKE "%Podium%"
@@ -2301,9 +2311,11 @@ $this->registerJs($script);
                                             (SELECT COUNT(*) AS JUMLAH,
                                                 (SELECT (SELECT r.desc FROM tbl_ref_program_semasa_sukan_atlet r WHERE r.id = ass.program_semasa) FROM tbl_atlet_sukan ass WHERE ass.atlet_id = att.atlet_id ORDER BY ass.tarikh_mula_menyertai_program_msn DESC LIMIT 1 ) AS PROGRAM
                                                 FROM `tbl_atlet` att 
+                                                WHERE att.tawaran = 2
                                                 GROUP BY PROGRAM) inner1 
                                                 WHERE inner1.PROGRAM LIKE "%Podium%" ) AS JUMLAH_KESELURUHAN
                                         FROM `tbl_atlet` a 
+                                        WHERE a.tawaran = 2
                                         GROUP BY SUKAN_ID,PROGRAM
                                     ) final 
                                     WHERE final.PROGRAM LIKE "%Podium%"
@@ -2371,11 +2383,11 @@ $this->registerJs($script);
                                     (SELECT COUNT(*) FROM tbl_atlet_sukan ass
 					    LEFT JOIN tbl_atlet a ON a.atlet_id = ass.atlet_id 
 					    LEFT JOIN tbl_ref_program_semasa_sukan_atlet rp ON rp.id = ass.program_semasa
-					    WHERE rp.desc LIKE "%Podium%") AS JUMLAH_KESELURUHAN
+					    WHERE rp.desc LIKE "%Podium%" AND a.tawaran = 2) AS JUMLAH_KESELURUHAN
                                     FROM tbl_atlet_sukan main_ass
                                     LEFT JOIN tbl_atlet main_a ON main_a.atlet_id = main_ass.atlet_id 
                                     LEFT JOIN tbl_ref_program_semasa_sukan_atlet main_rp ON main_rp.id = main_ass.program_semasa
-                                    WHERE main_rp.desc LIKE "%Podium%"
+                                    WHERE main_rp.desc LIKE "%Podium%" AND main_a.tawaran = 2
                                     GROUP BY main_ass.acara) final 
                                     ORDER BY PERATUS DESC ', [':year' => date("Y")]);
 
@@ -2447,9 +2459,11 @@ $this->registerJs($script);
 			(SELECT COUNT(*) AS JUMLAH,
 			    (SELECT (SELECT r.desc FROM tbl_ref_program_semasa_sukan_atlet r WHERE r.id = ass.program_semasa) FROM tbl_atlet_sukan ass WHERE ass.atlet_id = att.atlet_id ORDER BY ass.tarikh_mula_menyertai_program_msn DESC LIMIT 1 ) AS PROGRAM
 			    FROM `tbl_atlet` att 
+                            WHERE att.tawaran = 2
 			    GROUP BY PROGRAM) inner1 
 			    WHERE inner1.PROGRAM LIKE "%Podium%" ) AS JUMLAH_KESELURUHAN
                     FROM `tbl_atlet` a 
+                    WHERE a.tawaran = 2
                     GROUP BY CAWANGAN_ID,PROGRAM
                 ) final 
                 WHERE final.PROGRAM LIKE "%Podium%"
@@ -2485,9 +2499,11 @@ $this->registerJs($script);
 			(SELECT COUNT(*) AS JUMLAH,
 			    (SELECT (SELECT r.desc FROM tbl_ref_program_semasa_sukan_atlet r WHERE r.id = ass.program_semasa) FROM tbl_atlet_sukan ass WHERE ass.atlet_id = att.atlet_id ORDER BY ass.tarikh_mula_menyertai_program_msn DESC LIMIT 1 ) AS PROGRAM
 			    FROM `tbl_atlet` att 
+                            WHERE att.tawaran = 2
 			    GROUP BY PROGRAM) inner1 
 			    WHERE inner1.PROGRAM LIKE "%Podium%" ) AS JUMLAH_KESELURUHAN
                     FROM `tbl_atlet` a 
+                    WHERE a.tawaran = 2
                     GROUP BY NEGERI_ID,PROGRAM
                 ) final 
                 WHERE final.PROGRAM LIKE "%Podium%"
@@ -2555,11 +2571,11 @@ $this->registerJs($script);
                                             (SELECT COUNT(*) AS JUMLAH,
                                                 (SELECT (SELECT r.desc FROM tbl_ref_program_semasa_sukan_atlet r WHERE r.id = ass.program_semasa) FROM tbl_atlet_sukan ass WHERE ass.atlet_id = att.atlet_id ORDER BY ass.tarikh_mula_menyertai_program_msn DESC LIMIT 1 ) AS PROGRAM
                                                 FROM `tbl_atlet` att 
-                                                WHERE att.cacat = 1
+                                                WHERE att.cacat = 1 AND att.tawaran = 2
                                                 GROUP BY PROGRAM) inner1 
                                                 WHERE inner1.PROGRAM LIKE "%Podium%" ) AS JUMLAH_KESELURUHAN
                                         FROM `tbl_atlet` a 
-                                        WHERE a.cacat = 1
+                                        WHERE a.cacat = 1 AND a.tawaran = 2
                                         GROUP BY SUKAN_ID,PROGRAM
                                     ) final 
                                     WHERE final.PROGRAM LIKE "%Podium%"
@@ -2627,11 +2643,11 @@ $this->registerJs($script);
                                     (SELECT COUNT(*) FROM tbl_atlet_sukan ass
 					    LEFT JOIN tbl_atlet a ON a.atlet_id = ass.atlet_id 
 					    LEFT JOIN tbl_ref_program_semasa_sukan_atlet rp ON rp.id = ass.program_semasa
-					    WHERE rp.desc LIKE "%Podium%" AND a.cacat = 1) AS JUMLAH_KESELURUHAN
+					    WHERE rp.desc LIKE "%Podium%" AND a.cacat = 1 AND a.tawaran = 2) AS JUMLAH_KESELURUHAN
                                     FROM tbl_atlet_sukan main_ass
                                     LEFT JOIN tbl_atlet main_a ON main_a.atlet_id = main_ass.atlet_id 
                                     LEFT JOIN tbl_ref_program_semasa_sukan_atlet main_rp ON main_rp.id = main_ass.program_semasa
-                                    WHERE main_rp.desc LIKE "%Podium%" AND main_a.cacat = 1
+                                    WHERE main_rp.desc LIKE "%Podium%" AND main_a.cacat = 1 AND main_a.tawaran = 2
                                     GROUP BY main_ass.acara) final 
                                     ORDER BY PERATUS DESC ', [':year' => date("Y")]);
 

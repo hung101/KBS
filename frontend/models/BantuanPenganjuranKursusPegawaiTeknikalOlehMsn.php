@@ -45,6 +45,9 @@ class BantuanPenganjuranKursusPegawaiTeknikalOlehMsn extends \yii\db\ActiveRecor
             [['kursus_seminar_bengkel', 'jumlah_bantuan'], 'string', 'max' => 80],
             [['tempat'], 'string', 'max' => 90],
             [['session_id'], 'string', 'max' => 100],
+            [['kursus_seminar_bengkel', 'jumlah_bantuan','tempat','laporan_dikemukakan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

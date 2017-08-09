@@ -53,6 +53,9 @@ class BantuanPenganjuranKejohananSirkitLaporanTuntutan extends \yii\db\ActiveRec
             [['no_cek', 'no_boucer'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['session_id'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             ['jumlah_yang_dituntut_20','validateJumlahDituntut'],
+            [['kejohanan','tempat','no_cek', 'no_boucer'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -69,10 +72,10 @@ class BantuanPenganjuranKejohananSirkitLaporanTuntutan extends \yii\db\ActiveRec
             'tarikh_tamat' => 'Tarikh Tamat',
             'tempat' => 'Tempat',
             'jumlah_kelulusan' => 'Jumlah Kelulusan (RM)',
-            'pendahuluan_80' => 'Pendahuluan (80%) (RM)',
+            'pendahuluan_80' => 'Pendahuluan (RM)',
             'no_cek' => 'No. Cek',
             'no_boucer' => 'No. Boucer',
-            'jumlah_yang_dituntut_20' => 'Jumlah Yang Dituntut (20%) (RM)',
+            'jumlah_yang_dituntut_20' => 'Jumlah Dituntut (RM)',
             'session_id' => 'Session ID',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',

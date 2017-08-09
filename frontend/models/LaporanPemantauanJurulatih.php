@@ -59,6 +59,9 @@ class LaporanPemantauanJurulatih extends \yii\db\ActiveRecord
             [['jurulatih_id', 'sukan_id', 'program_id', 'created_by', 'updated_by'], 'integer'],
             [['tarikh_dinilai', 'created', 'updated'], 'safe'],
             [['pusat_latihan', 'nama_pegawai'], 'string', 'max' => 255],
+            [['pusat_latihan', 'nama_pegawai'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

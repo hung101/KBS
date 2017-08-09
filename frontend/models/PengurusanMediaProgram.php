@@ -56,7 +56,10 @@ class PengurusanMediaProgram extends \yii\db\ActiveRecord
             [['tarikh_mula'], 'safe'],
             [['nama_program', 'cawangan', 'maklumat_msn_negeri', 'pengerusi_program'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_program', 'cawangan', 'maklumat_msn_negeri', 'pengerusi_program','tempat','catatan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

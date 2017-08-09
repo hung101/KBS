@@ -66,7 +66,14 @@ class BorangAduanKaunseling extends \yii\db\ActiveRecord
             [['tarikh_aduan'], 'safe'],
             [['nama_pengadu'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_aduan', 'status_aduan', 'aduan_kategori'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['penyataan_aduan', 'tindakan_yang_telah_diambil', 'dokumen_berkaitan_yang_dilampirkan', 'bantuan_yang_anda_perlukan', 'rujukan_aduan_kepada_cawangan_yang_berkaitan', 'rujuk_aduan_kepada_atlet', 'tiada_sebarang_tindakan', 'maklumbalas_kepada_pengadu', 'tindakan_susulan', 'aduan_dimajukan_kepada_agensi_lain', 'catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['penyataan_aduan', 'tindakan_yang_telah_diambil', 'dokumen_berkaitan_yang_dilampirkan', 'bantuan_yang_anda_perlukan', 
+                'rujukan_aduan_kepada_cawangan_yang_berkaitan', 'rujuk_aduan_kepada_atlet', 'tiada_sebarang_tindakan', 'maklumbalas_kepada_pengadu', 
+                'tindakan_susulan', 'aduan_dimajukan_kepada_agensi_lain', 'catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_pengadu','no_aduan', 'status_aduan', 'aduan_kategori','penyataan_aduan', 'tindakan_yang_telah_diambil', 'dokumen_berkaitan_yang_dilampirkan', 
+                'bantuan_yang_anda_perlukan', 'rujukan_aduan_kepada_cawangan_yang_berkaitan', 'rujuk_aduan_kepada_atlet', 'tiada_sebarang_tindakan', 'maklumbalas_kepada_pengadu', 
+                'tindakan_susulan', 'aduan_dimajukan_kepada_agensi_lain', 'catatan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

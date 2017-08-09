@@ -57,13 +57,16 @@ class MaklumatAkademikSubjek extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-			[['kod_subjek', 'subjek'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['kod_subjek', 'subjek'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['maklumat_akademik_id', 'bil_kredit', 'created_by', 'updated_by', 'no_telefon'], 'integer'],
             [['created', 'updated'], 'safe'],
             [['session_id'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['kod_subjek'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['subjek', 'nama_pensyarah', 'email'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
-			[['email'], 'email', 'message' => GeneralMessage::yii_validation_email],
+            [['email'], 'email', 'message' => GeneralMessage::yii_validation_email],
+            [['kod_subjek','subjek', 'nama_pensyarah', 'email'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

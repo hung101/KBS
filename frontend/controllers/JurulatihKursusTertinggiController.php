@@ -150,7 +150,7 @@ class JurulatihKursusTertinggiController extends Controller
             if($file){
                 //valid file to upload
                 //upload file to server
-                $model->muatnaik = Upload::uploadFile($file, Upload::jurulatihKursusTertinggi, $model->kursus_tertinggi_id);
+                //$model->muatnaik = Upload::uploadFile($file, Upload::jurulatihKursusTertinggi, $model->kursus_tertinggi_id);
             } else {
                 //invalid file to upload
                 //remain existing file
@@ -159,14 +159,20 @@ class JurulatihKursusTertinggiController extends Controller
         }
 
         if (Yii::$app->request->post() && $model->save()) {
-            //return $this->redirect(['view', 'id' => $model->kursus_tertinggi_id]);
-            return self::actionView($model->kursus_tertinggi_id);
-        } else {
-            return $this->renderAjax('update', [
+            $file = UploadedFile::getInstance($model, 'muatnaik');
+            if($file){
+                $model->muatnaik = Upload::uploadFile($file, Upload::jurulatihKursusTertinggi, $model->kursus_tertinggi_id);
+            }
+            if($model->save()){
+                //return $this->redirect(['view', 'id' => $model->kursus_tertinggi_id]);
+                return self::actionView($model->kursus_tertinggi_id);
+            }
+        } 
+        
+        return $this->renderAjax('update', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

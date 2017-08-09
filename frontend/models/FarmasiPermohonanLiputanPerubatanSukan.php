@@ -8,7 +8,7 @@ use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 
 use app\models\general\GeneralLabel;
-
+use common\models\general\GeneralFunction;
 /**
  * This is the model class for table "tbl_farmasi_permohonan_liputan_perubatan_sukan".
  *
@@ -63,9 +63,12 @@ class FarmasiPermohonanLiputanPerubatanSukan extends \yii\db\ActiveRecord
             [['nama_program', 'nama_pemohon', 'pegawai_bertugas'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat_program'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_tel_pemohon'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
-                        [['no_tel_pemohon'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['no_tel_pemohon'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['muat_naik'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false]
+            [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false],
+            [['tempat_program','nama_program', 'nama_pemohon', 'pegawai_bertugas'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -100,6 +103,12 @@ class FarmasiPermohonanLiputanPerubatanSukan extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
     }
     

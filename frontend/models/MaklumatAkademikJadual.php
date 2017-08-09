@@ -54,12 +54,15 @@ class MaklumatAkademikJadual extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-			[['masa_dari', 'masa_hingga', 'hari'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['masa_dari', 'masa_hingga', 'hari'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['maklumat_akademik_id', 'created_by', 'updated_by', 'hari'], 'integer'],
             [['tarikh', 'created', 'updated'], 'safe'],
             [['session_id'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['masa_dari', 'masa_hingga'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-			[['perkara'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['perkara'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['masa_dari', 'masa_hingga','perkara'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

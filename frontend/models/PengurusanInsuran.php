@@ -8,6 +8,7 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 /**
  * This is the model class for table "tbl_pengurusan_insuran".
@@ -63,6 +64,9 @@ class PengurusanInsuran extends \yii\db\ActiveRecord
             [['no_acc','no_polisi'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['lampiran', 'tindakan_rujukan_memo'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['lampiran'],'validateFileUpload', 'skipOnEmpty' => false],
+            [['nama_insuran', 'pegawai_yang_bertanggungjawab', 'bilangan_jkb','no_acc','no_polisi', 'tindakan_rujukan_memo'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -107,6 +111,12 @@ class PengurusanInsuran extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
     }
     

@@ -45,6 +45,9 @@ class BantuanPenyertaanPegawaiTeknikalDisertai extends \yii\db\ActiveRecord
             [['tempat'], 'string', 'max' => 90],
             [['session_id'], 'string', 'max' => 100],
             [['kursus_seminar_bengkel'], 'string', 'max' => 255],
+            [['anjuran','tempat','kursus_seminar_bengkel'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

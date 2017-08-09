@@ -64,6 +64,9 @@ class PenilaianPrestasiAtletLatihan extends \yii\db\ActiveRecord
             [['tempoh'], 'string', 'max' => 30],
             [['tempat'], 'string', 'max' => 90],
             [['session_id'], 'string', 'max' => 100],
+            [['keterangan','tempoh','tempat'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

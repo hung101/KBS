@@ -52,7 +52,10 @@ class BiomekanikUjian extends \yii\db\ActiveRecord
             [['tarikh', 'biomekanik_ujian'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['perkhidmatan_analisa_perlawanan_biomekanik_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh'], 'safe'],
-            [['biomekanik_ujian'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['biomekanik_ujian'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['biomekanik_ujian'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

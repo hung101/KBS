@@ -55,7 +55,10 @@ class AtletPakaianPeralatan extends \yii\db\ActiveRecord
             [['jenis_sukan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['model'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['peralatan', 'jenama'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['saiz', 'warna'], 'string', 'max' => 10, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['saiz', 'warna'], 'string', 'max' => 10, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['jenis_sukan','model','peralatan', 'jenama','saiz', 'warna'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

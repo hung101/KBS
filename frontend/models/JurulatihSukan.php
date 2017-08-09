@@ -65,6 +65,9 @@ class JurulatihSukan extends \yii\db\ActiveRecord
             [['jumlah', 'jumlah_keseluruhan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['program', 'sukan', 'cawangan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['bersamaan_usd'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['program', 'sukan', 'cawangan','bersamaan_usd'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
             
         ];
     }

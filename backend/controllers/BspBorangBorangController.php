@@ -289,12 +289,12 @@ class BspBorangBorangController extends Controller
                 //upload file to server
                 
                 // delete upload file
-                if($existingBSP03 != ""){
+                /*if($existingBSP03 != ""){
                     self::actionDeleteupload($id, 'bsp_03');
                 }
                 
                 $filename = $model->bsp_borang_borang_id . "-bsp_03";
-                $model->bsp_03 = Upload::uploadFile($file, Upload::bspBorangBorang, $filename);
+                $model->bsp_03 = Upload::uploadFile($file, Upload::bspBorangBorang, $filename);*/
             } else {
                 //invalid file to upload
                 //remain existing file
@@ -308,12 +308,12 @@ class BspBorangBorangController extends Controller
                 //upload file to server
                 
                 // delete upload file
-                if($existingBSP04 != ""){
+                /*if($existingBSP04 != ""){
                     self::actionDeleteupload($id, 'bsp_04');
                 }
                 
                 $filename = $model->bsp_borang_borang_id . "-bsp_04";
-                $model->bsp_04 = Upload::uploadFile($file, Upload::bspBorangBorang, $filename);
+                $model->bsp_04 = Upload::uploadFile($file, Upload::bspBorangBorang, $filename);*/
             } else {
                 //invalid file to upload
                 //remain existing file
@@ -327,12 +327,12 @@ class BspBorangBorangController extends Controller
                 //upload file to server
                 
                 // delete upload file
-                if($existingBSP05 != ""){
+                /*if($existingBSP05 != ""){
                     self::actionDeleteupload($id, 'bsp_05');
                 }
                 
                 $filename = $model->bsp_borang_borang_id . "-bsp_05";
-                $model->bsp_05 = Upload::uploadFile($file, Upload::bspBorangBorang, $filename);
+                $model->bsp_05 = Upload::uploadFile($file, Upload::bspBorangBorang, $filename);*/
             } else {
                 //invalid file to upload
                 //remain existing file
@@ -351,6 +351,24 @@ class BspBorangBorangController extends Controller
             $filename = $model->bsp_borang_borang_id . "-bsp_02";
             if($file){
                 $model->bsp_02 = Upload::uploadFile($file, Upload::bspBorangBorang, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'bsp_03');
+            $filename = $model->bsp_borang_borang_id . "-bsp_03";
+            if($file){
+                $model->bsp_03 = Upload::uploadFile($file, Upload::bspBorangBorang, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'bsp_04');
+            $filename = $model->bsp_borang_borang_id . "-bsp_04";
+            if($file){
+                $model->bsp_04 = Upload::uploadFile($file, Upload::bspBorangBorang, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'bsp_05');
+            $filename = $model->bsp_borang_borang_id . "-bsp_05";
+            if($file){
+                $model->bsp_05 = Upload::uploadFile($file, Upload::bspBorangBorang, $filename);
             }
             
             $file = UploadedFile::getInstance($model, 'bsp_07');

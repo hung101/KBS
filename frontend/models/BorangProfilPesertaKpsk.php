@@ -58,6 +58,9 @@ class BorangProfilPesertaKpsk extends \yii\db\ActiveRecord
             [['created_by', 'updated_by', 'tahap'], 'integer'],
             [['penganjur_kursus'], 'string', 'max' => 80],
             [['kod_kursus'], 'string', 'max' => 30],
+            [['penganjur_kursus','kod_kursus'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

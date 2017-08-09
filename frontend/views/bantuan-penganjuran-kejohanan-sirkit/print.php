@@ -24,9 +24,9 @@
     <tr>
         <td>PERINGKAT</td><td>:</td><td><?= $model->peringkat ?></td>
     </tr>
-	<tr>
+    <!--<tr>
         <td>SUKAN</td><td>:</td><td><?= $model->sukan ?></td>
-    </tr>    
+    </tr>-->   
 	<tr>
         <td>NEGERI</td><td>:</td><td><?= $model->negeri_penyertaan ?></td>
     </tr>
@@ -52,7 +52,38 @@
         <td><?= strtoupper("Anggaran Perbelanjaan (RM)") ?></td><td>:</td><td><?= number_format($model->anggaran_perbelanjaan,2) ?></td>
     </tr>    
 </table>
-
+<section>
+<h4 class="text-underline"><?= strtoupper("Sukan") ?></h4>
+<?php
+if(count($BantuanPenganjuranKejohananSirkitSukan) > 0){
+?>
+	<table width="100%" border="1" cellpadding="5" cellspacing="0">
+		<tr>
+			<th>BIL</th>
+			<th>SUKAN</th>
+		</tr>
+		<?php
+		$count = 1;
+		foreach($BantuanPenganjuranKejohananSirkitSukan as $item){
+			
+		?>
+			<tr>
+				<td align="center"><?= $count ?></td>
+				<td align="center"><?= $item->refSukan->desc ?></td>
+			</tr>
+		<?php
+			$count++;
+		}
+		?>
+	</table>
+<?php	
+}else{
+	echo '<p>Tiada Maklumat</p>';
+}
+?>
+<br />
+</section>
+<section>
 <h4 class="text-underline"><?= strtoupper("Sumber-Sumber Kewangan Lain Untuk Kejohanan / Pertandingan") ?></h4>
 <?php
 if(count($BantuanPenganjuranKejohananSirkitKewangan) > 0){
@@ -86,6 +117,8 @@ if(count($BantuanPenganjuranKejohananSirkitKewangan) > 0){
 }
 ?>
 <br />
+</section>
+<section>
 <h4 class="text-underline"><?= strtoupper("Bayaran Penyertaan Kejohanan / Pertandingan Yang Dikenakan Kepada Peserta / Pasukan") ?></h4>
 <?php
 if(count($BantuanPenganjuranKejohananSirkitBayaran) > 0){
@@ -119,6 +152,8 @@ if(count($BantuanPenganjuranKejohananSirkitBayaran) > 0){
 }
 ?>
 <br />
+</section>
+<section>
 <h4 class="text-underline"><?= strtoupper("Elemen Bantuan Yang Dipohon") ?></h4>
 <?php
 if(count($BantuanPenganjuranKejohananSirkitElemen) > 0){
@@ -157,6 +192,8 @@ if(count($BantuanPenganjuranKejohananSirkitElemen) > 0){
 	echo '<p>Tiada Maklumat</p>';
 }
 ?>
+</section>
+<section>
 <div class="title-header-wrap" style="margin:20px 0px; padding:5px">
 	<?= strtoupper("KEJOHANAN YANG TELAH DIANJUR (TAHUN SEMASA & TAHUN SEBELUM)") ?>
 </div>
@@ -197,6 +234,8 @@ if(count($BantuanPenganjuranKejohananSirkitDianjurkan) > 0){
 	echo '<p>Tiada Maklumat</p>';
 }
 ?>
+</section>
+<section>
 <div class="title-header-wrap" style="margin:20px 0px; padding:5px">
 	<?= strtoupper("BANTUAN GERAN PENGANJURAN OLEH MSN (TAHUN SEMASA & TAHUN SEBELUM)") ?>
 </div>
@@ -239,7 +278,8 @@ if(count($BantuanPenganjuranKejohananSirkitOlehMsn) > 0){
 	echo '<p>Tiada Maklumat</p>';
 }
 ?>
-
+</section>
+<section>
 <div class="title-header-wrap" style="margin:20px 0px; padding:5px">
     JUMLAH BANTUAN YANG DIPOHON
 </div>
@@ -249,7 +289,8 @@ if(count($BantuanPenganjuranKejohananSirkitOlehMsn) > 0){
         <td>RM</td><td>:</td><td><?= number_format($model->jumlah_bantuan_yang_dipohon,2) ?></td>
     </tr>
 </table>
-
+</section>
+<section>
 <div class="title-header-wrap" style="margin:20px 0px; padding:5px">
     KEGUNAAN MSN
 </div>
@@ -274,3 +315,4 @@ if(count($BantuanPenganjuranKejohananSirkitOlehMsn) > 0){
         <td>Tarikh JKB</td><td>:</td><td><?= ($model->tarikh_jkb)?date('d.m.Y', strtotime($model->tarikh_jkb)):null ?></td>
     </tr>
 </table>
+</section>

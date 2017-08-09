@@ -6,7 +6,7 @@ use Yii;
 use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
-
+use common\models\general\GeneralFunction;
 use app\models\general\GeneralLabel;
 
 /**
@@ -73,6 +73,9 @@ class PaobsPenganjuran extends \yii\db\ActiveRecord
             //[['laporan_penganjuran'], 'string', 'max' => 100],
             //[['surat_sokongan'], 'string', 'max' => 255],
             [['surat_sokongan', 'laporan_penganjuran'],'validateFileUpload', 'skipOnEmpty' => false],
+            [['alamat_lokasi_bandar','nama_aktiviti','alamat_lokasi_1','alamat_lokasi_2','alamat_lokasi_3','jenis_sukan','tempoh'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -115,6 +118,12 @@ class PaobsPenganjuran extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
     }
     

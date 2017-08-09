@@ -90,7 +90,13 @@ class PengurusanJaringanAntarabangsa extends \yii\db\ActiveRecord
             [['no_telefon', 'no_tel_bimbit', 'no_faks'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_telefon', 'no_tel_bimbit', 'no_faks'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['emel'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email]
+            [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email],
+            [['nama_badan_sukan', 'negara', 'nama_pemohon', 'pegawai_teknikal', 'permohonan', 'nama_majikan', 'jawatan_di_persatuan', 
+                'tahap_kelayakan_sekarang','alamat_surat_menyurat_1', 'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3', 'alamat_majikan_1', 'alamat_majikan_2', 
+                'alamat_majikan_3','alamat_surat_menyurat_negeri', 'jenis_program', 'alamat_majikan_negeri','alamat_surat_menyurat_bandar', 'alamat_majikan_bandar',
+                'emel'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

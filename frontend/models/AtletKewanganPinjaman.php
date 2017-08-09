@@ -58,7 +58,10 @@ class AtletKewanganPinjaman extends \yii\db\ActiveRecord
             [['tahun_permulaan'], 'safe'],
             [['nama_bank'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['jenis_pinjaman'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['no_akaun'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['no_akaun'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_bank','jenis_pinjaman','no_akaun'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

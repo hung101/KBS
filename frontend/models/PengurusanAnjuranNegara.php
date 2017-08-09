@@ -44,6 +44,9 @@ class PengurusanAnjuranNegara extends \yii\db\ActiveRecord
             [['nama_delegasi_luar_negara'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['negara'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['session_id'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_delegasi_luar_negara','negara'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

@@ -6,7 +6,7 @@ use Yii;
 use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralVariable;
-
+use common\models\general\GeneralFunction;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
 
@@ -59,6 +59,9 @@ class JurulatihKursusTertinggi extends \yii\db\ActiveRecord
             [['kursus'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muatnaik'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muatnaik'], 'validateFileUpload', 'skipOnEmpty' => false],
+            [['kursus'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -84,6 +87,12 @@ class JurulatihKursusTertinggi extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
 
         if(!$file && $this->$attribute==""){

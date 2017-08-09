@@ -135,11 +135,11 @@ class AkkSijilCprController extends Controller
                 //upload file to server
                 
                 // delete upload file
-                if($existingSijil != ""){
+                /*if($existingSijil != ""){
                     self::actionDeleteupload($id, 'sijil');
                 }
                 
-                $model->sijil = Upload::uploadFile($file, Upload::akademiAkkFolder, $model->akk_sijil_cpr_id, Upload::akademiAkkSijilCprFolder);
+                $model->sijil = Upload::uploadFile($file, Upload::akademiAkkFolder, $model->akk_sijil_cpr_id, Upload::akademiAkkSijilCprFolder);*/
             } else {
                 //invalid file to upload
                 //remain existing file
@@ -148,13 +148,20 @@ class AkkSijilCprController extends Controller
         }
 
         if (Yii::$app->request->post() && $model->save()) {
-            return '1';
-        } else {
-            return $this->renderAjax('update', [
+            $file = UploadedFile::getInstance($model, 'sijil');
+            if($file){
+                $model->sijil = Upload::uploadFile($file, Upload::akademiAkkFolder, $model->akk_sijil_cpr_id, Upload::akademiAkkSijilCprFolder);
+            }
+            
+            if($model->save()){
+                return '1';
+            }
+        } 
+        
+        return $this->renderAjax('update', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

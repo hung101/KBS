@@ -65,8 +65,11 @@ class BorangAduanKerosakan extends \yii\db\ActiveRecord
             [['penyelia', 'venue', 'bahagian', 'created_by', 'updated_by', 'kawasan'], 'integer'],
             [['tarikh', 'created', 'updated', 'tarikh_siap_tindakan'], 'safe'],
             [['jawatan'], 'string', 'max' => 80],
-                        [['no_tel_pejabat', 'no_tel_bimbit'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['no_tel_pejabat', 'no_tel_bimbit'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_tel_pejabat', 'no_tel_bimbit'], 'string', 'max' => 14],
+            [['jawatan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

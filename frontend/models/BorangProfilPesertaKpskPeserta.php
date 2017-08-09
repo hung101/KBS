@@ -83,7 +83,7 @@ class BorangProfilPesertaKpskPeserta extends \yii\db\ActiveRecord
                 'emel', 'akademik', 'no_telefon_bimbit'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['borang_profil_peserta_kpsk_id', 'umur', 'bangsa', 'agama', 'akademik', 'keputusan', 'objektif', 'struktur', 'esei', 'jumlah', 'penilaian_refleksi', 'laporan_projek', 'created_by', 'updated_by'], 'integer'],
             [['tarikh_lahir', 'created', 'updated'], 'safe'],
-			[['jumlah'], 'integer', 'max' => 100, 'min' => 0],
+            [['jumlah'], 'integer', 'max' => 100, 'min' => 0],
             // [['struktur', 'esei'], 'integer', 'max' => 20, 'min' => 0],
             // [['objektif'], 'integer', 'max' => 60, 'min' => 0],
             [['nama', 'pekerjaan', 'nama_majikan'], 'string', 'max' => 80],
@@ -97,10 +97,13 @@ class BorangProfilPesertaKpskPeserta extends \yii\db\ActiveRecord
             [['alamat_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_telefon', 'no_telefon_bimbit'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_telefon', 'no_telefon_bimbit'], 'string', 'max' => 14],
-			[['gred'], 'string', 'max' => 10],
+            [['gred'], 'string', 'max' => 10],
             [['emel', 'facebook', 'session_id'], 'string', 'max' => 100],
             [['catatan'], 'string', 'max' => 255],
             [['kehadiran'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['nama', 'pekerjaan', 'nama_majikan','alamat_1', 'alamat_2', 'alamat_3','alamat_negeri','alamat_bandar', 'alamat_poskod','gred','catatan','emel', 'facebook'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

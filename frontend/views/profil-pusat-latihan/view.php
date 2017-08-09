@@ -6,6 +6,8 @@ use yii\widgets\DetailView;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
 
+use app\models\RefStatusBantuanPenganjuranKejohanan;
+
 /* @var $this yii\web\View */
 /* @var $model app\models\ProfilPusatLatihan */
 
@@ -19,10 +21,19 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-pusat-latihan']['update'])): ?>
+        <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-pusat-latihan']['create']) && $model->hantar_flag == 0)): ?>
+            <?= Html::a(GeneralLabel::send, ['hantar', 'id' => $model->profil_pusat_latihan_id], [
+                'class' => 'btn btn-success',
+                'data' => [
+                    'confirm' => GeneralMessage::confirmSave,
+                    'method' => 'post',
+                ],
+                ]) ?>
+        <?php endif; ?>
+        <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-pusat-latihan']['update']) && $model->hantar_flag == 0) || isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-pusat-latihan']['kelulusan'])): ?>
             <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->profil_pusat_latihan_id], ['class' => 'btn btn-primary']) ?>
         <?php endif; ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-pusat-latihan']['delete'])): ?>
+        <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-pusat-latihan']['delete']) && $model->hantar_flag == 0) || isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-pusat-latihan']['kelulusan'])): ?>
             <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->profil_pusat_latihan_id], [
                 'class' => 'btn btn-danger',
                 'data' => [
@@ -31,8 +42,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]) ?>
         <?php endif; ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-pusat-latihan']['update'])): ?>
-            <?= Html::a(GeneralLabel::permohonan_peralatan, ['/permohonan-peralatan/create'], ['class' => 'btn btn-warning', 'target' => '_blank']) ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-pusat-latihan']['update']) && $model->hantar_flag == 1): ?>
+        <?php if($model->status_permohonan_id && $model->status_permohonan_id == RefStatusBantuanPenganjuranKejohanan::LULUS): ?>
+            <?= Html::a(GeneralLabel::permohonan_peralatan, ['/permohonan-peralatan/index', 'profil_pusat_latihan_id' => $model->profil_pusat_latihan_id], ['class' => 'btn btn-warning', 'target' => '_blank']) ?>
+        <?php endif; ?>
         <?php endif; ?>
     </p>
     
@@ -44,6 +57,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProviderProfilPusatLatihanPeralatan' => $dataProviderProfilPusatLatihanPeralatan,
         'searchModelProfilPusatLatihanKemudahan' => $searchModelProfilPusatLatihanKemudahan,
         'dataProviderProfilPusatLatihanKemudahan' => $dataProviderProfilPusatLatihanKemudahan,
+        'searchModelProfilPusatLatihanSukan' => $searchModelProfilPusatLatihanSukan,
+        'dataProviderProfilPusatLatihanSukan' => $dataProviderProfilPusatLatihanSukan,
+        'searchModelProfilPusatLatihanProgram' => $searchModelProfilPusatLatihanProgram,
+        'dataProviderProfilPusatLatihanProgram' => $dataProviderProfilPusatLatihanProgram,
         'readonly' => $readonly,
     ]) ?>
 

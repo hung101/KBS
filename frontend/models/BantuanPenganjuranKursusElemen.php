@@ -4,7 +4,7 @@ namespace app\models;
 
 use Yii;
 use app\models\general\GeneralLabel;
-
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_bantuan_penganjuran_kejohanan_elemen".
@@ -39,12 +39,15 @@ class BantuanPenganjuranKursusElemen extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['bantuan_penganjuran_kursus_id', 'bilangan', 'hari', 'created_by', 'updated_by'], 'integer'],
-            [['elemen_bantuan', 'sub_elemen', 'kadar', 'bilangan', 'hari', 'jumlah'], 'required'],
-            [['kadar', 'jumlah'], 'number'],
+            [['bantuan_penganjuran_kursus_id', 'bilangan', 'hari', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['elemen_bantuan', 'sub_elemen', 'kadar', 'bilangan', 'hari', 'jumlah'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['kadar', 'jumlah'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['created', 'updated'], 'safe'],
-            [['elemen_bantuan', 'sub_elemen'], 'string', 'max' => 30],
-            [['session_id'], 'string', 'max' => 100],
+            [['elemen_bantuan', 'sub_elemen'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['session_id'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['elemen_bantuan', 'sub_elemen'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

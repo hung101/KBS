@@ -119,12 +119,12 @@ class PaobsPenganjurController extends Controller
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->penganjur_id]);
             }
-        } else {
-            return $this->render('create', [
+        } 
+        
+        return $this->render('create', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -149,8 +149,8 @@ class PaobsPenganjurController extends Controller
             if($file){
                 //valid file to upload
                 //upload file to server
-                $filename = $model->penganjur_id . '_sijil_pendaftaran';
-                $model->sijil_pendaftaran = Upload::uploadFile($file, Upload::paobsPenganjurFolder, $filename);
+                /*$filename = $model->penganjur_id . '_sijil_pendaftaran';
+                $model->sijil_pendaftaran = Upload::uploadFile($file, Upload::paobsPenganjurFolder, $filename);*/
             } else {
                 //invalid file to upload
                 //remain existing file
@@ -182,12 +182,12 @@ class PaobsPenganjurController extends Controller
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->penganjur_id]);
             }
-        } else {
-            return $this->render('update', [
+        } 
+        
+        return $this->render('update', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

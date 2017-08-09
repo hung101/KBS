@@ -16,17 +16,40 @@ use yii\widgets\Pjax;
 use app\models\RefSukan;
 use app\models\RefPpn;
 use app\models\RefNegeri;
+use app\models\UserPeranan;
+use app\models\ProfilPusatLatihan;
+use common\models\User;
+use app\models\RefStatusBantuanPenganjuranKejohanan;
 
 // contant values
 use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
+use app\models\general\GeneralVariable;
 use common\models\general\GeneralFunction;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanUpstn */
 /* @var $form yii\widgets\ActiveForm */
+
+// auto populate info if is PPN login
+$disable_ppn_info = false;
+
+$pusat_latihan_list = ProfilPusatLatihan::find()->all();
+
+if(Yii::$app->user->identity->peranan && Yii::$app->user->identity->peranan == UserPeranan::PERANAN_MSN_PPN && !$readonly){
+    $model->nama_pengurus_sukan = Yii::$app->user->identity->id;
+    //$model->nama_sukan = Yii::$app->user->identity->ppn_sukan;
+    $model->negeri = Yii::$app->user->identity->ppn_negeri;
+       
+    $pusat_latihan_list = ProfilPusatLatihan::find()
+                ->where(['=', 'alamat_negeri', Yii::$app->user->identity->ppn_negeri])
+                ->andWhere(['=', 'status_permohonan', RefStatusBantuanPenganjuranKejohanan::LULUS])->all();
+
+    
+    $disable_ppn_info = true;
+}
 ?>
 
 <div class="pengurusan-upstn-form">
@@ -41,7 +64,7 @@ use common\models\general\GeneralFunction;
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName()]); ?>
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -64,8 +87,9 @@ use common\models\general\GeneralFunction;
                                 'asButton' => true
                             ]
                         ] : null,*/
-                        'data'=>ArrayHelper::map(RefPpn::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::namaPpn],],
+                        //'data'=>ArrayHelper::map(RefPpn::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(User::find()->where(['=', 'status', User::STATUS_ACTIVE])->andWhere(['=', 'peranan', UserPeranan::PERANAN_MSN_PPN])->all(),'id', 'full_name'),
+                        'options' => ['placeholder' => Placeholder::namaPpn, 'disabled'=>$disable_ppn_info],],
                     'columnOptions'=>['colspan'=>5]],
                 'nama_sukan' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -78,7 +102,7 @@ use common\models\general\GeneralFunction;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(GeneralFunction::getSukan(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::sukan],
 'pluginOptions' => [
                             'allowClear' => true
@@ -96,7 +120,7 @@ use common\models\general\GeneralFunction;
                                     ]
                                 ] : null,
                                 'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                                'options' => ['placeholder' => Placeholder::negeri],
+                                'options' => ['placeholder' => Placeholder::negeri, 'disabled'=>$disable_ppn_info],
         'pluginOptions' => [
                                     'allowClear' => true
                                 ],],
@@ -120,7 +144,17 @@ use common\models\general\GeneralFunction;
                     ],
                     'columnOptions'=>['colspan'=>3]],
                 //'masa' => ['type'=>Form::INPUT_WIDGET, 'widgetClass'=>'\kartik\widgets\DatePicker','columnOptions'=>['colspan'=>3]],
-                'tempat' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>90]],
+                'tempat' =>// ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>90]],
+                        [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=>'\kartik\widgets\Select2',
+                            'options'=>[
+                                'data'=>ArrayHelper::map($pusat_latihan_list,'profil_pusat_latihan_id', 'nama_pusat_latihan'),
+                                'options' => ['placeholder' => Placeholder::pusatLatihan],
+        'pluginOptions' => [
+                                    'allowClear' => true
+                                ],],
+                            'columnOptions'=>['colspan'=>4]],
                  
             ],
         ],
@@ -490,22 +524,6 @@ use common\models\general\GeneralFunction;
     
     <br>
 
-    <!--<?= $form->field($model, 'nama_pengurus_sukan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'nama_sukan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'tarikh_lawatan')->textInput() ?>
-
-    <?= $form->field($model, 'masa')->textInput() ?>
-
-    <?= $form->field($model, 'tempat')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'kehadiran')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'isu')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'ulasan')->textInput(['maxlength' => 255]) ?>-->
-
     <div class="form-group">
         <?php if(!$readonly): ?>
         <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary',
@@ -518,3 +536,24 @@ use common\models\general\GeneralFunction;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$URL = Url::to(['/profil-ppn/get-ppn']);
+$DateDisplayFormat = GeneralVariable::displayDateFormat;
+
+$script = <<< JS
+ 
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+    $("#pengurusanupstn-nama_pengurus_sukan").prop("disabled", false);
+    $("#pengurusanupstn-nama_sukan").prop("disabled", false);
+    $("#pengurusanupstn-negeri").prop("disabled", false);
+});
+        
+JS;
+        
+$this->registerJs($script);
+?>

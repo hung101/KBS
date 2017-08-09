@@ -119,6 +119,14 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const formJurulatihKeluargaID = "jurulatih_keluarga_form";
         const formJurulatihSukanID = "jurulatih_sukan_form";
         
+        // Jurulatih tab mutiple entry model ids
+        const jurulatihSukanTabModalTitle = "modalTitleJurulatihSukanAcara";
+        const jurulatihSukanTabModal = "modalJurulatihSukanAcara";
+        const jurulatihSukanTabModalContent = "modalContentJurulatihSukanAcara";
+        const jurulatihKesihatanTabModalTitle = "modalTitleJurulatihKesihatanMasalah";
+        const jurulatihKesihatanTabModal = "modalJurulatihKesihatanMasalah";
+        const jurulatihKesihatanTabModalContent = "modalContentJurulatihKesihatanMasalah";
+        
         //System Display Date Format 
         const displayDateFormat = "dd-mm-yyyy";
         
@@ -132,6 +140,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         
         //User - From Module
         const moduleMSNAduanPenyelia= "MSN_Aduan-Penyelia";
+        const moduleMSNUsptnPpn= "MSN_USPTN-PPN";
         const modulePJSPersatuan = "PJS Persatuan";
         const moduleKBSeBiasiswa = "KBS_e-Biasiswa";
         const moduleKBSeBantuan= "KBS_e-Bantuan";
@@ -253,6 +262,14 @@ if($session->get('language') == "EN") {
         const formJurulatihKeluargaID = "jurulatih_keluarga_form";
         const formJurulatihSukanID = "jurulatih_sukan_form";
         
+        // Jurulatih tab mutiple entry model ids
+        const jurulatihSukanTabModalTitle = "modalTitleJurulatihSukanAcara";
+        const jurulatihSukanTabModal = "modalJurulatihSukanAcara";
+        const jurulatihSukanTabModalContent = "modalContentJurulatihSukanAcara";
+        const jurulatihKesihatanTabModalTitle = "modalTitleJurulatihKesihatanMasalah";
+        const jurulatihKesihatanTabModal = "modalJurulatihKesihatanMasalah";
+        const jurulatihKesihatanTabModalContent = "modalContentJurulatihKesihatanMasalah";
+        
         //System Display Date Format 
         const displayDateFormat = "dd-mm-yyyy";
         
@@ -265,6 +282,8 @@ if($session->get('language') == "EN") {
         const yearMax = 2020;
         
         //User - From Module
+        const moduleMSNAduanPenyelia= "MSN Aduan Penyelia";
+        const moduleMSNUsptnPpn= "MSN_USPTN-PPN";
         const modulePJSPersatuan = "PJS Persatuan";
         const moduleKBSeBiasiswa = "KBS_e-Biasiswa";
         const moduleKBSeBantuan= "KBS_e-Bantuan";

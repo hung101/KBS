@@ -59,6 +59,9 @@ class PermohonanInovasiPeralatan extends \yii\db\ActiveRecord
             [['ringkasan_inovasi_peralatan', 'catitan_ringkas'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['status_permohonan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['bahagian_cawangan_pusat'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['pemohon', 'nama_peralatan', 'pegawai_yang_bertanggungjawab','ringkasan_inovasi_peralatan', 'catitan_ringkas','status_permohonan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

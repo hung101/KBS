@@ -57,7 +57,10 @@ class BspElaunLatihanPraktikal extends \yii\db\ActiveRecord
             [['bsp_pemohon_id', 'jumlah_hari'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh', 'tarikh_mula', 'tarikh_tamat'], 'safe'],
             [['jenis_latihan_amali'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['tempat_latihan_praktikal'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['tempat_latihan_praktikal'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tempat_latihan_praktikal','jenis_latihan_amali'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

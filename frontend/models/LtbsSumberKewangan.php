@@ -53,7 +53,10 @@ class LtbsSumberKewangan extends \yii\db\ActiveRecord
             [['profil_badan_sukan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['jumlah'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['jenis'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['sumber'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['sumber'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['jenis','sumber'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

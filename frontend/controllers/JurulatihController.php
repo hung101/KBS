@@ -333,7 +333,7 @@ class JurulatihController extends Controller
             if($file){
                 //valid file to upload
                 //upload file to server
-                $model->gambar = Upload::uploadFile($file, Upload::jurulatihFolder, $model->jurulatih_id);
+                //$model->gambar = Upload::uploadFile($file, Upload::jurulatihFolder, $model->jurulatih_id);
             } else {
                 //invalid file to upload
                 //remain existing file
@@ -342,37 +342,62 @@ class JurulatihController extends Controller
             
             $file = UploadedFile::getInstance($model, 'keputusan_mesyuarat');
             if($file){
-                if($model->keputusan_mesyuarat != null || $model->keputusan_mesyuarat != '')//cleanup
+                /*if($model->keputusan_mesyuarat != null || $model->keputusan_mesyuarat != '')//cleanup
                 {
                     unlink($model->keputusan_mesyuarat);
                 }
                 $filename = $model->jurulatih_id . "-keputusan_mesyuarat";
-                $model->keputusan_mesyuarat = Upload::uploadFile($file, Upload::jurulatihFolder, $filename);
+                $model->keputusan_mesyuarat = Upload::uploadFile($file, Upload::jurulatihFolder, $filename);*/
             } else { $model->keputusan_mesyuarat = $existingKeputusan; }
             
             $file = UploadedFile::getInstance($model, 'salinan_ic_passport');
             if($file){
-                if($model->salinan_ic_passport != null || $model->salinan_ic_passport != '')//cleanup
+                /*if($model->salinan_ic_passport != null || $model->salinan_ic_passport != '')//cleanup
                 {
                     unlink($model->salinan_ic_passport);
                 }
                 $filename = $model->jurulatih_id . "-salinan_ic_passport";
-                $model->salinan_ic_passport = Upload::uploadFile($file, Upload::jurulatihFolder, $filename);
+                $model->salinan_ic_passport = Upload::uploadFile($file, Upload::jurulatihFolder, $filename);*/
             } else { $model->salinan_ic_passport = $existingIcPass; }
             
             $file = UploadedFile::getInstance($model, 'surat_sokongan');
             if($file){
-                if($model->surat_sokongan != null || $model->surat_sokongan != '')//cleanup
+                /*if($model->surat_sokongan != null || $model->surat_sokongan != '')//cleanup
                 {
                     unlink($model->surat_sokongan);
                 }
                 $filename = $model->jurulatih_id . "-surat_sokongan";
-                $model->surat_sokongan = Upload::uploadFile($file, Upload::jurulatihFolder, $filename);
+                $model->surat_sokongan = Upload::uploadFile($file, Upload::jurulatihFolder, $filename);*/
             } else { $model->surat_sokongan = $existingSuratSokongan; }
         }
 
         if (Yii::$app->request->post() && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->jurulatih_id, 'mesyuarat_id' => $mesyuarat_id]);
+            $file = UploadedFile::getInstance($model, 'gambar');
+            if($file){
+                $model->gambar = Upload::uploadFile($file, Upload::jurulatihFolder, $model->jurulatih_id);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'keputusan_mesyuarat');
+            if($file){
+                $filename = $model->jurulatih_id . "-keputusan_mesyuarat";
+                $model->keputusan_mesyuarat = Upload::uploadFile($file, Upload::jurulatihFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'surat_sokongan');
+            if($file){
+                $filename = $model->jurulatih_id . "-surat_sokongan";
+                $model->surat_sokongan = Upload::uploadFile($file, Upload::jurulatihFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'salinan_ic_passport');
+            if($file){
+                $filename = $model->jurulatih_id . "-salinan_ic_passport";
+                $model->salinan_ic_passport = Upload::uploadFile($file, Upload::jurulatihFolder, $filename);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->jurulatih_id, 'mesyuarat_id' => $mesyuarat_id]);
+            }
         } 
         
         return $this->render('layout', [

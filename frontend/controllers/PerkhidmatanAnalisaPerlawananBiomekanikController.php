@@ -179,8 +179,9 @@ class PerkhidmatanAnalisaPerlawananBiomekanikController extends Controller
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->perkhidmatan_analisa_perlawanan_biomekanik_id]);
             }
-        } else {
-            return $this->render('create', [
+        } 
+        
+        return $this->render('create', [
                 'model' => $model,
                 'searchModelBiomekanikUjian' => $searchModelBiomekanikUjian,
                 'dataProviderBiomekanikUjian' => $dataProviderBiomekanikUjian,
@@ -188,7 +189,6 @@ class PerkhidmatanAnalisaPerlawananBiomekanikController extends Controller
                 'dataProviderBiomekanikAnthropometrics' => $dataProviderBiomekanikAnthropometrics,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -230,8 +230,9 @@ class PerkhidmatanAnalisaPerlawananBiomekanikController extends Controller
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->perkhidmatan_analisa_perlawanan_biomekanik_id]);
             }
-        } else {
-            return $this->render('update', [
+        } 
+        
+        return $this->render('update', [
                 'model' => $model,
                 'searchModelBiomekanikUjian' => $searchModelBiomekanikUjian,
                 'dataProviderBiomekanikUjian' => $dataProviderBiomekanikUjian,
@@ -239,7 +240,6 @@ class PerkhidmatanAnalisaPerlawananBiomekanikController extends Controller
                 'dataProviderBiomekanikAnthropometrics' => $dataProviderBiomekanikAnthropometrics,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

@@ -37,6 +37,9 @@ class RefBulan extends \yii\db\ActiveRecord
             [['created', 'updated'], 'safe'],
             [['desc'], 'string', 'max' => 80],
             [['code'], 'string', 'max' => 2],
+            [['desc','code'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

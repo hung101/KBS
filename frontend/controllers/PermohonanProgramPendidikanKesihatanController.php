@@ -103,12 +103,12 @@ class PermohonanProgramPendidikanKesihatanController extends Controller
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->permohonan_program_pendidikan_kesihatan_id]);
             }
-        } else {
-            return $this->render('create', [
+        } 
+        
+        return $this->render('create', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -135,12 +135,12 @@ class PermohonanProgramPendidikanKesihatanController extends Controller
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->permohonan_program_pendidikan_kesihatan_id]);
             }
-        } else {
-            return $this->render('update', [
+        } 
+        
+        return $this->render('update', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

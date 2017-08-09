@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_bantuan_penganjuran_kejohanan_kewangan".
@@ -36,13 +37,16 @@ class BantuanPenganjuranKejohananSirkitKewangan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['bantuan_penganjuran_kejohanan_id', 'created_by', 'updated_by'], 'integer'],
+            [['bantuan_penganjuran_kejohanan_id', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['sumber_kewangan', 'jumlah'], 'required'],
-            [['jumlah'], 'number'],
+            [['jumlah'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['created', 'updated'], 'safe'],
             [['sumber_kewangan'], 'string', 'max' => 30],
             [['lain_lain'], 'string', 'max' => 80],
             [['session_id'], 'string', 'max' => 100],
+            [['sumber_kewangan','lain_lain'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

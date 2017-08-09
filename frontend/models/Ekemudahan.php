@@ -62,7 +62,10 @@ class Ekemudahan extends \yii\db\ActiveRecord
             [['gambar', 'dihubungi', 'nama_perniagaan_perkhidmatan_organisasi'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['lokasi'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['url'], 'string', 'max' => 200, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['kapasiti_penggunaan'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['kapasiti_penggunaan'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['kategori', 'jenis', 'no_lesen_pendaftaran','gambar', 'dihubungi', 'nama_perniagaan_perkhidmatan_organisasi','lokasi','url','kapasiti_penggunaan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

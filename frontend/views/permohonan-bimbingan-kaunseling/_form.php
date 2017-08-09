@@ -34,6 +34,17 @@ use common\models\general\GeneralFunction;
 /* @var $this yii\web\View */
 /* @var $model app\models\PermohonanBimbinganKaunseling findOne()*/
 /* @var $form yii\widgets\ActiveForm */
+
+// auto populate info base on login
+$disable_info = false;
+
+if(Yii::$app->user->identity->full_name && Yii::$app->user->identity->full_name != "" && !$readonly){
+    $model->nama_pemohon_rujukan = Yii::$app->user->identity->full_name;
+    if(Yii::$app->user->identity->tel_no != "") {$model->no_telefon = Yii::$app->user->identity->tel_no;}
+    if(Yii::$app->user->identity->email != "") {$model->emel = Yii::$app->user->identity->email;}
+    
+    $disable_info = true;
+}
 ?>
 
 <div class="permohonan-bimbingan-kaunseling-form">
@@ -251,7 +262,7 @@ use common\models\general\GeneralFunction;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'nama_pemohon_rujukan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
+                'nama_pemohon_rujukan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80, 'disabled'=>$disable_info]],
                 'emel' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>100]],
             ],
         ],
@@ -444,22 +455,6 @@ use common\models\general\GeneralFunction;
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>3]],
-            ],
-        ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'tarikh_temujanji' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=> DateControl::classname(),
-                    'ajaxConversion'=>false,
-                    'options'=>[
-                        'pluginOptions' => [
-                            'autoclose'=>true,
-                        ]
-                    ],
-                    'columnOptions'=>['colspan'=>3]],
                 'kes_latarbelakang' =>  [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -477,12 +472,48 @@ use common\models\general\GeneralFunction;
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>3]],
+            ],
+        ],
+    ]
+]);
+    ?>
+    
+    <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-bimbingan-kaunseling']['kelulusan']) || $readonly): ?>
+    <br>
+    <br>
+    <pre style="text-align: center"><strong><?php echo strtoupper(GeneralLabel::maklumat_kaunseling); ?></strong></pre>
+    
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'tarikh_temujanji' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'type'=>DateControl::FORMAT_DATETIME,
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                                    'todayBtn' => true,
+                        ],
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
                 'no_rujukan_kes' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
             ],
         ],
     ]
 ]);
     ?>
+     <?php endif; ?>
+    
+    <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-bimbingan-kaunseling']['kelulusan'])): ?>
     
     <hr>
     
@@ -511,7 +542,7 @@ use common\models\general\GeneralFunction;
     ]
 ]);
     ?>
-    
+    <?php endif; ?>
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-bimbingan-kaunseling']['kelulusan']) || $readonly): ?>
     <?php
         echo FormGrid::widget([

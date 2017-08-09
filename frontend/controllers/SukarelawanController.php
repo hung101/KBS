@@ -186,12 +186,12 @@ Majlis Sukan Negara Malaysia.
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->sukarelawan_id]);
             }
-        } else {
-            return $this->render('create', [
+        } 
+        
+        return $this->render('create', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -217,11 +217,11 @@ Majlis Sukan Negara Malaysia.
                 //upload file to server
                 
                 // delete upload file
-                if($existingUpload != ""){
+                /*if($existingUpload != ""){
                     self::actionDeleteupload($id, 'muatnaik');
                 }
                 
-                $model->muatnaik = Upload::uploadFile($file, Upload::sukarelawanFolder, $model->sukarelawan_id, "");
+                $model->muatnaik = Upload::uploadFile($file, Upload::sukarelawanFolder, $model->sukarelawan_id, "");*/
             } else {
                 //invalid file to upload
                 //remain existing file
@@ -230,13 +230,21 @@ Majlis Sukan Negara Malaysia.
         }
 
         if (Yii::$app->request->post() && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->sukarelawan_id]);
-        } else {
-            return $this->render('update', [
+            $upload = new Upload();
+            $file = UploadedFile::getInstance($model, 'muatnaik');
+            if($file){
+                $model->muatnaik = $upload->uploadFile($file, Upload::sukarelawanFolder, $model->sukarelawan_id, "");
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->sukarelawan_id]);
+            }
+        } 
+        
+        return $this->render('update', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

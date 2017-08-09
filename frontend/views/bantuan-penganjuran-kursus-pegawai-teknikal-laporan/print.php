@@ -75,8 +75,8 @@ if(count($BantuanPenganjuranKursusPegawaiTeknikalLaporanTuntutan) > 0){
 		<th>TARIKH TAMAT</th>
 		<th>TEMPAT</th>
 		<th>JUMLAH KELULUSAN (RM)</th>
-		<th>PENDAHULUAN (80%)(RM)</th>
-		<th>JUMLAH YANG DITUNTUT (20%)(RM)</th>
+		<!--<th>PENDAHULUAN (RM)</th>-->
+		<th>JUMLAH YANG DITUNTUT (RM)</th>
     </tr>
 	<?php
 	foreach($BantuanPenganjuranKursusPegawaiTeknikalLaporanTuntutan as $key => $value)
@@ -89,7 +89,7 @@ if(count($BantuanPenganjuranKursusPegawaiTeknikalLaporanTuntutan) > 0){
 		<td><?= ($value['tarikh_tamat'] != null)?date('d.m.Y', strtotime($value['tarikh_tamat'])):null ?></td>
 		<td><?= $value['tempat'] ?></td>
 		<td><?= number_format($value['jumlah_kelulusan'], 2) ?></td>
-		<td><?= number_format($value['pendahuluan_80'], 2) ?></td>
+		<!--<td><?= number_format($value['pendahuluan_80'], 2) ?></td>-->
 		<td><?= number_format($value['jumlah_yang_dituntut_20'], 2) ?></td>
 	</tr>
 	<?php

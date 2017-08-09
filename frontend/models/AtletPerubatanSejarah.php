@@ -59,7 +59,10 @@ class AtletPerubatanSejarah extends \yii\db\ActiveRecord
             [['jenis_sejarah_perubatan'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['mana'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['bagaimana'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['siapa_yang_merawat'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['siapa_yang_merawat'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['jenis','jenis_sejarah_perubatan','mana','bagaimana','siapa_yang_merawat'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

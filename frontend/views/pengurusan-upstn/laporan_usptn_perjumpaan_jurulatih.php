@@ -13,16 +13,29 @@ use app\models\RefReportFormat;
 use app\models\RefSukan;
 use app\models\RefPpn;
 use app\models\RefNegeri;
+use common\models\User;
+use app\models\UserPeranan;
 
 // contant values
 use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\ElaporanPelaksaan */
 
 $this->title = GeneralLabel::laporan_usptn_perjumpaan_jurulatih;
 $this->params['breadcrumbs'][] = $this->title;
+
+$ppn_list = User::find()->where(['=', 'status', User::STATUS_ACTIVE])->andWhere(['=', 'peranan', UserPeranan::PERANAN_MSN_PPN])->all();
+$disable_ppn_info = false;
+if(Yii::$app->user->identity->peranan && Yii::$app->user->identity->peranan == UserPeranan::PERANAN_MSN_PPN){
+    $model->negeri = Yii::$app->user->identity->ppn_negeri;
+    $ppn_list = User::find()->where(['=', 'status', User::STATUS_ACTIVE])
+            ->andWhere(['=', 'peranan', UserPeranan::PERANAN_MSN_PPN])
+            ->andWhere(['=', 'ppn_negeri', Yii::$app->user->identity->ppn_negeri])->all();
+    $disable_ppn_info = true;
+}
 ?>
 <div class="laporan-badan-sukan">
 
@@ -30,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
     
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'id'=>$model->formName()]); ?>
     
     <?php
         echo FormGrid::widget([
@@ -80,7 +93,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::negeri],
+                        'options' => ['placeholder' => Placeholder::negeri, 'disabled'=>$disable_ppn_info],
 'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -103,7 +116,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefPpn::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map($ppn_list,'id', 'full_name'),
                         'options' => ['placeholder' => Placeholder::namaPpn],
 'pluginOptions' => [
                             'allowClear' => true
@@ -126,7 +139,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(GeneralFunction::getSukan(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::sukan],
 'pluginOptions' => [
                             'allowClear' => true
@@ -168,3 +181,20 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+
+$script = <<< JS
+ 
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+    $("#msnlaporanusptnperjumpaanjurulatih-negeri").prop("disabled", false);
+});
+        
+JS;
+        
+$this->registerJs($script);
+?>

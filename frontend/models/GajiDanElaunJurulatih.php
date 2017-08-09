@@ -7,6 +7,7 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 /**
  * This is the model class for table "tbl_gaji_dan_elaun_jurulatih".
@@ -67,6 +68,10 @@ class GajiDanElaunJurulatih extends \yii\db\ActiveRecord
             [['no_akaun', 'bil_jkb', 'bil_mpj'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['catatan', 'pengerusi', 'kelulusan_dkp', 'catatan_jkb', 'catatan_mpj'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['dokumen_muat_naik', 'surat_tawaran', 'kelulusan_pinjaman', 'rekod_cuti'],'validateFileUpload', 'skipOnEmpty' => false],
+            [['no_passport','nama_sukan', 'bank', 'cawangan','no_pekerja', 'no_kwsp','no_akaun', 'bil_jkb', 'bil_mpj',
+                'catatan', 'pengerusi', 'kelulusan_dkp', 'catatan_jkb', 'catatan_mpj'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -115,6 +120,12 @@ class GajiDanElaunJurulatih extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
     }
     

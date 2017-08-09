@@ -138,8 +138,8 @@ class PengurusanInsuranLampiranController extends Controller
             if($file){
                 //valid file to upload
                 //upload file to server
-                $filename = $model->pengurusan_insuran_lampiran_id;
-                $model->lampiran = Upload::uploadFile($file, Upload::pengurusanInsuranLampiranFolder, $filename);
+                /*$filename = $model->pengurusan_insuran_lampiran_id;
+                $model->lampiran = Upload::uploadFile($file, Upload::pengurusanInsuranLampiranFolder, $filename);*/
             } else {
                 //invalid file to upload
                 //remain existing file
@@ -148,13 +148,22 @@ class PengurusanInsuranLampiranController extends Controller
         }
 
         if (Yii::$app->request->post() && $model->save()) {
-            return '1';
-        } else {
-            return $this->renderAjax('update', [
+            $file = UploadedFile::getInstance($model, 'lampiran');
+            $filename = $model->pengurusan_insuran_lampiran_id;
+            if($file){
+                $model->lampiran = Upload::uploadFile($file, Upload::pengurusanInsuranLampiranFolder, $filename);
+            }
+            
+            //return $this->redirect(['view', 'id' => $model->pengurusan_insuran_lampiran_id]);
+            if($model->save()){
+                return '1';
+            }
+        } 
+        
+        return $this->renderAjax('update', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

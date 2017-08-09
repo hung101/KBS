@@ -110,6 +110,10 @@ class BantuanPenganjuranKursus extends \yii\db\ActiveRecord
             [['kertas_kerja', 'surat_rasmi_badan_sukan_ms_negeri', 'butiran_perbelanjaan', 'maklumat_lain_sokongan', 'catatan', 'nama_kursus_seminar_bengkel'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['kertas_kerja', 'surat_rasmi_badan_sukan_ms_negeri', 'butiran_perbelanjaan', 'maklumat_lain_sokongan', 'surat_kelulusan'],'validateFileUpload', 'skipOnEmpty' => false],
             ['tarikh','validateBeforePenganjuran', 'on' => 'create'],
+            [['nama_bank', 'jkb','sukan', 'no_pendaftaran', 'alamat_1', 'alamat_2', 'alamat_3', 'no_akaun','alamat_negeri','alamat_bandar', 'alamat_poskod',
+                'laman_sesawang', 'facebook', 'twitter','tempat','tujuan','catatan','nama_kursus_seminar_bengkel'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -173,6 +177,12 @@ class BantuanPenganjuranKursus extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
     }
     

@@ -295,8 +295,8 @@ Majlis Sukan Negara Malaysia.
             if($file){
                 //valid file to upload
                 //upload file to server
-                $filename = $model->bantuan_elaun_id . "-muatnaik_dokumen";
-                $model->muatnaik_dokumen = Upload::uploadFile($file,  Upload::bantuanElaunFolder, $filename);
+                //$filename = $model->bantuan_elaun_id . "-muatnaik_dokumen";
+                //$model->muatnaik_dokumen = Upload::uploadFile($file,  Upload::bantuanElaunFolder, $filename);
             } else {
                 //invalid file to upload
                 //remain existing file
@@ -308,8 +308,8 @@ Majlis Sukan Negara Malaysia.
             if($file){
                 //valid file to upload
                 //upload file to server
-                $filename = $model->bantuan_elaun_id . "-surat_permohonan";
-                $model->surat_permohonan = Upload::uploadFile($file,  Upload::bantuanElaunFolder, $filename);
+                //$filename = $model->bantuan_elaun_id . "-surat_permohonan";
+                //$model->surat_permohonan = Upload::uploadFile($file,  Upload::bantuanElaunFolder, $filename);
             } else {
                 //invalid file to upload
                 //remain existing file
@@ -322,6 +322,18 @@ Majlis Sukan Negara Malaysia.
             $filename = $model->bantuan_elaun_id . "-muatnaik_gambar";
             if($file){
                 $model->muatnaik_gambar = Upload::uploadFile($file, Upload::bantuanElaunFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'muatnaik_dokumen');
+            $filename = $model->bantuan_elaun_id . "-muatnaik_dokumen";
+            if($file){
+                $model->muatnaik_dokumen = Upload::uploadFile($file, Upload::bantuanElaunFolder, $filename);
+            }
+			
+			$file = UploadedFile::getInstance($model, 'surat_permohonan');
+            $filename = $model->bantuan_elaun_id . "-surat_permohonan";
+            if($file){
+                $model->surat_permohonan = Upload::uploadFile($file, Upload::bantuanElaunFolder, $filename);
             }
             
             if($model->emel && $model->emel != "" && $model->status_permohonan ){

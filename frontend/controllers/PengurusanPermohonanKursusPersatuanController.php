@@ -214,23 +214,31 @@ class PengurusanPermohonanKursusPersatuanController extends Controller
             $file = UploadedFile::getInstance($model, 'surat_permohonan');
 
             if($file){
-                $filename = $model->pengurusan_permohonan_kursus_persatuan_id . "-surat_permohonan";
-                $model->surat_permohonan = Upload::uploadFile($file,  Upload::pengurusanPermohonanKursusPersatuanFolder, $filename);
+                /*$filename = $model->pengurusan_permohonan_kursus_persatuan_id . "-surat_permohonan";
+                $model->surat_permohonan = Upload::uploadFile($file,  Upload::pengurusanPermohonanKursusPersatuanFolder, $filename);*/
             } else {
                 $model->surat_permohonan = $existingSurat;
             }
         }
 		
         if (Yii::$app->request->post() && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->pengurusan_permohonan_kursus_persatuan_id]);
-        } else {
-            return $this->render('update', [
+            $file = UploadedFile::getInstance($model, 'surat_permohonan');
+            $filename = $model->pengurusan_permohonan_kursus_persatuan_id . "-surat_permohonan";
+            if($file){
+                $model->surat_permohonan = Upload::uploadFile($file, Upload::pengurusanPermohonanKursusPersatuanFolder, $filename);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->pengurusan_permohonan_kursus_persatuan_id]);
+            }
+        } 
+        
+        return $this->render('update', [
                 'model' => $model,
                 'searchModelPengurusanPermohonanKursusPersatuanPenasihat' => $searchModelPengurusanPermohonanKursusPersatuanPenasihat,
                 'dataProviderPengurusanPermohonanKursusPersatuanPenasihat' => $dataProviderPengurusanPermohonanKursusPersatuanPenasihat,
                 'readonly' => false,
             ]);
-        }
     }
     
     public function actionProcess()

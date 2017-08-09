@@ -57,7 +57,10 @@ class KeputusanAnalisiTubuhBadan extends \yii\db\ActiveRecord
             [['refer', 'kandungan_lemak_badan', 'tarikh'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['perkhidmatan_permakanan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['kategori_atlet'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['sukan', 'acara', 'atlet', 'fit', 'unfit', 'refer'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['sukan', 'acara', 'atlet', 'fit', 'unfit', 'refer'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['kategori_atlet','sukan', 'acara', 'atlet', 'fit', 'unfit', 'refer'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

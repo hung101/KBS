@@ -159,24 +159,31 @@ class JurulatihPendidikanController extends Controller
             
             $file = UploadedFile::getInstance($model, 'salinan_sijil');
             if($file){
-                if($model->salinan_sijil != null || $model->salinan_sijil != '')//cleanup
+                /*if($model->salinan_sijil != null || $model->salinan_sijil != '')//cleanup
                 {
                     unlink($model->salinan_sijil);
                 }
                 $filename = $model->jurulatih_id . "-salinan_sijil";
-                $model->salinan_sijil = Upload::uploadFile($file, Upload::jurulatihFolder, $filename);
+                $model->salinan_sijil = Upload::uploadFile($file, Upload::jurulatihFolder, $filename);*/
             } else { $model->salinan_sijil = $existingSijil; }
         }
         
         if (Yii::$app->request->post() && $model->save()) {
-            return self::actionView($model->jurulatih_pendidikan_id);
-        } else {
-            return $this->renderAjax('update', [
+            $file = UploadedFile::getInstance($model, 'salinan_sijil');
+            if($file){
+                $filename = $model->jurulatih_id . "-salinan_sijil";
+                $model->salinan_sijil = Upload::uploadFile($file, Upload::jurulatihFolder, $filename);
+            }
+            
+            if($model->save()){
+                return self::actionView($model->jurulatih_pendidikan_id);
+            }
+        } 
+        
+        return $this->renderAjax('update', [
                 'model' => $model,
                 'readonly' => false,
-            ]);
-        }
-        
+            ]);   
     }
 
     /**

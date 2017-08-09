@@ -56,7 +56,10 @@ class PengurusanKemudahanDanPeralatan extends \yii\db\ActiveRecord
             [['status'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['masa'], 'safe'],
             [['kerja'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['catatan_ringkas', 'tindakan_yang_diambil', 'hasil', 'ketidakpatuhan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['catatan_ringkas', 'tindakan_yang_diambil', 'hasil', 'ketidakpatuhan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['kerja','catatan_ringkas', 'tindakan_yang_diambil', 'hasil', 'ketidakpatuhan','masa'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

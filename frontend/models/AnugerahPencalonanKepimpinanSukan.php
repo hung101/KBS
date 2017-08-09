@@ -7,6 +7,7 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 /**
  * This is the model class for table "tbl_anugerah_pencalonan_lain".
@@ -61,15 +62,18 @@ class AnugerahPencalonanKepimpinanSukan extends \yii\db\ActiveRecord
         return [
             [['kategori', 'nama', 'no_tel_1'], 'required', 'skipOnEmpty' => true],
             [['sumbangan_dalam_pencapaian', 'ulasan_justifikasi'], 'string'],
-            [['created_by', 'updated_by'], 'integer'],
+            [['created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['created', 'updated', 'atlet', 'jurulatih', 'persatuan_sukan'], 'safe'],
-            [['kategori'], 'string', 'max' => 30],
-            [['nama'], 'string', 'max' => 80],
-            [['gambar'], 'string', 'max' => 100],
-            [['no_kad_pengenalan'], 'string', 'max' => 12],
-            [['no_tel_1', 'no_tel_2'], 'string', 'max' => 14],
+            [['kategori'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['gambar'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_tel_1', 'no_tel_2'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_tel_1', 'no_tel_2', 'no_kad_pengenalan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['gambar'],'validateFileUpload', 'skipOnEmpty' => false],
+            [['kategori','nama'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -106,6 +110,12 @@ class AnugerahPencalonanKepimpinanSukan extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
     }
     

@@ -54,7 +54,10 @@ class PerkhidmatanPermakanan extends \yii\db\ActiveRecord
             [['permohonan_perkhidmatan_permakanan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh', 'jantina', 'sukan'], 'safe'],
             [['pegawai_yang_bertanggungjawab'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['catitan_ringkas'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['catitan_ringkas'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['pegawai_yang_bertanggungjawab','catitan_ringkas'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

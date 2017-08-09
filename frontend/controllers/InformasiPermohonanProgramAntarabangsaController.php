@@ -130,11 +130,11 @@ class InformasiPermohonanProgramAntarabangsaController extends Controller
                 //upload file to server
                 
                 // delete existing upload file
-                if($existingMuatnaikDokumen != ""){
+                /*if($existingMuatnaikDokumen != ""){
                     self::actionDeleteupload($id, 'muatnaik_dokumen');
                 }
                 
-                $model->muatnaik_dokumen = Upload::uploadFile($file, Upload::informasiPermohonanFolder, $model->informasi_permohonan_id);
+                $model->muatnaik_dokumen = Upload::uploadFile($file, Upload::informasiPermohonanFolder, $model->informasi_permohonan_id);*/
             } else {
                 //invalid file to upload
                 //remain existing file
@@ -143,13 +143,20 @@ class InformasiPermohonanProgramAntarabangsaController extends Controller
         }
 
         if (Yii::$app->request->post() && $model->save()) {
-            return '1';
-        } else {
-            return $this->renderAjax('update', [
+            $file = UploadedFile::getInstance($model, 'muatnaik_dokumen');
+            if($file){
+                $model->muatnaik_dokumen = Upload::uploadFile($file, Upload::informasiPermohonanFolder, $model->informasi_permohonan_id);
+            }
+            
+            if($model->save()){
+                return '1';
+            }
+        } 
+        
+        return $this->renderAjax('update', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
     
     public function actionProcess()

@@ -56,7 +56,10 @@ class BspPrestasiSukan extends \yii\db\ActiveRecord
             [['tarikh'], 'safe'],
             [['kejohanan_yang_disertai'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['lokasi_kejohanan'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['pencapaian'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['pencapaian'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['kejohanan_yang_disertai','lokasi_kejohanan','pencapaian'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

@@ -24,6 +24,9 @@ class MsnSuratTawaranAtlet extends Model
         return [
             [['format', 'atlet_id', 'gaji_dan_elaun_jurulatih_id', 'gaji_elaun'], 'required', 'message' => GeneralMessage::yii_validation_required],
             [['tarikh', 'bil_msnm', 'atlet_id', 'tarikh_luput'], 'safe'],
+            [['tarikh', 'bil_msnm', 'gaji_elaun'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

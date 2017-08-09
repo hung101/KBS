@@ -53,6 +53,10 @@ class LaporanPendedahanLatihan extends \yii\db\ActiveRecord
             [['tarikh_mula', 'tarikh_tamat', 'tarikh_bertolak', 'tarikh_balik', 'created', 'updated'], 'safe'],
             [['objektif', 'penginapan', 'makan', 'pengangkutan', 'venue_latihan', 'latihan_aktiviti', 'hal_lain', 'rumusan'], 'string'],
             [['tempat', 'jadual_latihan', 'laporan_kewangan'], 'string', 'max' => 255],
+            [['objektif', 'penginapan', 'makan', 'pengangkutan', 'venue_latihan', 'latihan_aktiviti', 'hal_lain', 'rumusan',
+                'tempat', 'jadual_latihan', 'laporan_kewangan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

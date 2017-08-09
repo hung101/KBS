@@ -382,6 +382,8 @@ class ElaporanPelaksanaanController extends Controller
         
         $model = $this->findModel($id);
         
+        $existingMuatNaik = $model->muat_naik;
+        
         $queryPar = null;
         
         $queryPar['ElaporanPelaksanaanGambarSearch']['elaporan_pelaksaan_id'] = $id;
@@ -404,8 +406,28 @@ class ElaporanPelaksanaanController extends Controller
         
         $searchModelKelebihan= new ElaporanPelaksanaanKelebihanSearch();
         $dataProviderKelebihan = $searchModelKelebihan->search($queryPar);
+        
+        if($model->load(Yii::$app->request->post())){
+            $file = UploadedFile::getInstance($model, 'muat_naik');
 
-        if ($model->load(Yii::$app->request->post())) {
+            if($file){
+                //valid file to upload
+                //upload file to server
+                
+                // delete upload file
+                /*if($existingMuatNaik != ""){
+                    self::actionDeleteupload($id, 'muat_naik');
+                }
+                
+                $model->muat_naik = Upload::uploadFile($file, Upload::dokumenPenyelidikanFolder, $model->dokumen_penyelidikan_id);*/
+            } else {
+                //invalid file to upload
+                //remain existing file
+                $model->muat_naik = $existingMuatNaik;
+            }
+        }
+
+        if (Yii::$app->request->post() && $model->save()) {
             $file = UploadedFile::getInstance($model, 'muat_naik');
             if($file){
                 $model->muat_naik = Upload::uploadFile($file, Upload::eLaporanFolder, $model->elaporan_pelaksaan_id);

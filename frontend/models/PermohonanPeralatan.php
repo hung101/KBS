@@ -55,14 +55,17 @@ class PermohonanPeralatan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['cawangan', 'sukan', 'program', 'tarikh', 'jumlah_peralatan', 'kelulusan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['cawangan', 'sukan', 'tarikh', 'jumlah_peralatan', 'kelulusan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh', 'tarikh_jkb'], 'safe'],
             [['jumlah_peralatan', 'kelulusan', 'mesyuarat_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['jumlah_diluluskan'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['jumlah_diluluskan', 'jumlah_permohonan', 'jumlah_cadangan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['cawangan', 'aktiviti', 'bil_jkb'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['negeri'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['program'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['nota_urus_setia', 'catatan_cadangan', 'catatan_kelulusan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['nota_urus_setia', 'catatan_cadangan', 'catatan_kelulusan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['cawangan', 'aktiviti', 'bil_jkb','negeri','program'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -87,6 +90,8 @@ class PermohonanPeralatan extends \yii\db\ActiveRecord
             'jumlah_diluluskan' => GeneralLabel::jumlah_diluluskan,
             'catatan_cadangan' => GeneralLabel::catatan_cadangan,
             'catatan_kelulusan' => GeneralLabel::catatan_kelulusan,
+            'jumlah_permohonan' => GeneralLabel::jumlah_permohonan,
+            'jumlah_cadangan' => GeneralLabel::jumlah_cadangan,
         ];
     }
     

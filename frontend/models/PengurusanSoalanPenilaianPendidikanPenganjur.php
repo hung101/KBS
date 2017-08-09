@@ -51,7 +51,10 @@ class PengurusanSoalanPenilaianPendidikanPenganjur extends \yii\db\ActiveRecord
         return [
             [['soalan', 'rating'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['pengurusan_penilaian_pendidikan_penganjur_intructor_id', 'rating'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['soalan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['soalan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['soalan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

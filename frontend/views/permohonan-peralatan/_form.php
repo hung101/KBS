@@ -20,6 +20,9 @@ use app\models\RefSukan;
 use app\models\RefProgram;
 use app\models\RefProgramSemasaSukanAtlet;
 use app\models\RefKelulusanPeralatan;
+use app\models\ProfilPusatLatihan;
+use app\models\ProfilPusatLatihanProgram;
+use app\models\UserPeranan;
 
 // contant values
 use app\models\general\Placeholder;
@@ -34,6 +37,31 @@ use common\models\general\GeneralFunction;
 
 // cawangan dropdown lists
 $cawangan_list = GeneralFunction::getCawangan();
+$disabled_negeri = false;
+
+if(Yii::$app->user->identity->peranan && Yii::$app->user->identity->peranan == UserPeranan::PERANAN_MSN_PPN && !$readonly){
+    //$model->nama_pengurus_sukan = Yii::$app->user->identity->id;
+    //$model->nama_sukan = Yii::$app->user->identity->ppn_sukan;
+    $model->negeri = Yii::$app->user->identity->ppn_negeri;
+
+    $disabled_negeri = true;
+}
+
+$arr_program_list = ArrayHelper::map(RefProgramSemasaSukanAtlet::find()->where(['=', 'aktif', 1])->all(),'id', 'desc');
+
+if($profil_pusat_latihan_id != null){
+    if (($modelProfilPusatLatihan = ProfilPusatLatihan::findOne($profil_pusat_latihan_id)) !== null) {
+        $model->negeri = $modelProfilPusatLatihan->alamat_negeri;
+        
+        $disabled_negeri = true;
+    }
+    
+    if (($modelProfilPusatLatihan = ProfilPusatLatihanProgram::find()->where(['=', 'profil_pusat_latihan_id', $profil_pusat_latihan_id])->groupBy('program')->all()) !== null) {
+        $arr_program_list = ArrayHelper::map(ProfilPusatLatihanProgram::find()
+                ->where(['=', 'profil_pusat_latihan_id', $profil_pusat_latihan_id])
+                ->groupBy('program')->all(),'program', 'refProgramSemasaSukanAtlet.desc');
+    }
+}
 ?>
 
 <div class="permohonan-peralatan-form">
@@ -80,7 +108,7 @@ $cawangan_list = GeneralFunction::getCawangan();
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::negeri],
+                        'options' => ['placeholder' => Placeholder::negeri, 'disabled'=>$disabled_negeri],
 'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -143,7 +171,7 @@ $cawangan_list = GeneralFunction::getCawangan();
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefProgramSemasaSukanAtlet::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>$arr_program_list,
                         'options' => ['placeholder' => Placeholder::program],
 'pluginOptions' => [
                             'allowClear' => true
@@ -217,6 +245,14 @@ $cawangan_list = GeneralFunction::getCawangan();
             'harga_per_unit',
             'jumlah_unit',
             'jumlah',
+            //'jumlah_cadangan',
+            [
+                'attribute' => 'jumlah_cadangan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah_cadangan,
+                ]
+            ],
             // 'catatan',
 
             //['class' => 'yii\grid\ActionColumn'],
@@ -250,13 +286,15 @@ $cawangan_list = GeneralFunction::getCawangan();
     
     <?php 
         $calculate_jumlah_pendapatan = 0.00;
+        $calculate_jumlah_cadangan = 0.00;
         foreach($dataProvider->models as $PTLmodel){
             $calculate_jumlah_pendapatan += $PTLmodel->jumlah;
+            $calculate_jumlah_cadangan += $PTLmodel->jumlah_cadangan;
         }
     ?>
     
     <?php 
-        echo "<label>" . $model->getAttributeLabel('jumlah_peralatan') . ": </label> &nbsp;" . $dataProvider->getTotalCount() . ", <label>".GeneralLabel::jumlah_keseluruhan.": </label> RM" . $calculate_jumlah_pendapatan;
+        echo "<label>" . $model->getAttributeLabel('jumlah_peralatan') . ": </label> &nbsp;" . $dataProvider->getTotalCount() . ", <label>".GeneralLabel::jumlah_keseluruhan.": </label> RM" . $calculate_jumlah_pendapatan . ", <label>".GeneralLabel::jumlah_cadangan_without_rm.": </label> RM" . $calculate_jumlah_cadangan;
     ?>
     <?php Pjax::end(); ?>
     
@@ -339,7 +377,7 @@ $cawangan_list = GeneralFunction::getCawangan();
     ?>
     
     <?php 
-        echo "<label>Jumlah Peralatan: </label> &nbsp;" . $dataProviderPermohonanPeralatanPenggunaan->getTotalCount() . ", <label>".GeneralLabel::jumlah_keseluruhan.": </label> RM" . $jumlah;
+        echo "<label>Jumlah Peralatan: </label> &nbsp;" . $dataProviderPermohonanPeralatanPenggunaan->getTotalCount() . ", <label>".GeneralLabel::jumlah_keseluruhan.": </label> RM" . $jumlah ;
     ?>
     
     <?php Pjax::end(); ?>
@@ -472,6 +510,8 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
     var form = $(this);
 
     $("form#{$model->formName()} input").prop("disabled", false);
+    
+    $("#permohonanperalatan-negeri").prop("disabled", false);
 });
         
 JS;

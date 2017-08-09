@@ -58,7 +58,10 @@ class AtletKewanganElaun extends \yii\db\ActiveRecord
             [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['jumlah_elaun'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['elaun_diterima', 'kelulusan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['tarikh_mula', 'tarikh_tamat', 'tarikh_kredit', 'tarikh_kelulusan', 'tarikh_jkb'], 'safe']
+            [['tarikh_mula', 'tarikh_tamat', 'tarikh_kredit', 'tarikh_kelulusan', 'tarikh_jkb'], 'safe'],
+            [['elaun_diterima', 'kelulusan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

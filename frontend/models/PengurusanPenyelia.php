@@ -67,7 +67,10 @@ class PengurusanPenyelia extends \yii\db\ActiveRecord
             [['no_kad_pengenalan', 'username'], 'string', 'min' => 12, 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max, 'tooShort' => GeneralMessage::yii_validation_string_min],
             ['new_password', 'validatePassword'],
             ['new_password', 'string', 'min' => 12, 'tooShort' => GeneralMessage::yii_validation_string_min],
-            [['username'], 'unique', 'message' => GeneralMessage::yii_validation_unique]
+            [['username'], 'unique', 'message' => GeneralMessage::yii_validation_unique],
+            [['email','aduan_venue', 'aduan_bahagian', 'aduan_kawasan_kemudahan','full_name','aduan_jawatan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

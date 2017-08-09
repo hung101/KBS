@@ -66,7 +66,10 @@ class Persatuan extends \yii\db\ActiveRecord
             [['no_kad_pengenalan'], 'string', 'min' => 12, 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max, 'tooShort' => GeneralMessage::yii_validation_string_min],
             ['new_password', 'validatePassword'],
             ['new_password', 'string', 'min' => 12, 'tooShort' => GeneralMessage::yii_validation_string_min],
-            [['username'], 'unique', 'message' => GeneralMessage::yii_validation_unique]
+            [['username'], 'unique', 'message' => GeneralMessage::yii_validation_unique],
+            [['username','full_name','email','sukan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

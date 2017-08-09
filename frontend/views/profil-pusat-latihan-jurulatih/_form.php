@@ -6,6 +6,7 @@ use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
 use kartik\builder\FormGrid;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 use kartik\datecontrol\DateControl;
 
 // contant values
@@ -17,6 +18,7 @@ use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\Jurulatih;
+use app\models\RefStatusJurulatih;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\ProfilPusatLatihanJurulatih */
@@ -56,6 +58,23 @@ use app\models\Jurulatih;
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>6]],
+                'status' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-status-jurulatih/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefStatusJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::status,'disabled' => true],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
             ],
         ],
     ]
@@ -90,11 +109,15 @@ use app\models\Jurulatih;
 </div>
 
 <?php
+$URLJurulatih = Url::to(['/jurulatih/get-jurulatih']);
+
 $script = <<< JS
         
 $('form#{$model->formName()}').on('beforeSubmit', function (e) {
 
     var form = $(this);
+
+    $("#profilpusatlatihanjurulatih-status").prop("disabled", false);
      
      // submit form
      $.ajax({
@@ -119,6 +142,22 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
      });
      return false;
 });
+
+$('#jurulatihId').change(function(){
+    clearForm();
+    
+    $.get('$URLJurulatih',{id:$(this).val()},function(data){
+        var data = $.parseJSON(data);
+        
+        if(data !== null){
+            $('#profilpusatlatihanjurulatih-status').val(data.status_jurulatih).trigger("change");
+        }
+    });
+});
+        
+function clearForm(){
+    $("#profilpusatlatihanjurulatih-status").val('').trigger("change");
+}
      
 
 JS;

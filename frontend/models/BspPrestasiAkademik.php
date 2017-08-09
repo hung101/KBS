@@ -5,7 +5,7 @@ namespace app\models;
 use Yii;
 use yii\web\UploadedFile;
 use app\models\general\Upload;
-
+use common\models\general\GeneralFunction;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
 
@@ -56,7 +56,7 @@ class BspPrestasiAkademik extends \yii\db\ActiveRecord
             [['bsp_pemohon_id', 'bsp_borang_borang_id', 'semester'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh'], 'safe'],
             [['png', 'pngk'], 'number', 'message' => GeneralMessage::yii_validation_number],
-            [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false]
+            [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false],
         ];
     }
 
@@ -85,6 +85,12 @@ class BspPrestasiAkademik extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
     }
     

@@ -52,7 +52,10 @@ class AtletPerubatanInsurans extends \yii\db\ActiveRecord
             [['atlet_id', 'syarikat_insurans'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['syarikat_insurans'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['no_polisi_hayat', 'no_polisi_kad_perubatan'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['no_polisi_hayat', 'no_polisi_kad_perubatan'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['syarikat_insurans','no_polisi_hayat', 'no_polisi_kad_perubatan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

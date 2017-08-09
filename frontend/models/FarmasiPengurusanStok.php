@@ -55,7 +55,10 @@ class FarmasiPengurusanStok extends \yii\db\ActiveRecord
             [['harga', 'jumlah_harga'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['kuantiti'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama_ubat'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['dos'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['dos'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_ubat','dos'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

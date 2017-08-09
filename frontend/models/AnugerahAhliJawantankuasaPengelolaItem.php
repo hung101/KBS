@@ -58,7 +58,10 @@ class AnugerahAhliJawantankuasaPengelolaItem extends \yii\db\ActiveRecord
             [['anugerah_ahli_jawantankuasa_pengelola_id', 'created_by', 'updated_by'], 'integer'],
             [['ajk', 'nama', 'bahagian'], 'required'],
             [['created', 'updated'], 'safe'],
-            [['ajk', 'nama', 'bahagian', 'session_id'], 'string', 'max' => 80],
+            [['ajk', 'nama', 'bahagian', 'session_id'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['ajk', 'nama', 'bahagian'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

@@ -74,6 +74,10 @@ class LaporanPenyertaanKejohanan extends \yii\db\ActiveRecord
             [['tarikh_mula', 'tarikh_tamat', 'tarikh_bertolak', 'tarikh_balik', 'created', 'updated'], 'safe'],
             [['penginapan', 'makan', 'pengangkutan', 'venue_pertandingan', 'penyertaan_negara_lain', 'ulasan_prestasi', 'rumusan_prestasi', 'rumusan'], 'string'],
             [['tempat', 'jadual_pertandingan', 'laporan_kewangan'], 'string', 'max' => 255],
+            [['penginapan', 'makan', 'pengangkutan', 'venue_pertandingan', 'penyertaan_negara_lain', 'ulasan_prestasi', 'rumusan_prestasi', 'rumusan',
+                'tempat', 'jadual_pertandingan', 'laporan_kewangan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

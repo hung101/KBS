@@ -53,6 +53,9 @@ class BantuanPenganjuranKejohananLaporanTuntutan extends \yii\db\ActiveRecord
             [['no_cek', 'no_boucer'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['session_id'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             ['jumlah_yang_dituntut_20','validateJumlahDituntut'],
+            [['kejohanan','tempat','no_cek', 'no_boucer'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

@@ -57,13 +57,16 @@ class PengurusanKehadiranMediaProgram extends \yii\db\ActiveRecord
             [['program', 'nama_wartawan', 'agensi'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['emel'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_telefon'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
-                        [['no_telefon'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['no_telefon'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama_wartawan'], 'unique', 'targetAttribute' => ['pengurusan_media_program_id', 'nama_wartawan'], 'when' => function ($model) {
                     return $model->pengurusan_media_program_id != "";
                 }, 'message' => GeneralMessage::yii_validation_unique_multiple],
             [['nama_wartawan'], 'unique', 'targetAttribute' => ['session_id', 'nama_wartawan'], 'when' => function ($model) {
                     return $model->session_id != "";
                 }, 'message' => GeneralMessage::yii_validation_unique_multiple],
+            [['program', 'nama_wartawan', 'agensi','emel'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

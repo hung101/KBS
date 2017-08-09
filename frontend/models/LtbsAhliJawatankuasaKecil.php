@@ -70,9 +70,13 @@ class LtbsAhliJawatankuasaKecil extends \yii\db\ActiveRecord
             [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['jantina'], 'string', 'max' => 1, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['bangsa'], 'string', 'max' => 25, 'tooLong' => GeneralMessage::yii_validation_string_max],
-                        [['no_tel'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['no_tel'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_tel'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['nama_majikan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['nama_majikan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_jawatankuasa', 'jawatan', 'pekerjaan','nama_penuh', 'emel', 'pengiktirafan_yang_diterima', 'kursus_yang_pernah_diikuti_oleh_pemegang_jawatan',
+                'bangsa','nama_majikan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

@@ -8,6 +8,7 @@ use yii\web\Session;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 /**
  * This is the model class for table "atlet".
@@ -134,7 +135,15 @@ class Atlet extends \yii\db\ActiveRecord
                 [['alamat_rumah_1','alamat_rumah_2','alamat_rumah_3', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
                 [['file'], 'safe'],
                 [['file'], 'file', 'extensions' => 'png, jpg'],
-                [['muat_naik_surat_persetujuan'],'validateFileUpload', 'skipOnEmpty' => false],
+                [['muat_naik_surat_persetujuan', 'gambar'],'validateFileUpload', 'skipOnEmpty' => false],
+                [['tinggi', 'berat','dari_bahagian', 'sumber', 'pertalian_kecemasan','name_penuh', 'nama_kecemasan', 'jenis_kecederaan', 'bilangan_jkk_jkp',
+                    'tempat_lahir_bandar', 'alamat_rumah_bandar', 'alamat_surat_bandar', 'status_atlet', 'jenis_lesen_paralimpik', 'agensi',
+                    'tempat_lahir_negeri', 'alamat_rumah_negeri', 'alamat_surat_negeri', 'passport_tempat_dikeluarkan', 'negeri_diwakili',
+                    'bangsa', 'bahasa_ibu','agama', 'taraf_perkahwinan', 'no_sijil_lahir', 'passport_no', 'ms_negeri','ic_no_lama', 'lesen_memandu_no',
+                    'jenis_lesen', 'emel', 'facebook', 'twitter','tawaran_fail_rujukan', 'no_lesen_ipc','tempat_lahir_alamat_1','alamat_rumah_1',
+                    'alamat_rumah_2','alamat_rumah_3', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3'], 'filter', 'filter' => function ($value) {
+                    return  \common\models\general\GeneralFunction::filterXSS($value);
+                }],
             ];
         } else {
             return [
@@ -169,7 +178,15 @@ class Atlet extends \yii\db\ActiveRecord
                 [['alamat_rumah_1','alamat_rumah_2','alamat_rumah_3', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
                 [['file'], 'safe'],
                 [['file'], 'file', 'extensions' => 'png, jpg'],
-                [['muat_naik_surat_persetujuan', 'surat_tawaran_program_podium'],'validateFileUpload', 'skipOnEmpty' => false],
+                [['muat_naik_surat_persetujuan', 'surat_tawaran_program_podium', 'gambar'],'validateFileUpload', 'skipOnEmpty' => false],
+                [['tinggi', 'berat','dari_bahagian', 'sumber', 'pertalian_kecemasan','name_penuh', 'nama_kecemasan', 'jenis_kecederaan', 'bilangan_jkk_jkp',
+                    'tempat_lahir_bandar', 'alamat_rumah_bandar', 'alamat_surat_bandar', 'status_atlet', 'jenis_lesen_paralimpik', 'agensi',
+                    'tempat_lahir_negeri', 'alamat_rumah_negeri', 'alamat_surat_negeri', 'passport_tempat_dikeluarkan', 'negeri_diwakili',
+                    'bangsa', 'bahasa_ibu','agama', 'taraf_perkahwinan', 'no_sijil_lahir', 'passport_no', 'ms_negeri','ic_no_lama', 'lesen_memandu_no',
+                    'jenis_lesen', 'emel', 'facebook', 'twitter','tawaran_fail_rujukan', 'no_lesen_ipc','tempat_lahir_alamat_1','alamat_rumah_1',
+                    'alamat_rumah_2','alamat_rumah_3', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3'], 'filter', 'filter' => function ($value) {
+                    return  \common\models\general\GeneralFunction::filterXSS($value);
+                }],
             ];
         }
         
@@ -273,6 +290,12 @@ class Atlet extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
     }
     

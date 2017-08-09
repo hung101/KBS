@@ -60,7 +60,10 @@ class AtletKewanganAkaun extends \yii\db\ActiveRecord
             [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama_bank', 'cawangan'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_akaun'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['jenis_akaun'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['jenis_akaun'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_bank', 'cawangan','no_akaun','jenis_akaun'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

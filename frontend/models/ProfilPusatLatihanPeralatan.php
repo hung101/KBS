@@ -55,8 +55,11 @@ class ProfilPusatLatihanPeralatan extends \yii\db\ActiveRecord
             [['nama_peralatan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['profil_pusat_latihan_id', 'created_by', 'updated_by'], 'integer'],
             [['created', 'updated'], 'safe'],
-            [['nama_peralatan'], 'string', 'max' => 255],
+            [['nama_peralatan', 'status_peralatan', 'sukan'], 'string', 'max' => 255],
             [['session_id'], 'string', 'max' => 100],
+            [['nama_peralatan', 'status_peralatan', 'sukan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -69,12 +72,19 @@ class ProfilPusatLatihanPeralatan extends \yii\db\ActiveRecord
             'profil_pusat_latihan_peralatan_id' => 'Profil Pusat Latihan Jurulatih ID',
             'profil_pusat_latihan_id' => 'Profil Pusat Latihan ID',
             'nama_peralatan' => GeneralLabel::nama_peralatan,
+            'status_peralatan' => GeneralLabel::status_peralatan,
+            'sukan' => GeneralLabel::sukan,
             'session_id' => 'Session ID',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
             'created' => 'Created',
             'updated' => 'Updated',
         ];
+    }
+    
+    public function getRefSukan()
+    {
+        return $this->hasOne(RefSukan::className(), ['id' => 'sukan']);
     }
     
     public function getRefProfilPusatLatihan()

@@ -8,7 +8,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\PermohonanPeralatan */
 
 $this->title = GeneralLabel::createTitle . ' ' . GeneralLabel::permohonan_peralatan;
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_peralatan, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_peralatan, 'url' => ['index', 'profil_pusat_latihan_id' => $profil_pusat_latihan_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-peralatan-create">
@@ -22,6 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'searchModelPermohonanPeralatanPenggunaan' => $searchModelPermohonanPeralatanPenggunaan,
         'dataProviderPermohonanPeralatanPenggunaan' => $dataProviderPermohonanPeralatanPenggunaan,
+        'profil_pusat_latihan_id' => $profil_pusat_latihan_id,
     ]) ?>
 
 </div>

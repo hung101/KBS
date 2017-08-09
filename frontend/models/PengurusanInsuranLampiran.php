@@ -6,7 +6,7 @@ use Yii;
 use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
-
+use common\models\general\GeneralFunction;
 use app\models\general\GeneralLabel;
 
 /**
@@ -42,6 +42,9 @@ class PengurusanInsuranLampiran extends \yii\db\ActiveRecord
             [['lampiran'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['session_id'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['lampiran'], 'validateFileUpload', 'skipOnEmpty' => false],
+            [['nama_dokumen'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -54,7 +57,7 @@ class PengurusanInsuranLampiran extends \yii\db\ActiveRecord
             'pengurusan_insuran_lampiran_id' => 'Pengurusan Insuran Lampiran ID',
             'pengurusan_insuran_id' => 'Pengurusan Insuran ID',
             'lampiran' => GeneralLabel::lampiran,  //'Lampiran',
-			'nama_dokumen' => GeneralLabel::nama_dokumen,
+            'nama_dokumen' => GeneralLabel::nama_dokumen,
             'session_id' => 'Session ID',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
@@ -71,6 +74,12 @@ class PengurusanInsuranLampiran extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
 
         if(!$file && $this->$attribute==""){

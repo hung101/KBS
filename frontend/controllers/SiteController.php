@@ -21,6 +21,7 @@ use yii\web\Session;
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 /**
  * Site controller
@@ -412,9 +413,11 @@ class SiteController extends Controller
     
     public function actionCheckConcurrent()
     {
+        $session = new Session;
+        $session->open();
+            
         if (!Yii::$app->user->isGuest && ($modelUser = User::findIdentity(Yii::$app->user->identity->id)) !== null) {
-            $session = new Session;
-            $session->open();
+            
             
             //echo "User auth key: " . $modelUser->auth_key;
             //echo "<br>Session auth key: " . $session['auth_key'];
@@ -423,13 +426,38 @@ class SiteController extends Controller
             if(isset($session['auth_key']) && !Yii::$app->params['allowConcurrentLogin']){
                 
                 if($modelUser->auth_key != $session['auth_key']){
+                    $session['session_error_msg'] = GeneralLabel::sesi_concurrent_msg;
                     Yii::$app->user->logout();
                     Yii::$app->session->setFlash('error', GeneralLabel::sesi_concurrent_msg);
                     Yii::$app->response->redirect(['site/login']);
                 }
             }
             
-            $session->close();
+            if(isset(Yii::$app->params['expiryTimeout'])){
+                if($modelUser->last_active){
+                    
+                    //$lastActiveAddTimeout = date_add($modelUser->last_active,date_interval_create_from_date_string(Yii::$app->params['expiryTimeout'] . " seconds"));
+                    $dateActiveExpired = new \DateTime($modelUser->last_active);
+                    $dateActiveExpired->modify('+'.Yii::$app->params['expiryTimeout'].' seconds'); // add 15 minutes
+                    
+                    //echo $dateActiveExpired;
+                    //echo date_format($dateActiveExpired,"Y-m-d H:i:s");
+                    if(date_format($dateActiveExpired,"Y-m-d H:i:s") < GeneralFunction::getCurrentTimestamp()){
+                        $session['session_error_msg'] = GeneralLabel::sesi_tamat_msg;
+                        Yii::$app->user->logout();
+                        Yii::$app->session->setFlash('error', GeneralLabel::sesi_tamat_msg);
+                        Yii::$app->response->redirect(['site/login']);
+                    }
+                }
+            }
+        }elseif (\Yii::$app->user->isGuest) {
+            //Yii::$app->user->logout();
+            if(isset($session['session_error_msg'])){
+                Yii::$app->session->setFlash('error', $session['session_error_msg']);
+            }
+            Yii::$app->response->redirect(['site/login']);
         }
+        
+        $session->close();
     }
 }

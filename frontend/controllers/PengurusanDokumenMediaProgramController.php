@@ -104,13 +104,15 @@ class PengurusanDokumenMediaProgramController extends Controller
                 $model->muatnaik = Upload::uploadFile($file, Upload::pengurusanMediaProgramFolder, $filename, Upload::pengurusanMediaProgramDokumenSubFolder);
             }
             //return $this->redirect(['view', 'id' => $model->pengurusan_dokumen_media_program_id]);
-            return $model->save();
-        } else {
-            return $this->renderAjax('create', [
+            if($model->save()){
+                return '1';
+            }
+        } 
+        
+        return $this->renderAjax('create', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -134,8 +136,8 @@ class PengurusanDokumenMediaProgramController extends Controller
             if($file){
                 //valid file to upload
                 //upload file to server
-                $filename = $model->pengurusan_dokumen_media_program_id;
-                $model->muatnaik = Upload::uploadFile($file, Upload::pengurusanMediaProgramFolder, $filename, Upload::pengurusanMediaProgramDokumenSubFolder);
+                /*$filename = $model->pengurusan_dokumen_media_program_id;
+                $model->muatnaik = Upload::uploadFile($file, Upload::pengurusanMediaProgramFolder, $filename, Upload::pengurusanMediaProgramDokumenSubFolder);*/
             } else {
                 //invalid file to upload
                 //remain existing file
@@ -143,15 +145,23 @@ class PengurusanDokumenMediaProgramController extends Controller
             }
         }
 
-        if (Yii::$app->request->post()) {
-            return $model->save();
+        if (Yii::$app->request->post() && $model->save()) {
+            $file = UploadedFile::getInstance($model, 'muatnaik');
+            $filename = $model->pengurusan_dokumen_media_program_id;
+            if($file){
+                $model->muatnaik = Upload::uploadFile($file, Upload::pengurusanMediaProgramFolder, $filename, Upload::pengurusanMediaProgramDokumenSubFolder);
+            }
+            
+            if($model->save()){
+                return '1';
+            }
             //return $this->redirect(['view', 'id' => $model->pengurusan_dokumen_media_program_id]);
-        } else {
-            return $this->renderAjax('update', [
+        } 
+        
+        return $this->renderAjax('update', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

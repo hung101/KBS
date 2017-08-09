@@ -232,14 +232,14 @@ class PengurusanInsuranController extends Controller
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->pengurusan_insuran_id]);
             }
-        } else {
-            return $this->render('update', [
+        } 
+        
+        return $this->render('update', [
                 'model' => $model,
                 'searchModelPengurusanInsuranLampiran' => $searchModelPengurusanInsuranLampiran,
                 'dataProviderPengurusanInsuranLampiran' => $dataProviderPengurusanInsuranLampiran,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

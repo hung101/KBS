@@ -7,6 +7,7 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 /**
  * This is the model class for table "tbl_maklumat_pegawai_teknikal".
@@ -100,6 +101,10 @@ class MaklumatPegawaiTeknikal extends \yii\db\ActiveRecord
             [['gred'], 'string', 'max' => 10, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tahap_kelayakan_sukan_peringkat_kebangsaan', 'tahap_kelayakan_sukan_peringkat_antarabangsa'],'validateFileUpload', 'skipOnEmpty' => false],
+            [['badan_sukan', 'nama_majikan', 'jawatan', 'nama_kejohanan_kursus', 'tahap_akademik_lain_lain','sukan', 'nama', 'alamat_1', 'alamat_2', 
+                'alamat_3', 'no_passport', 'tahap_akademik','alamat_negeri','alamat_bandar','alamat_e_mail'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -158,6 +163,12 @@ class MaklumatPegawaiTeknikal extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
     }
     

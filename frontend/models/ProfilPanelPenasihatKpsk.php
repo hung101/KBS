@@ -7,6 +7,7 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 /**
  * This is the model class for table "tbl_profil_panel_penasihat_kpsk".
@@ -96,6 +97,10 @@ class ProfilPanelPenasihatKpsk extends \yii\db\ActiveRecord
             [['emel'], 'string', 'max' => 100],
             [['muatnaik'], 'string', 'max' => 255],
             [['muatnaik'],'validateFileUpload', 'skipOnEmpty' => false],
+            [['nama', 'nama_jurusan', 'pengkhususan', 'nama_majikan', 'jawatan', 'gred','alamat_1', 'alamat_2', 'alamat_3', 'alamat_majikan_1', 
+                'alamat_majikan_2', 'alamat_majikan_3','emel'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -157,6 +162,12 @@ class ProfilPanelPenasihatKpsk extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
     }
 }

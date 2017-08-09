@@ -13,7 +13,7 @@ use app\models\RefKelulusanPeralatan;
 
 //$this->title = $model->permohonan_peralatan_id;
 $this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::permohonan_peralatan;
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_peralatan, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_peralatan, 'url' => ['index', 'profil_pusat_latihan_id' => $profil_pusat_latihan_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-peralatan-view">
@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-peralatan']['create']) && $model->hantar_flag == 0)): ?>
-            <?= Html::a(GeneralLabel::send, ['hantar', 'id' => $model->permohonan_peralatan_id], [
+            <?= Html::a(GeneralLabel::send, ['hantar', 'id' => $model->permohonan_peralatan_id, 'profil_pusat_latihan_id' => $profil_pusat_latihan_id], [
                 'class' => 'btn btn-success',
                 'data' => [
                     'confirm' => GeneralMessage::confirmSave,
@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]) ?>
         <?php endif; ?>
         <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-peralatan']['update']) && $model->hantar_flag == 0) || isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-peralatan']['kelulusan'])): ?>
-            <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->permohonan_peralatan_id], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->permohonan_peralatan_id, 'profil_pusat_latihan_id' => $profil_pusat_latihan_id], ['class' => 'btn btn-primary']) ?>
         <?php endif; ?>
         <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-peralatan']['delete']) && $model->hantar_flag == 0) || isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-peralatan']['kelulusan'])): ?>
             <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->permohonan_peralatan_id], [
@@ -59,6 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'searchModelPermohonanPeralatanPenggunaan' => $searchModelPermohonanPeralatanPenggunaan,
         'dataProviderPermohonanPeralatanPenggunaan' => $dataProviderPermohonanPeralatanPenggunaan,
+        'profil_pusat_latihan_id' => $profil_pusat_latihan_id,
     ]) ?>
 
     <?php /*echo DetailView::widget([

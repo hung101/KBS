@@ -9,6 +9,7 @@ use app\models\general\GeneralMessage;
 
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 
 /**
@@ -90,6 +91,13 @@ class AkademiAkk extends \yii\db\ActiveRecord
             [['tarikh_tamat_lesen'], 'compare', 'compareAttribute'=>'tarikh_mula_lesen', 'operator'=>'>=', 'message' => GeneralMessage::yii_validation_compare],
             [['alamat_majikan_poskod', 'alamat_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             //[['nama, nama_jurulatih'], 'validateJurulatihFreeText', 'skipOnEmpty' => false],
+            
+            [['emel','nama', 'nama_majikan', 'jenis_sukan', 'nama_jurulatih','senarai_nama_peserta','tempat_lahir', 'alamat_majikan_1', 'alamat_majikan_2', 
+                'alamat_majikan_3', 'no_passport', 'tempat_lahir', 'alamat_majikan_1', 'alamat_majikan_2', 'alamat_majikan_3', 'alamat_majikan_negeri', 
+                'kategori_pensijilan', 'alamat_1', 'alamat_2', 'alamat_3', 'no_lesen_jurulatih', 'no_sijil_spkk', 'alamat_majikan_bandar', 
+                'alamat_bandar','alamat_negeri'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -162,6 +170,12 @@ class AkademiAkk extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
     }
     

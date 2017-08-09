@@ -44,6 +44,9 @@ class BantuanPenganjuranKursusPegawaiTeknikalDisertai extends \yii\db\ActiveReco
             [['kursus_seminar_bengkel', 'anjuran'], 'string', 'max' => 80],
             [['tempat'], 'string', 'max' => 90],
             [['session_id'], 'string', 'max' => 100],
+            [['kursus_seminar_bengkel', 'anjuran','tempat'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

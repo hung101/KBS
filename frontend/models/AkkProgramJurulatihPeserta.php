@@ -61,6 +61,9 @@ class AkkProgramJurulatihPeserta extends \yii\db\ActiveRecord
             [['session_id'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['emel_pengurus_sukan'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['emel_pengurus_sukan'], 'email', 'message' => GeneralMessage::yii_validation_email],
+            [['emel_pengurus_sukan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

@@ -57,6 +57,9 @@ class JurulatihSukanAcara extends \yii\db\ActiveRecord
             [['created', 'updated'], 'safe'],
             [['acara'], 'string', 'max' => 30],
             [['session_id'], 'string', 'max' => 100],
+            [['acara'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

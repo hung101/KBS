@@ -18,7 +18,8 @@ class BantuanPenganjuranKejohananSirkitSearch extends BantuanPenganjuranKejohana
     public function rules()
     {
         return [
-            [['bantuan_penganjuran_kejohanan_id', 'bil_pasukan', 'bil_peserta', 'bil_pengadil_hakim', 'bil_pegawai_teknikal', 'bilangan_pembantu', 'created_by', 'updated_by'], 'integer'],
+            [['bantuan_penganjuran_kejohanan_id', 'bil_pasukan', 'bil_peserta', 'bil_pengadil_hakim', 'bil_pegawai_teknikal', 'bilangan_pembantu', 
+                'created_by', 'updated_by', 'hantar_flag'], 'integer'],
             [['badan_sukan', 'sukan', 'no_pendaftaran', 'alamat_1', 'alamat_2', 'alamat_3', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_telefon', 'no_faks', 'laman_sesawang', 
                 'facebook', 'twitter', 'nama_bank', 'no_akaun', 'nama_kejohanan_pertandingan', 'peringkat', 'tarikh_mula',
                 'tarikh_tamat', 'tempat', 'tujuan', 'kertas_kerja', 'surat_rasmi_badan_sukan_ms_negeri', 
@@ -81,10 +82,11 @@ class BantuanPenganjuranKejohananSirkitSearch extends BantuanPenganjuranKejohana
             'tarikh_permohonan' => $this->tarikh_permohonan,
             'jumlah_dilulus' => $this->jumlah_dilulus,
             'tarikh_jkb' => $this->tarikh_jkb,
-            'created_by' => $this->created_by,
-            'updated_by' => $this->updated_by,
-            'created' => $this->created,
-            'updated' => $this->updated,
+            'tbl_bantuan_penganjuran_kejohanan_sirkit.created_by' => $this->created_by,
+            'tbl_bantuan_penganjuran_kejohanan_sirkit.updated_by' => $this->updated_by,
+            'tbl_bantuan_penganjuran_kejohanan_sirkit.created' => $this->created,
+            'tbl_bantuan_penganjuran_kejohanan_sirkit.updated' => $this->updated,
+            'tbl_bantuan_penganjuran_kejohanan_sirkit.hantar_flag' => $this->hantar_flag,
         ]);
 
         $query->andFilterWhere(['like', 'tbl_profil_badan_sukan.nama_badan_sukan', $this->badan_sukan])
@@ -115,6 +117,10 @@ class BantuanPenganjuranKejohananSirkitSearch extends BantuanPenganjuranKejohana
             ->andFilterWhere(['like', 'catatan', $this->catatan])
             ->andFilterWhere(['like', 'jkb', $this->jkb])
                 ->andFilterWhere(['like', 'tbl_ref_negeri.desc', $this->negeri_penyertaan]);
+        
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kejohanan-sirkit']['kelulusan'])) {
+            $query->orFilterWhere(['tbl_bantuan_penganjuran_kejohanan_sirkit.created_by' => Yii::$app->user->identity->id]);
+        }
 
         return $dataProvider;
     }

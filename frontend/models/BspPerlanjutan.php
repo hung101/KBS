@@ -53,7 +53,10 @@ class BspPerlanjutan extends \yii\db\ActiveRecord
             [['tarikh', 'tempoh_mohon_perlanjutan', 'permohonan_pelanjutan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['bsp_pemohon_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh'], 'safe'],
-            [['tempoh_mohon_perlanjutan', 'permohonan_pelanjutan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['tempoh_mohon_perlanjutan', 'permohonan_pelanjutan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tempoh_mohon_perlanjutan', 'permohonan_pelanjutan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

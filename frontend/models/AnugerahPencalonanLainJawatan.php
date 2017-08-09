@@ -4,7 +4,9 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralMessage;
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 /**
  * This is the model class for table "tbl_anugerah_pencalonan_lain_jawatan".
@@ -36,11 +38,14 @@ class AnugerahPencalonanLainJawatan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['anugerah_pencalonan_lain_id', 'created_by', 'updated_by'], 'integer'],
+            [['anugerah_pencalonan_lain_id', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['jawatan', 'nama_persatuan_pertubuhan', 'tempoh'], 'required', 'skipOnEmpty' => true],
             [['tempoh', 'created', 'updated'], 'safe'],
-            [['jawatan'], 'string', 'max' => 80],
-            [['nama_persatuan_pertubuhan', 'session_id'], 'string', 'max' => 100],
+            [['jawatan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_persatuan_pertubuhan', 'session_id'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['jawatan', 'nama_persatuan_pertubuhan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

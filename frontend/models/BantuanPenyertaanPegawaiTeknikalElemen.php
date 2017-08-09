@@ -45,6 +45,9 @@ class BantuanPenyertaanPegawaiTeknikalElemen extends \yii\db\ActiveRecord
             [['created', 'updated'], 'safe'],
             [['elemen_bantuan', 'sub_elemen'], 'string', 'max' => 30],
             [['session_id'], 'string', 'max' => 100],
+            [['elemen_bantuan', 'sub_elemen'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

@@ -6,7 +6,7 @@ use Yii;
 use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
-
+use common\models\general\GeneralFunction;
 use app\models\general\GeneralLabel;
 
 /**
@@ -74,6 +74,10 @@ class PaobsPenganjur extends \yii\db\ActiveRecord
             [['alamat_lokasi', 'pemilik_lokasi'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['surat_sokongan', 'laporan_penganjuran', 'kertas_cadangan_pelaksanaan'],'validateFileUpload', 'skipOnEmpty' => false],
             [['sijil_pendaftaran'],'validateFileUploadWithRequired', 'skipOnEmpty' => false],
+            [['alamat_penganjur_bandar','profil_syarikat','nama_penganjur', 'nama_aktiviti','no_pendaftaran_syarikat', 
+                'jenis_sukan', 'alamat_penganjur_1', 'alamat_penganjur_2', 'alamat_penganjur_3','emel_penganjur','alamat_lokasi', 'pemilik_lokasi'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -134,6 +138,12 @@ class PaobsPenganjur extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+        
+        if($file){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                $this->addError($attribute, GeneralMessage::uploadFileTypeError);
+            }
         }
 
         if(!$file && $this->$attribute==""){

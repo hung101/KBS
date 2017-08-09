@@ -161,13 +161,13 @@ class PerlembagaanBadanSukanController extends Controller
                 
                 return $this->redirect(['view', 'id' => $model->perlembagaan_badan_sukan_id]);
             }
-        } else {
-            return $this->render('create', [
+        }
+        
+        return $this->render('create', [
                 'model' => $model,
                 'readonly' => false,
                 'profil_badan_sukan_id' => $profil_badan_sukan_id,
             ]);
-        }
     }
 
     /**
@@ -251,12 +251,12 @@ class PerlembagaanBadanSukanController extends Controller
             
                 return $this->redirect(['view', 'id' => $model->perlembagaan_badan_sukan_id]);
             }
-        } else {
-            return $this->render('update', [
+        } 
+        
+        return $this->render('update', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

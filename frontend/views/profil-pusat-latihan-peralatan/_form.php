@@ -7,6 +7,7 @@ use kartik\builder\Form;
 use kartik\builder\FormGrid;
 use yii\helpers\ArrayHelper;
 use kartik\datecontrol\DateControl;
+use kartik\widgets\Select2;
 
 // contant values
 use app\models\general\Placeholder;
@@ -16,7 +17,7 @@ use app\models\general\GeneralMessage;
 use common\models\general\GeneralFunction;
 
 // table reference
-use app\models\Jurulatih;
+use app\models\RefSukan;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\ProfilPusatLatihanJurulatih */
@@ -39,11 +40,36 @@ use app\models\Jurulatih;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'nama_peralatan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>255]],
+                'nama_peralatan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>255]],
+                'status_peralatan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>255]],
             ],
         ],
     ]
 ]);
+        
+        // selected sukan list
+        $sukan_selected = null;
+        if(isset($model->sukan) && $model->sukan != ''){
+            $sukan_selected=explode(',',$model->sukan);
+        }
+        
+        // Senarai Sukan
+        echo '<label class="control-label">'.$model->getAttributeLabel('sukan').'</label>';
+        echo Select2::widget([
+            'model' => $model,
+            'id' => 'profilpusatlatihanperalatan-sukan',
+            'name' => 'ProfilPusatLatihanPeralatan[sukan]',
+            'value' => $sukan_selected, // initial value
+            'data' => ArrayHelper::map(GeneralFunction::getSukan(),'id', 'desc'),
+            'options' => ['placeholder' => Placeholder::sukan, 'multiple' => true],
+            'pluginOptions' => [
+                'tags' => true,
+                'maximumInputLength' => 10
+            ],
+            'disabled' => $readonly
+        ]);
+        
+        echo "<br>";
     ?>
 
     <div class="form-group">

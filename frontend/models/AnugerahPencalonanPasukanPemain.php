@@ -38,8 +38,11 @@ class AnugerahPencalonanPasukanPemain extends \yii\db\ActiveRecord
             [['nama_pemain'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['anugerah_pencalonan_pasukan_id', 'created_by', 'updated_by'], 'integer'],
             [['created', 'updated'], 'safe'],
-            [['nama_pemain'], 'string', 'max' => 80],
-            [['session_id'], 'string', 'max' => 100],
+            [['nama_pemain'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['session_id'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_pemain'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

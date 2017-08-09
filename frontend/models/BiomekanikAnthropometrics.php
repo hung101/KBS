@@ -53,7 +53,10 @@ class BiomekanikAnthropometrics extends \yii\db\ActiveRecord
             [['perkhidmatan_analisa_perlawanan_biomekanik_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['cm_kg'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['anthropometrics'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['catatan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['catatan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['anthropometrics','catatan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

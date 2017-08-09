@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'profil_pusat_latihan_id',
             //'nama_pusat_latihan',
-            [
+            /*[
                 'attribute' => 'program',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::sukan,
                 ],
                 'value' => 'refSukan.desc'
-            ],
+            ],*/
             [
                 'attribute' => 'nama_pusat_latihan',
                 'filterInputOptions' => [
@@ -86,6 +86,28 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::hakmilik,
                 ],
+            ],
+            [
+                'attribute' => 'no_telefon',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_telefon,
+                ],
+            ],
+            [
+                'attribute' => 'emel',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::emel,
+                ],
+            ],
+            [
+                'attribute' => 'status',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status,
+                ],
+                'value' => 'refStatusPusatLatihan.desc'
             ],
             // 'alamat_bandar',
             // 'alamat_poskod',
@@ -136,6 +158,15 @@ $this->params['breadcrumbs'][] = $this->title;
                         'data-method' => 'post',
                         ]);
 
+                    },
+                    'update' => function ($url, $model) {
+                        $link =  Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                        'title' => Yii::t('yii', 'Update'),
+                        ]);
+                        
+                        return ((isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-pusat-latihan']['update']) 
+                                && $model->hantar_flag == 0) || 
+                                isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-pusat-latihan']['kelulusan'])) ? $link : '';
                     },
                 ],
                 'template' => $template,

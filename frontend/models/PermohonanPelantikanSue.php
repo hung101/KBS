@@ -57,6 +57,9 @@ class PermohonanPelantikanSue extends \yii\db\ActiveRecord
             [['catatan'], 'string', 'max' => 255],
             [['bilangan_jkb'], 'string', 'max' => 30],
             [['tempoh'], 'string', 'max' => 50],
+            [['nama_sue', 'jumlah_dipohon','emel','catatan','bilangan_jkb','tempoh'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

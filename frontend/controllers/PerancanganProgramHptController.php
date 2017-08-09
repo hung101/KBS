@@ -136,12 +136,12 @@ class PerancanganProgramHptController extends Controller
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->perancangan_program_id]);
             }
-        } else {
-            return $this->render('update', [
+        } 
+        
+        return $this->render('update', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

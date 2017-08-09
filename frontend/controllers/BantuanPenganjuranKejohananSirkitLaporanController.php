@@ -204,7 +204,7 @@ class BantuanPenganjuranKejohananSirkitLaporanController extends Controller
         }
         
         if (($model = BantuanPenganjuranKejohananSirkitLaporan::find()->where(['bantuan_penganjuran_kejohanan_id'=>$bantuan_penganjuran_kejohanan_id])->one()) !== null) {
-            return $this->redirect(['update', 'id' => $model->bantuan_penganjuran_kejohanan_laporan_id]);
+            return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kejohanan_laporan_id]);
         } else {
             return $this->redirect(['create', 'bantuan_penganjuran_kejohanan_id' => $bantuan_penganjuran_kejohanan_id]);
         }
@@ -233,19 +233,19 @@ class BantuanPenganjuranKejohananSirkitLaporanController extends Controller
                 //upload file to server
                 
                 // delete upload file
-                if($existingPenyataPerbelanjaan != ""){
+                /*if($existingPenyataPerbelanjaan != ""){
                     self::actionDeleteupload($id, 'penyata_perbelanjaan_resit_yang_telah_disahkan');
                 }
                 
                 $filename = $model->bantuan_penganjuran_kejohanan_id . "-penyata_perbelanjaan_resit_yang_telah_disahkan";
-                $model->penyata_perbelanjaan_resit_yang_telah_disahkan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananSirkitLaporanFolder, $filename);
+                $model->penyata_perbelanjaan_resit_yang_telah_disahkan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananSirkitLaporanFolder, $filename);*/
             } else {
                 //invalid file to upload
                 //remain existing file
                 $model->penyata_perbelanjaan_resit_yang_telah_disahkan = $existingPenyataPerbelanjaan;
             }
             
-            $file = UploadedFile::getInstance($model, 'laporan_bergambar');
+            /*$file = UploadedFile::getInstance($model, 'laporan_bergambar');
             $filename = $model->bantuan_penganjuran_kejohanan_laporan_id . "-laporan_bergambar";
             if($file){
                 $model->laporan_bergambar = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananSirkitLaporanFolder, $filename);
@@ -285,7 +285,7 @@ class BantuanPenganjuranKejohananSirkitLaporanController extends Controller
             $filename = $model->bantuan_penganjuran_kejohanan_laporan_id . "-senarai_pegawai_pembantu_perubatan";
             if($file){
                 $model->senarai_pegawai_pembantu_perubatan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananSirkitLaporanFolder, $filename);
-            }
+            }*/
         }
         
         $queryPar = null;
@@ -296,15 +296,94 @@ class BantuanPenganjuranKejohananSirkitLaporanController extends Controller
         $dataProviderBantuanPenganjuranKejohananSirkitLaporanTuntutan = $searchModelBantuanPenganjuranKejohananSirkitLaporanTuntutan->search($queryPar);
 
         if (Yii::$app->request->post() && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kejohanan_laporan_id]);
-        } else {
-            return $this->render('update', [
+            $file = UploadedFile::getInstance($model, 'laporan_bergambar');
+            $filename = $model->bantuan_penganjuran_kejohanan_laporan_id . "-laporan_bergambar";
+            if($file){
+                $model->laporan_bergambar = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananSirkitLaporanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'penyata_perbelanjaan_resit_yang_telah_disahkan');
+            $filename = $model->bantuan_penganjuran_kejohanan_laporan_id . "-penyata_perbelanjaan_resit_yang_telah_disahkan";
+            if($file){
+                $model->penyata_perbelanjaan_resit_yang_telah_disahkan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananSirkitLaporanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'jadual_keputusan_pertandingan');
+            $filename = $model->bantuan_penganjuran_kejohanan_laporan_id . "-jadual_keputusan_pertandingan";
+            if($file){
+                $model->jadual_keputusan_pertandingan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananSirkitLaporanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'senarai_pasukan');
+            $filename = $model->bantuan_penganjuran_kejohanan_laporan_id . "-senarai_pasukan";
+            if($file){
+                $model->senarai_pasukan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananSirkitLaporanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'senarai_statistik_penyertaan');
+            $filename = $model->bantuan_penganjuran_kejohanan_laporan_id . "-senarai_statistik_penyertaan";
+            if($file){
+                $model->senarai_statistik_penyertaan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananSirkitLaporanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'senarai_pegawai_pembantu_teknikal');
+            $filename = $model->bantuan_penganjuran_kejohanan_laporan_id . "-senarai_pegawai_pembantu_teknikal";
+            if($file){
+                $model->senarai_pegawai_pembantu_teknikal = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananSirkitLaporanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'senarai_urusetia_sukarelawan');
+            $filename = $model->bantuan_penganjuran_kejohanan_laporan_id . "-senarai_urusetia_sukarelawan";
+            if($file){
+                $model->senarai_urusetia_sukarelawan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananSirkitLaporanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'senarai_pegawai_pembantu_perubatan');
+            $filename = $model->bantuan_penganjuran_kejohanan_laporan_id . "-senarai_pegawai_pembantu_perubatan";
+            if($file){
+                $model->senarai_pegawai_pembantu_perubatan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananSirkitLaporanFolder, $filename);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kejohanan_laporan_id]);
+            }
+        } 
+        
+        return $this->render('update', [
                 'model' => $model,
                 'searchModelBantuanPenganjuranKejohananSirkitLaporanTuntutan' => $searchModelBantuanPenganjuranKejohananSirkitLaporanTuntutan,
                 'dataProviderBantuanPenganjuranKejohananSirkitLaporanTuntutan' => $dataProviderBantuanPenganjuranKejohananSirkitLaporanTuntutan,
                 'readonly' => false,
             ]);
+    }
+    
+    /**
+     * Updates an existing BantuanPenganjuranKejohananSirkitLaporan model.
+     * If approved is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionHantar($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
+        
+        $model = $this->findModel($id);
+        
+        $model->hantar_flag = 1; // set approved
+        $model->tarikh_hantar = GeneralFunction::getCurrentTimestamp(); // set date capture
+        
+        $model->save();
+        
+        if (($modelBantuanPenganjuranKejohanan = BantuanPenganjuranKejohananSirkit::findOne($model->bantuan_penganjuran_kejohanan_id)) !== null) {
+            $modelBantuanPenganjuranKejohanan->laporan_hantar_flag = $model->hantar_flag;
+            $modelBantuanPenganjuranKejohanan->tarikh_laporan_hantar = $model->tarikh_hantar;
+            
+            $modelBantuanPenganjuranKejohanan->save();
+        } 
+        
+        return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kejohanan_laporan_id]);
     }
 
     /**

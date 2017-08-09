@@ -44,7 +44,10 @@ class PenilaianPenganjurKursus extends \yii\db\ActiveRecord
             [['nama_penganjur_kursus', 'nama_penyelaras'], 'string', 'max' => 80],
             [['kod_kursus'], 'string', 'max' => 30],
             [['tempat_kursus'], 'string', 'max' => 90],
-			[['nama_kursus'], 'string', 'max' => 255],
+            [['nama_kursus'], 'string', 'max' => 255],
+            [['nama_penganjur_kursus', 'nama_penyelaras','kod_kursus','tempat_kursus','nama_kursus'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -61,9 +64,9 @@ class PenilaianPenganjurKursus extends \yii\db\ActiveRecord
             'kod_kursus' => GeneralLabel::kod_kursus,
             'tempat_kursus' => GeneralLabel::tempat_kursus,
             'nama_penyelaras' => GeneralLabel::nama_penyelaras,
-			'tahap' => GeneralLabel::tahap,
-			'nama_kursus' => GeneralLabel::nama_kursus,
-			'tarikh_tamat_kursus' => GeneralLabel::tarikh_tamat_kursus,
+            'tahap' => GeneralLabel::tahap,
+            'nama_kursus' => GeneralLabel::nama_kursus,
+            'tarikh_tamat_kursus' => GeneralLabel::tarikh_tamat_kursus,
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
             'created' => 'Created',

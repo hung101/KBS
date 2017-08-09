@@ -105,7 +105,7 @@ class PermohonanBimbinganKaunselingPegawaiAnggotaController extends Controller
         $ref = RefBahagianBimbinganKaunseling::findOne(['id' => $model->bahagian_pegawai]);
         $model->bahagian_pegawai = $ref['desc'];
         
-        if($model->tarikh_temujanji != "") {$model->tarikh_temujanji = GeneralFunction::convert($model->tarikh_temujanji, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_temujanji != "") {$model->tarikh_temujanji = GeneralFunction::convert($model->tarikh_temujanji, GeneralFunction::TYPE_DATETIME);}
         if($model->tarikh_permohonan != "") {$model->tarikh_permohonan = GeneralFunction::convert($model->tarikh_permohonan, GeneralFunction::TYPE_DATETIME);}
         
         return $this->render('view', [
@@ -193,16 +193,16 @@ class PermohonanBimbinganKaunselingPegawaiAnggotaController extends Controller
                         ->setTo($modelUser->email)
                         ->setFrom('noreply@spsb.com')
                         ->setSubject('Pemberitahuan: Permohonan Bimbingan Kaunseling (Pegawai & Anggota)')
-                        ->setHtmlBody("Salam Sejahtera,
+                        ->setHtmlBody("Assalamualaikum dan Salam Sejahtera, 
 <br><br>
-Berikut adalah permohonan bimbingan kaunseling (pegawai & anggota) baru telah dihantar : 
+Terdapat permohonan baru yang diterima: 
 <br>
 Nama Pemohon: " . $model->nama . '
 <br>E-mail: ' . $model->emel . '
 <br>Jawatan: ' . $model->jawatan . '
 <br>No. Telefon: ' . $model->no_telefon . '
 <br><br>
-Link: ' . BaseUrl::to(['permohonan-bimbingan-kaunseling-pegawai-anggota/view', 'id' => $model->permohonan_bimbingan_kaunseling_pegawai_anggota_id], true) . '
+Sekian.
 <br><br>
 "KE ARAH KECEMERLANGAN SUKAN"<br>
 Majlis Sukan Negara Malaysia.
@@ -234,14 +234,67 @@ Majlis Sukan Negara Malaysia.
         
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->permohonan_bimbingan_kaunseling_pegawai_anggota_id]);
-        } else {
-            return $this->render('update', [
+        if ($model->load(Yii::$app->request->post())) {
+            $oldStatusPermohonan = $model->getOldAttribute('status_permohonan');
+            
+            if($model->save()){
+                if($model->emel && $model->emel != "" && $model->status_permohonan ){
+                    if($model->status_permohonan != $oldStatusPermohonan){
+                        try {
+                            $refStatusPermohonan = RefStatusPermohonan::findOne(['id' => $model->status_permohonan]);
+                            $refStatusPermohonan['desc'] = strtoupper($refStatusPermohonan['desc']);
+                            
+                            //if($model->tarikh_temujanji != "") {$model->tarikh_temujanji = GeneralFunction::convert($model->tarikh_temujanji, GeneralFunction::TYPE_DATETIME);}
+
+                            $emailContent = '2. Adalah dimaklumkan bahawa pihak <b>' . $refStatusPermohonan['desc'] . '</b> permohonan seperti berikut:
+<br><br>';
+                            
+                            $emailContent .= 'Nama: ' . $model->nama;
+                            
+                            $date=date_create($model->tarikh_temujanji);
+                            $date= date_format($date,"g:i A");
+                            
+                            $emailContent .= '<br>Tarikh Temujanji:  ' . GeneralFunction::convert($model->tarikh_temujanji, GeneralFunction::TYPE_DATE) . '
+                                    <br>Masa Temujanji:  ' . $date . '
+                                    <br><br>';
+                            
+                                Yii::$app->mailer->compose()
+                                        ->setTo($model->emel)
+                                        ->setFrom('noreply@spsb.com')
+                                        ->setSubject('Status Permohonan Bimbingan Kaunseling (Pegawai & Anggota)')
+                                        ->setHtmlBody('Assalamualaikum dan Salam Sejahtera, 
+<br><br>
+Tuan/Puan,
+<br><br>
+MAKLUMAN PERMOHONAN
+<br><br>
+Dengan hormatnya saya ingin menarik perhatian Tuan/Puan mengenai perkara di atas adalah berkaitan.
+<br><br>
+'.$emailContent.'
+3. Sila hubungi pegawai kaunseling jika ada pertanyaan.
+<br><br>
+                                "KE ARAH KECEMERLANGAN SUKAN"<br>
+                                Majlis Sukan Negara Malaysia.
+                                ')->send();
+                                
+                                Yii::$app->session->setFlash('success', 'E-mel telah dihantar kepada pemohon.');
+                        }
+                        catch(\Swift_SwiftException $exception)
+                        {
+                            //return 'Can sent mail due to the following exception'.print_r($exception);
+                            Yii::$app->session->setFlash('error', 'Terdapat ralat menghantar e-mel.');
+                        }
+                    }
+                }
+                
+                return $this->redirect(['view', 'id' => $model->permohonan_bimbingan_kaunseling_pegawai_anggota_id]);
+            }
+        } 
+        
+        return $this->render('update', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

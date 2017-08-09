@@ -108,12 +108,12 @@ class MuatNaikDokumenController extends Controller
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->muat_naik_dokumen_id]);
             }
-        } else {
-            return $this->render('create', [
+        } 
+        
+        return $this->render('create', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -140,11 +140,11 @@ class MuatNaikDokumenController extends Controller
                 //upload file to server
                 
                 // delete upload file
-                if($existingMuatNaikDokumen != ""){
+                /*if($existingMuatNaikDokumen != ""){
                     self::actionDeleteupload($id, 'muat_naik_dokumen');
                 }
                 
-                $model->muat_naik_dokumen = Upload::uploadFile($file, Upload::muatNaikDokumenFolder, $model->muat_naik_dokumen_id);
+                $model->muat_naik_dokumen = Upload::uploadFile($file, Upload::muatNaikDokumenFolder, $model->muat_naik_dokumen_id);*/
             } else {
                 //invalid file to upload
                 //remain existing file
@@ -153,13 +153,20 @@ class MuatNaikDokumenController extends Controller
         }
 
         if (Yii::$app->request->post() && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->muat_naik_dokumen_id]);
-        } else {
-            return $this->render('update', [
+            $file = UploadedFile::getInstance($model, 'muat_naik_dokumen');
+            if($file){
+                $model->muat_naik_dokumen = Upload::uploadFile($file, Upload::muatNaikDokumenFolder, $model->muat_naik_dokumen_id);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->muat_naik_dokumen_id]);
+            }
+        }
+        
+        return $this->render('update', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

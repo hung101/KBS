@@ -62,6 +62,9 @@ class LawatanRasmiLuarNegara extends \yii\db\ActiveRecord
             [['jumlah_delegasi', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['lawatan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['negara'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['delegasi', 'nama_pegawai_terlibat', 'catatan','lawatan','negara'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

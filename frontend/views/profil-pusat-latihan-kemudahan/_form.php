@@ -77,8 +77,8 @@ use app\models\RefSukan;
             'id' => 'profilpusatlatihankemudahan-sukan',
             'name' => 'ProfilPusatLatihanKemudahan[sukan]',
             'value' => $sukan_selected, // initial value
-            'data' => ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-            'options' => ['placeholder' => " -- Pilih Sukan -- ", 'multiple' => true],
+            'data' => ArrayHelper::map(GeneralFunction::getSukan(),'id', 'desc'),
+            'options' => ['placeholder' => Placeholder::sukan, 'multiple' => true],
             'pluginOptions' => [
                 'tags' => true,
                 'maximumInputLength' => 10

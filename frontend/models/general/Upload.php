@@ -2,6 +2,7 @@
 namespace app\models\general;
 
 use yii\web\UploadedFile;
+use common\models\general\GeneralFunction;
 
 use Yii;
 /* 
@@ -126,6 +127,10 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const uploadRootFolder = "uploads";
 
         public static function uploadFile($file, $Folder, $id, $SubFolder = ""){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                return null;
+            }
+            
             // if got sub folder
             if($SubFolder != ""){
                 $Folder = $Folder . '/' . $SubFolder;
@@ -286,6 +291,10 @@ if($session->get('language') == "EN") {
         
         
         public static function uploadFile($file, $Folder, $id, $SubFolder = ""){
+            if(!GeneralFunction::checkFileExtension($file->getExtension())){
+                return null;
+            }
+            
             // if got sub folder
             if($SubFolder != ""){
                 $Folder = $Folder . '/' . $SubFolder;

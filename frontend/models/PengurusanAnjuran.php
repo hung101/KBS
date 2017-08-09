@@ -54,7 +54,10 @@ class PengurusanAnjuran extends \yii\db\ActiveRecord
             [['nama_program_anjuran', 'tarikh_program_anjuran', 'nama_badan_sukan_antarabangsa', 'nama_delegasi', 'negara'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_program_anjuran'], 'safe'],
             [['nama_program_anjuran', 'nama_badan_sukan_antarabangsa', 'nama_delegasi'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['negara'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['negara'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_program_anjuran', 'nama_badan_sukan_antarabangsa', 'nama_delegasi','negara'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
