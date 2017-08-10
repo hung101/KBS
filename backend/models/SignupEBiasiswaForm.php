@@ -51,6 +51,10 @@ class SignupEBiasiswaForm extends Model
 
             ['password', 'required', 'message' => GeneralMessage::yii_validation_required],
             ['password', 'string', 'min' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max, 'tooShort' => GeneralMessage::yii_validation_string_min],
+            
+            [['email','full_name'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
     

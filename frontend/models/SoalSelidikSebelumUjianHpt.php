@@ -55,7 +55,10 @@ class SoalSelidikSebelumUjianHpt extends \yii\db\ActiveRecord
             [['tarikh'], 'safe'],
             [['soalan', 'pemilihan_ujian', 'pegawai_bertanggungjawab'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['jawapan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['soalan', 'pemilihan_ujian', 'pegawai_bertanggungjawab','jawapan','catatan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

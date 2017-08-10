@@ -83,7 +83,11 @@ class TempahanKemudahanSubMsn extends \yii\db\ActiveRecord
                 'kadar_sewaan_sehari_malam','kadar_sewaan_seminggu_malam','kadar_sewaan_sebulan_malam', 'no_kad_pengenalan', 'no_tel',
                 'kadar_sewaan_sejam_siang_cuti_umum','kadar_sewaan_sehari_siang_cuti_umum','kadar_sewaan_seminggu_siang_cuti_umum','kadar_sewaan_sebulan_siang_cuti_umum','kadar_sewaan_sejam_malam_cuti_umum',
                 'kadar_sewaan_sehari_malam_cuti_umum','kadar_sewaan_seminggu_malam_cuti_umum','kadar_sewaan_sebulan_malam_cuti_umum'], 'number', 'message' => GeneralMessage::yii_validation_number],
-            [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama', 'venue', 'nama_pemilik','quantity_kadar','location_alamat_1', 'location_alamat_2', 'location_alamat_3','location_alamat_bandar','location_alamat_negeri',
+                'email_pemilik','catatan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

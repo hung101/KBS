@@ -67,7 +67,10 @@ class UserPeranan extends \yii\db\ActiveRecord
             [['peranan_akses'], 'safe'],
             [['aktif'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama_peranan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['agensi'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['agensi'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_peranan', 'agensi'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

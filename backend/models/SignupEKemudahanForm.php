@@ -60,6 +60,10 @@ class SignupEKemudahanForm extends Model
             ['full_name', 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             
             [['jenis_pengguna_e_kemudahan', 'kategory_hakmilik_e_kemudahan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            
+            [['email','full_name'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
     

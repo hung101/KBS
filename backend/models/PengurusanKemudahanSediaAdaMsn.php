@@ -69,7 +69,10 @@ class PengurusanKemudahanSediaAdaMsn extends \yii\db\ActiveRecord
                 'kadar_sewaan_sebulan_siang_cuti_umum','kadar_sewaan_sejam_malam_cuti_umum','kadar_sewaan_sehari_malam_cuti_umum','kadar_sewaan_seminggu_malam_cuti_umum',
                 'kadar_sewaan_sebulan_malam_cuti_umum'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['keluasan_padang', 'size'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['gambar_1', 'gambar_2', 'gambar_3', 'gambar_4', 'gambar_5'],'validateFileUpload', 'skipOnEmpty' => false]
+            [['gambar_1', 'gambar_2', 'gambar_3', 'gambar_4', 'gambar_5'],'validateFileUpload', 'skipOnEmpty' => false],
+            [['keluasan_padang', 'size'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

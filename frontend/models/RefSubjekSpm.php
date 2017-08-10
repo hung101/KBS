@@ -58,6 +58,9 @@ class RefSubjekSpm extends \yii\db\ActiveRecord
             [['created', 'updated'], 'safe'],
             [['desc'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['kod'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['desc','kod'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

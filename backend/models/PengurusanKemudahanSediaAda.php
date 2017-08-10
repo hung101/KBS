@@ -58,7 +58,10 @@ class PengurusanKemudahanSediaAda extends \yii\db\ActiveRecord
             [['pengurusan_kemudahan_venue_id', 'jumlah_kapasiti', 'bilangan_kekerapan_penyenggaran', 'kekerapan_penggunaan', 'kekerapan_kerosakan_berlaku', 'jenis_kemudahan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['cost_pembaikian','kadar_sewaan_sejam_siang','kadar_sewaan_sehari_siang','kadar_sewaan_seminggu_siang','kadar_sewaan_sebulan_siang','kadar_sewaan_sejam_malam','kadar_sewaan_sehari_malam','kadar_sewaan_seminggu_malam','kadar_sewaan_sebulan_malam'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['keluasan_padang', 'size'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['gambar_1', 'gambar_2', 'gambar_3', 'gambar_4', 'gambar_5'],'validateFileUpload', 'skipOnEmpty' => false]
+            [['gambar_1', 'gambar_2', 'gambar_3', 'gambar_4', 'gambar_5'],'validateFileUpload', 'skipOnEmpty' => false],
+            [['keluasan_padang', 'size'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

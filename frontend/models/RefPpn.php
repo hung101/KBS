@@ -59,6 +59,9 @@ class RefPpn extends \yii\db\ActiveRecord
             [['tel_no_pejabat', 'tel_no_bimbit'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['emel'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email],
+            [['desc', 'jawatan','emel'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

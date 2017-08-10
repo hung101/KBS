@@ -60,6 +60,9 @@ class TemujanjiKomplimentari extends \yii\db\ActiveRecord
             [['catitan_ringkas'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             ['tarikh_khidmat', 'compare', 'compareValue' => date('Y-m-d'), 'operator' => '>=', 'on' => 'create', 'message' => GeneralMessage::yii_validation_compare],
             //['tarikh_khidmat', 'compare', 'compareValue' => date('Y-m-d', time()+86400), 'operator' => '<=', 'on' => 'create', 'message' => GeneralMessage::yii_validation_compare_max],
+            [['perkhidmatan', 'pegawai_yang_bertanggungjawab','status_temujanji','catitan_ringkas'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

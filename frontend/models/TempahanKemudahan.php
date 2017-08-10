@@ -83,8 +83,12 @@ class TempahanKemudahan extends \yii\db\ActiveRecord
             [['email_pemilik'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             //[['lelaki', 'wanita', 'melayu', 'cina', 'india', 'lain_lain', 'jumlah_orang'], 'string', 'max' => 11],
             [['lelaki', 'wanita', 'melayu', 'cina', 'india', 'lain_lain', 'jumlah_orang', 'kemudahan', 'jenis_kadar', 'quantity_kadar', 'public_user_pemohon_id', 'public_user_pemilik_id', 'kategori_hakmilik', 'no_kad_pengenalan', 'no_tel'], 'integer', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_integer],
-            [['kadar_sewaan_sejam_siang','kadar_sewaan_sehari_siang','kadar_sewaan_seminggu_siang','kadar_sewaan_sebulan_siang','kadar_sewaan_sejam_malam','kadar_sewaan_sehari_malam','kadar_sewaan_seminggu_malam','kadar_sewaan_sebulan_malam', 'no_kad_pengenalan', 'no_tel'], 'number', 'message' => GeneralMessage::yii_validation_number],
-            [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['kadar_sewaan_sejam_siang','kadar_sewaan_sehari_siang','kadar_sewaan_seminggu_siang','kadar_sewaan_sebulan_siang','kadar_sewaan_sejam_malam','kadar_sewaan_sehari_malam','kadar_sewaan_seminggu_malam','kadar_sewaan_sebulan_malam'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['emel','nama', 'venue', 'nama_pemilik','quantity_kadar','location_alamat_1', 'location_alamat_2', 'location_alamat_3','location_alamat_bandar',
+                'location_alamat_negeri','email_pemilik'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

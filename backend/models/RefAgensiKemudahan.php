@@ -35,6 +35,9 @@ class RefAgensiKemudahan extends \yii\db\ActiveRecord
             [['aktif', 'created_by', 'updated_by'], 'integer'],
             [['created', 'updated'], 'safe'],
             [['desc'], 'string', 'max' => 80],
+            [['desc'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

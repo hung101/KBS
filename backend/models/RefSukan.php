@@ -4,8 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
-
 /**
  * This is the model class for table "tbl_ref_sukan".
  *
@@ -46,9 +46,13 @@ class RefSukan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ref_kategori_sukan_id','nama_sukan', 'aktif'], 'required', 'message' => GeneralMessage::yii_validation_required],
+            [['ref_kategori_sukan_id','desc', 'aktif'], 'required', 'message' => GeneralMessage::yii_validation_required],
             [['aktif'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['nama_sukan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['desc'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['ref_cawangan_id','id'], 'safe'],
+            [['desc'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
@@ -58,10 +62,10 @@ class RefSukan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'ref_sukan_id' => 'Ref Sukan ID',
-            'ref_kategori_sukan_id' => 'Kategori Sukan',
-            'nama_sukan' => 'Nama Sukan',
-            'aktif' => 'Aktif',
+            'ref_sukan_id' => GeneralLabel::ref_sukan_id,
+            'ref_kategori_sukan_id' => GeneralLabel::ref_kategori_sukan_id,
+            'desc' => GeneralLabel::desc,
+            'aktif' => GeneralLabel::aktif,
         ];
     }
 }

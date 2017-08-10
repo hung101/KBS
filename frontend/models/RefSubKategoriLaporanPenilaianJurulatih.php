@@ -56,6 +56,9 @@ class RefSubKategoriLaporanPenilaianJurulatih extends \yii\db\ActiveRecord
             [['desc'], 'required', 'message' => GeneralMessage::yii_validation_required],
             [['desc'], 'string', 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['created', 'updated'], 'safe'],
+            [['desc'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

@@ -51,7 +51,10 @@ class RefSukan extends \yii\db\ActiveRecord
             [['ref_kategori_sukan_id','desc', 'aktif'], 'required', 'message' => GeneralMessage::yii_validation_required],
             [['aktif'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['desc'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['ref_cawangan_id','id'], 'safe']
+            [['ref_cawangan_id','id'], 'safe'],
+            [['desc'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

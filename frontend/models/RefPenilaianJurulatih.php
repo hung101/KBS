@@ -57,6 +57,9 @@ class RefPenilaianJurulatih extends \yii\db\ActiveRecord
             [['created', 'updated'], 'safe'],
             [['desc'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['markah_peratus'], 'string', 'max' => 10, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['desc','markah_peratus'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

@@ -36,6 +36,9 @@ class System extends \yii\db\ActiveRecord
             [['password_expiry_days', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['password_expiry_days'], 'string', 'max' => 11, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['created', 'updated'], 'safe'],
+            [['password_expiry_days'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

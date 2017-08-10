@@ -54,6 +54,9 @@ class SenaraiHargaPerkhidmatanUbatanPeralatan extends \yii\db\ActiveRecord
             [['nama_perkhidmatan_ubatan_peralatan', 'dikemaskini_oleh'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['catitan_ringkas'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tarikh'], 'safe'],
+            [['nama_perkhidmatan_ubatan_peralatan', 'dikemaskini_oleh','catitan_ringkas'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

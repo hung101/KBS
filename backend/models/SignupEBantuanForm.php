@@ -62,6 +62,9 @@ class SignupEBantuanForm extends Model
             [['sijil_pendaftaran', 'perlembagaan_persatuan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [[ 'perlembagaan_persatuan'],'validateFileUploadWithRequired', 'skipOnEmpty' => false],
             [['sijil_pendaftaran'],'validateFileUploadWithRequiredSpecial', 'skipOnEmpty' => false],
+            [['username','email','full_name','nama_persatuan_e_bantuan', 'jawatan_e_bantuan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
     

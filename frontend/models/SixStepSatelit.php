@@ -53,7 +53,10 @@ class SixStepSatelit extends \yii\db\ActiveRecord
             [['tarikh'], 'safe'],
             [['atlet_id', 'kategori_atlet', 'sukan', 'acara', 'pusat_satelit'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['stage', 'status'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['stage', 'status','catatan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

@@ -56,6 +56,9 @@ class ElaporanPelaksanaanGambar extends \yii\db\ActiveRecord
             [['tajuk'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik_gambar'], 'validateFileUpload', 'skipOnEmpty' => false],
             [['muat_naik_gambar'], 'file', 'extensions'=>'jpg, png', 'maxSize' => 1024 * 1024 * 3],
+            [['tajuk'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

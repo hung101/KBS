@@ -53,7 +53,10 @@ class SoalanPenilaian extends \yii\db\ActiveRecord
             [['borang_penilaian_id', 'bahagian', 'soalan', 'jawapan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['borang_penilaian_id', 'jawapan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['bahagian'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['soalan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['soalan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['bahagian', 'soalan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

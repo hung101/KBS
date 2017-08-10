@@ -49,7 +49,10 @@ class PermohonanEBantuanObjektifPertubuhan extends \yii\db\ActiveRecord
         return [
             [['objektif'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['permohonan_e_bantuan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['objektif'], 'string', 'max' => 500, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['objektif'], 'string', 'max' => 500, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['objektif'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

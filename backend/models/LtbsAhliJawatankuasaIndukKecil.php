@@ -71,7 +71,11 @@ class LtbsAhliJawatankuasaIndukKecil extends \yii\db\ActiveRecord
             [['no_tel_pej_rumah','no_tel'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_tel_pej_rumah', 'no_tel'], 'integer', 'message' => GeneralMessage::yii_validation_integer],            
             [['jantina'], 'string', 'max' => 1, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['bangsa'], 'string', 'max' => 25, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['bangsa'], 'string', 'max' => 25, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['jenis_jawatankuasa', 'nama_majikan','nama_jawatankuasa', 'jawatan', 'pekerjaan','nama_penuh', 'pengiktirafan_yang_diterima', 'kursus_yang_pernah_diikuti_oleh_pemegang_jawatan',
+                'tempat_lahir', 'alamat_kediaman','bangsa'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

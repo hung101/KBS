@@ -84,6 +84,9 @@ class User extends \yii\db\ActiveRecord
                 'upperError'=>GeneralMessage::yii_validation_password_strength,
                 'hasUserError'=>GeneralMessage::yii_validation_password_contain_username,],
             [['expiry_date'], 'compare', 'compareValue'=>date("Y-m-d"), 'operator'=>'>', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
+            [['full_name', 'email'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

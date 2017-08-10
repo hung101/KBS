@@ -55,7 +55,10 @@ class TempahanKursusPersatuan extends \yii\db\ActiveRecord
             [['kursus_persatuan_id', 'unit_tempahan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh'], 'safe'],
             [['kos_tempahan'], 'number', 'message' => GeneralMessage::yii_validation_number],
-            [['jenis_tempahan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['jenis_tempahan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['jenis_tempahan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

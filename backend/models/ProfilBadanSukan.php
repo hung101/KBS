@@ -73,6 +73,13 @@ class ProfilBadanSukan extends \yii\db\ActiveRecord
                 [['bilangan_pindaan_perlembagaan_dilakukan'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
                 [['muat_naik_perlembagaan_terkini', 'gambar'],'validateFileUpload', 'skipOnEmpty' => false],
                 [['emel_badan_sukan'], 'email', 'message' => GeneralMessage::yii_validation_email],
+                [['nama_badan_sukan', 'nama_badan_sukan_sebelum_ini', 'emel_badan_sukan', 'pengiktirafan_yang_pernah_diterima_badan_sukan','jenis_sukan', 
+                    'alamat_tetap_badan_sukan_1', 'alamat_tetap_badan_sukan_2', 'alamat_tetap_badan_sukan_3', 'alamat_tetap_badan_sukan_bandar', 
+                    'alamat_surat_menyurat_badan_sukan_1', 'alamat_surat_menyurat_badan_sukan_2', 'alamat_surat_menyurat_badan_sukan_3', 
+                    'alamat_surat_menyurat_badan_sukan_bandar','alamat_tetap_badan_sukan_negeri', 'alamat_surat_menyurat_badan_sukan_negeri','no_pendaftaran',
+                    'no_pendaftaran_sijil_pendaftaran','bilangan_pindaan_perlembagaan_dilakukan'], 'filter', 'filter' => function ($value) {
+                    return  \common\models\general\GeneralFunction::filterXSS($value);
+                }],
             ];
         } else {
             return [
@@ -89,6 +96,13 @@ class ProfilBadanSukan extends \yii\db\ActiveRecord
                 [['bilangan_pindaan_perlembagaan_dilakukan'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
                 [['muat_naik_perlembagaan_terkini', 'gambar'],'validateFileUpload', 'skipOnEmpty' => false],
                 [['emel_badan_sukan'], 'email', 'message' => GeneralMessage::yii_validation_email],
+                [['nama_badan_sukan', 'nama_badan_sukan_sebelum_ini', 'emel_badan_sukan', 'pengiktirafan_yang_pernah_diterima_badan_sukan','jenis_sukan', 
+                    'alamat_tetap_badan_sukan_1', 'alamat_tetap_badan_sukan_2', 'alamat_tetap_badan_sukan_3', 'alamat_tetap_badan_sukan_bandar', 
+                    'alamat_surat_menyurat_badan_sukan_1', 'alamat_surat_menyurat_badan_sukan_2', 'alamat_surat_menyurat_badan_sukan_3', 
+                    'alamat_surat_menyurat_badan_sukan_bandar','alamat_tetap_badan_sukan_negeri', 'alamat_surat_menyurat_badan_sukan_negeri','no_pendaftaran',
+                    'no_pendaftaran_sijil_pendaftaran','bilangan_pindaan_perlembagaan_dilakukan'], 'filter', 'filter' => function ($value) {
+                    return  \common\models\general\GeneralFunction::filterXSS($value);
+                }],
             ];
         }
     }

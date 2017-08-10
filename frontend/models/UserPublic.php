@@ -70,6 +70,9 @@ class UserPublic extends \yii\db\ActiveRecord
             [['full_name', 'nama_persatuan_e_bantuan', 'jawatan_e_bantuan'], 'string', 'max' => 80],
             [['tel_bimbit_no', 'tel_no', 'fax_no'], 'integer', 'message' => GeneralMessage::yii_validation_integer],            
             [['tel_bimbit_no', 'tel_no', 'fax_no'], 'string', 'max' => 14],
+            [['username', 'full_name', 'nama_persatuan_e_bantuan', 'jawatan_e_bantuan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

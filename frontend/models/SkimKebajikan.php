@@ -72,6 +72,10 @@ class SkimKebajikan extends \yii\db\ActiveRecord
                 'resit_perubatan', 'surat_pengesahan_atlet_majlis_sukan_negara_perubatan', 'keratan_akhbar', 'laporan_polis_bomba',
                 'surat_pengesahan_atlet_majlis_sukan_negara_bencana', 'dokumen_yang_berkenaan_mengikut_situasi_kes'],'validateFileUpload', 'skipOnEmpty' => false],
             //[['kertas_kerja', 'surat_rasmi_badan_sukan_ms_negeri'], 'validateFileUploadRequired', 'skipOnEmpty' => false],
+            [['jenis_bantuan_skak', 'jenis_sukan', 'jenis_bantuan_lain_yang_diterima', 'no_akaun_penerima','nama_pemohon', 'nama_penerima', 'nama_pemohon_text',
+                'masalah_dihadapi', 'emel_penerima','lokasi_kejadian','catatan'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

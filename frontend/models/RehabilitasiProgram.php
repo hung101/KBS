@@ -52,7 +52,10 @@ class RehabilitasiProgram extends \yii\db\ActiveRecord
             [['rehabilitasi_id', 'tarikh', 'nama_exercise_modality'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['rehabilitasi_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh'], 'safe'],
-            [['nama_exercise_modality'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['nama_exercise_modality'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_exercise_modality'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

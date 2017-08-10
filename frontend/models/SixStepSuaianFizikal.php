@@ -55,7 +55,10 @@ class SixStepSuaianFizikal extends \yii\db\ActiveRecord
             [['atlet_id', 'stage', 'status', 'tarikh'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['atlet_id', 'kategori_atlet', 'sukan', 'acara'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['stage', 'status'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false]
+            [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false],
+            [['stage', 'status'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 

@@ -60,7 +60,7 @@ class SystemModules extends \yii\db\ActiveRecord
             [['created', 'updated'], 'safe'],
             [['category'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['module_name', 'action'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['category', 'action'], 'unique', 'targetAttribute' => ['category', 'action'], 'message' => 'The combination of Category and Action has already been taken.']
+            [['category', 'action'], 'unique', 'targetAttribute' => ['category', 'action'], 'message' => 'The combination of Category and Action has already been taken.'],
         ];
     }
 

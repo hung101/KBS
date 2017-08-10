@@ -107,6 +107,12 @@ class Atlet extends \yii\db\ActiveRecord
             [['alamat_rumah_1','alamat_rumah_2','alamat_rumah_3', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['file'], 'safe'],
             [['file'], 'file', 'extensions' => 'png, jpg'],
+            [['name_penuh', 'nama_kecemasan','tempat_lahir_bandar', 'alamat_rumah_bandar', 'alamat_surat_bandar','tempat_lahir_negeri', 'alamat_rumah_negeri', 
+                'alamat_surat_negeri', 'passport_tempat_dikeluarkan', 'negeri_diwakili','bangsa', 'bahasa_ibu','agama', 'taraf_perkahwinan', 'no_sijil_lahir', 
+                'passport_no','ic_no', 'ic_tentera','ic_no_lama','jenis_lesen', 'emel', 'facebook', 'twitter','alamat_rumah_1','alamat_rumah_2','alamat_rumah_3', 
+                'alamat_surat_menyurat_1', 'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3'], 'filter', 'filter' => function ($value) {
+                return  \common\models\general\GeneralFunction::filterXSS($value);
+            }],
         ];
     }
 
