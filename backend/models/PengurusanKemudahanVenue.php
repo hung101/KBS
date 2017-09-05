@@ -69,8 +69,10 @@ class PengurusanKemudahanVenue extends \yii\db\ActiveRecord
             [['emel'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email],
             [['no_telefon', 'no_faks'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['nama_venue', 'pemilik', 'sewaan','alamat_1', 'alamat_2', 'alamat_3','alamat_negeri','alamat_bandar','keluasan_venue','emel'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['nama_venue', 'pemilik', 'sewaan','alamat_1', 'alamat_2', 'alamat_3','alamat_negeri','alamat_bandar','keluasan_venue','emel'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

@@ -51,8 +51,10 @@ class AtletPakaian extends \yii\db\ActiveRecord
             [['atlet_id', 'kuantiti', 'tarikh_serahan', 'jenis_pakaian', 'saiz_pakaian', 'sukan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['jenama'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['jenama','kuantiti'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['jenama','kuantiti'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

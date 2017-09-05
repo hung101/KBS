@@ -86,8 +86,10 @@ class TempahanKemudahan extends \yii\db\ActiveRecord
             [['kadar_sewaan_sejam_siang','kadar_sewaan_sehari_siang','kadar_sewaan_seminggu_siang','kadar_sewaan_sebulan_siang','kadar_sewaan_sejam_malam','kadar_sewaan_sehari_malam','kadar_sewaan_seminggu_malam','kadar_sewaan_sebulan_malam'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['emel','nama', 'venue', 'nama_pemilik','quantity_kadar','location_alamat_1', 'location_alamat_2', 'location_alamat_3','location_alamat_bandar',
-                'location_alamat_negeri','email_pemilik'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                'location_alamat_negeri','email_pemilik'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

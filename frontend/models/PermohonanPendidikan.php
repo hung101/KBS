@@ -112,8 +112,10 @@ class PermohonanPendidikan extends \yii\db\ActiveRecord
                 'tahap_pendidikan', 'alamat_pendidikan_negeri', 'kategori_atlet', 'pmn_prau_utk4_sem','alamat_rumah_bandar', 'alamat_pendidikan_bandar',
                 'nama_ibu_bapa_penjaga', 'aliran', 'pilihan_aliran_spm', 'nama_pencadang', 'jawatan_pencadang', 
                 'sekolah_unit_sukan_pdd_psk_pencadang', 'nama_pengesahan', 'jawatan_pengesahan', 'sekolah_unit_sukan_pdd_psk_pengesahan',
-                'nama_ipta_ipts', 'kursus_pengajian'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                'nama_ipta_ipts', 'kursus_pengajian'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

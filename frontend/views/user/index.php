@@ -14,6 +14,20 @@ $this->title = GeneralLabel::admin_user;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">
+    
+    <?php
+        $template = '{view}';
+        
+        // Update Access
+        if(isset(Yii::$app->user->identity->peranan_akses['Admin']['user']['update'])){
+            $template .= ' {update}';
+        }
+        
+        // Delete Access
+        if(isset(Yii::$app->user->identity->peranan_akses['Admin']['user']['delete'])){
+            $template .= ' {delete}';
+        }
+    ?>
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -81,7 +95,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     },
                 ],
-                'template' => '{view} {update} {delete}',
+                'template' => $template,
             ],
         ],
     ]); ?>

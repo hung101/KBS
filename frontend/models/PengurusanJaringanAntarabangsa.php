@@ -94,8 +94,10 @@ class PengurusanJaringanAntarabangsa extends \yii\db\ActiveRecord
             [['nama_badan_sukan', 'negara', 'nama_pemohon', 'pegawai_teknikal', 'permohonan', 'nama_majikan', 'jawatan_di_persatuan', 
                 'tahap_kelayakan_sekarang','alamat_surat_menyurat_1', 'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3', 'alamat_majikan_1', 'alamat_majikan_2', 
                 'alamat_majikan_3','alamat_surat_menyurat_negeri', 'jenis_program', 'alamat_majikan_negeri','alamat_surat_menyurat_bandar', 'alamat_majikan_bandar',
-                'emel'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                'emel'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

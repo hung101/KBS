@@ -60,8 +60,10 @@ class AtletPencapaianRekods extends \yii\db\ActiveRecord
             [['opponent'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['result', 'personal_best', 'season_best'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['venue'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['peringkat','opponent','result', 'personal_best', 'season_best','venue'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['peringkat','opponent','result', 'personal_best', 'season_best','venue'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

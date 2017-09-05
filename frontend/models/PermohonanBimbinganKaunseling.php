@@ -88,8 +88,10 @@ class PermohonanBimbinganKaunseling extends \yii\db\ActiveRecord
                 }"],
             [['jurulatih, atlet_id'], 'validateJurulatihAtlet', 'skipOnEmpty' => false],
             [['kes_latarbelakang', 'agensi', 'jantina', 'taraf_perkahwinan', 'no_rujukan_kes','nama_pemohon_rujukan', 'pekerjaan_bapa', 'pekerjaan_ibu', 'cawangan_isn',
-                'notis', 'diagnosis', 'cadangan', 'tindakan_kaunselor','emel'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                'notis', 'diagnosis', 'cadangan', 'tindakan_kaunselor','emel'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

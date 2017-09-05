@@ -63,8 +63,10 @@ class PenyertaanSukan extends \yii\db\ActiveRecord
             [['tempat_penginapan', 'tempat_latihan'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['sasaran_kejohanan', 'catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['nama_sukan', 'nama_kejohanan', 'nama_pegawai', 'jawatan_pegawai', 'nama_pengurus_sukan', 'nama_sukarelawan', 'nama_temasya', 'bilangan_jkb',
-                'tempat_penginapan', 'tempat_latihan','sasaran_kejohanan', 'catatan'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                'tempat_penginapan', 'tempat_latihan','sasaran_kejohanan', 'catatan'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

@@ -61,8 +61,10 @@ class PembayaranInsentifAtlet extends \yii\db\ActiveRecord
             [['session_id'], 'string', 'max' => 100],
             [['no_akaun_bank'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             //[['pembayaran_insentif_id', 'atlet', 'acara', 'session_id'], 'unique', 'targetAttribute' => [ 'atlet', 'acara'] , 'message' => GeneralMessage::yii_validation_unique_multiple],
-            [['no_akaun_bank','kelayakan_pingat','pingat','pembayaran_kepada'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['no_akaun_bank','kelayakan_pingat','pingat','pembayaran_kepada'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

@@ -65,11 +65,14 @@ class UserPeranan extends \yii\db\ActiveRecord
         return [
             [['nama_peranan', 'peranan_akses', 'aktif'], 'required', 'message' => GeneralMessage::yii_validation_required],
             [['peranan_akses'], 'safe'],
-            [['aktif'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['aktif','bahagian','cawangan','jabatan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama_peranan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_peranan'], 'unique', 'message' => GeneralMessage::yii_validation_unique],
             [['agensi'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['nama_peranan', 'agensi'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['nama_peranan', 'agensi'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }
@@ -85,6 +88,10 @@ class UserPeranan extends \yii\db\ActiveRecord
             'peranan_akses' => GeneralLabel::peranan_akses,
             'aktif' => GeneralLabel::aktif,
             'agensi' => GeneralLabel::penapis_agensi,
+            'jabatan' => GeneralLabel::jabatan,
+            'bahagian' => GeneralLabel::bahagian,
+            'cawangan' => GeneralLabel::cawangan_pusat,
+            
         ];
     }
     

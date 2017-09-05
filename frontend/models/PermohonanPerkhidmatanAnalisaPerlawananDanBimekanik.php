@@ -55,8 +55,10 @@ class PermohonanPerkhidmatanAnalisaPerlawananDanBimekanik extends \yii\db\Active
             [['atlet_id', 'status'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh', 'jenis_sukan'], 'safe'],
             [['tujuan', 'perkhidmatan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['tujuan', 'perkhidmatan'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['tujuan', 'perkhidmatan'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

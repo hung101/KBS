@@ -63,8 +63,10 @@ class PengurusanInsentifTetapanShakamShakar extends \yii\db\ActiveRecord
             [['created', 'updated'], 'safe'],
             [['kumpulan_temasya_kejohanan'], 'string', 'max' => 255],
             [['session_id'], 'string', 'max' => 100],
-            [['kumpulan_temasya_kejohanan'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['kumpulan_temasya_kejohanan'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

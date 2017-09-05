@@ -59,8 +59,10 @@ class MesyuaratSenaraiTugas extends \yii\db\ActiveRecord
             [['name_tugas', 'persatuan'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['pegawai'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['status'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['name_tugas', 'persatuan','pegawai','status'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['name_tugas', 'persatuan','pegawai','status'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

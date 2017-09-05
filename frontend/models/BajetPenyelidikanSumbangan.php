@@ -56,8 +56,10 @@ class BajetPenyelidikanSumbangan extends \yii\db\ActiveRecord
             [['permohonana_penyelidikan_id', 'jenis_bajet'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['jumlah','tahun_1','tahun_2','tahun_3'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['catatan'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['catatan'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

@@ -51,8 +51,10 @@ class PengurusanProgramPersatuan extends \yii\db\ActiveRecord
             [['bantuan_tahun', 'nama_persatuan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['bantuan_tahun'], 'safe'],
             [['nama_persatuan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['nama_persatuan','bantuan_tahun'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['nama_persatuan','bantuan_tahun'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

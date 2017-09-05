@@ -77,8 +77,10 @@ class BantuanPentadbiranPejabat extends \yii\db\ActiveRecord
             [['no_tel_bimbit', 'no_tel_pejabat', 'no_faks'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['catatan', 'surat_permohonan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['surat_permohonan'], 'validateFileUpload', 'skipOnEmpty' => false],
-            [['nama', 'nama_sue', 'jawatan', 'persatuan','alamat_1', 'alamat_2', 'alamat_3','emel','alamat_negeri','alamat_bandar','catatan'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['nama', 'nama_sue', 'jawatan', 'persatuan','alamat_1', 'alamat_2', 'alamat_3','emel','alamat_negeri','alamat_bandar','catatan'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

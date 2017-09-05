@@ -58,8 +58,10 @@ class AtletPembangunanKursuskem extends \yii\db\ActiveRecord
             [['lokasi'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['nama_kursus_kem'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik_sijil'],'validateFileUpload', 'skipOnEmpty' => false],
-            [['lokasi','nama_kursus_kem','penganjur'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['lokasi','nama_kursus_kem','penganjur'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

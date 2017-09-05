@@ -66,8 +66,10 @@ class BspKedudukanKewanganPenjamin extends \yii\db\ActiveRecord
             [['nama_isteri_suami'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_kp_isteri_suami'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['perkerjaan', 'pertalian_keluarga_dengan_pelajar','nama_alamat_majikan', 'pelajar_lain_selain_daripada_penerima_di_atas','nama_isteri_suami',
-                ], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                ], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

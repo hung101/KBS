@@ -55,8 +55,10 @@ class KegiatanPengalamanJurulatihAkk extends \yii\db\ActiveRecord
             [['akademi_akk_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tahun'], 'safe'],
             [['nama_sukan_pertandingan', 'peranan', 'persatuan_sukan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['nama_sukan_pertandingan', 'peranan', 'persatuan_sukan'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['nama_sukan_pertandingan', 'peranan', 'persatuan_sukan'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

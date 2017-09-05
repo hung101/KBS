@@ -75,8 +75,10 @@ class PaobsPenganjur extends \yii\db\ActiveRecord
             [['surat_sokongan', 'laporan_penganjuran', 'kertas_cadangan_pelaksanaan'],'validateFileUpload', 'skipOnEmpty' => false],
             [['sijil_pendaftaran'],'validateFileUploadWithRequired', 'skipOnEmpty' => false],
             [['alamat_penganjur_bandar','profil_syarikat','nama_penganjur', 'nama_aktiviti','no_pendaftaran_syarikat', 
-                'jenis_sukan', 'alamat_penganjur_1', 'alamat_penganjur_2', 'alamat_penganjur_3','emel_penganjur','alamat_lokasi', 'pemilik_lokasi'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                'jenis_sukan', 'alamat_penganjur_1', 'alamat_penganjur_2', 'alamat_penganjur_3','emel_penganjur','alamat_lokasi', 'pemilik_lokasi'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

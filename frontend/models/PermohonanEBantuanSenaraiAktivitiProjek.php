@@ -55,8 +55,10 @@ class PermohonanEBantuanSenaraiAktivitiProjek extends \yii\db\ActiveRecord
             [['nama_aktiviti_projek'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['keterangan_ringkas'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['kejayaan_yang_dicapai'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['nama_aktiviti_projek','keterangan_ringkas','kejayaan_yang_dicapai'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['nama_aktiviti_projek','keterangan_ringkas','kejayaan_yang_dicapai'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

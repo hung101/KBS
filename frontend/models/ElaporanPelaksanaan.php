@@ -88,8 +88,10 @@ class ElaporanPelaksanaan extends \yii\db\ActiveRecord
             [['tarikh_pelaksanaan_akhir'], 'compare', 'compareAttribute'=>'tarikh_pelaksanaan_mula', 'operator'=>'>=', 'message' => GeneralMessage::yii_validation_compare],
             [['peringkat', 'rumusan_program','nama_projek_program_aktiviti_kejohanan', 'nama_penganjur_persatuan_kerjasama', 'dirasmikan_oleh', 'creator_nama',
                 'no_cek_eft','objektif_pelaksaan','alamat_tempat_pelaksanaan_1', 'alamat_tempat_pelaksanaan_2', 'alamat_tempat_pelaksanaan_3','alamat_tempat_pelaksanaan_bandar', 
-                'alamat_tempat_pelaksanaan_poskod','alamat_tempat_pelaksanaan_negeri', 'alamat_tempat_pelaksanaan_parlimen','creator_emel'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                'alamat_tempat_pelaksanaan_poskod','alamat_tempat_pelaksanaan_negeri', 'alamat_tempat_pelaksanaan_parlimen','creator_emel'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

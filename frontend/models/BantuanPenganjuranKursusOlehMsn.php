@@ -45,8 +45,10 @@ class BantuanPenganjuranKursusOlehMsn extends \yii\db\ActiveRecord
             [['kursus_seminar_bengkel', 'jumlah_bantuan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['session_id'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['kursus_seminar_bengkel', 'jumlah_bantuan','tempat'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['kursus_seminar_bengkel', 'jumlah_bantuan','tempat'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

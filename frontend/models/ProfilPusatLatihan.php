@@ -85,8 +85,10 @@ class ProfilPusatLatihan extends \yii\db\ActiveRecord
             [['keluasan_venue'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['catatan', 'kos_project', 'kadar_sewaan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['nama_pusat_latihan', 'hakmilik', 'jkk_jkb','alamat_1', 'alamat_2', 'alamat_3', 'status', 'sukan', 'program','alamat_negeri','alamat_bandar','emel',
-                'keluasan_venue','catatan', 'kos_project', 'kadar_sewaan'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                'keluasan_venue','catatan', 'kos_project', 'kadar_sewaan'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

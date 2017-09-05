@@ -92,11 +92,20 @@ class AkademiAkk extends \yii\db\ActiveRecord
             [['alamat_majikan_poskod', 'alamat_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             //[['nama, nama_jurulatih'], 'validateJurulatihFreeText', 'skipOnEmpty' => false],
             
+//            [['emel','nama', 'nama_majikan', 'jenis_sukan', 'nama_jurulatih','senarai_nama_peserta','tempat_lahir', 'alamat_majikan_1', 'alamat_majikan_2', 
+//                'alamat_majikan_3', 'no_passport', 'tempat_lahir', 'alamat_majikan_1', 'alamat_majikan_2', 'alamat_majikan_3', 'alamat_majikan_negeri', 
+//                'kategori_pensijilan', 'alamat_1', 'alamat_2', 'alamat_3', 'no_lesen_jurulatih', 'no_sijil_spkk', 'alamat_majikan_bandar', 
+//                'alamat_bandar','alamat_negeri'], 'filter', 'filter' => function ($value) {
+//                return  \common\models\general\GeneralFunction::filterXSS($value);
+//            }],
+                    
             [['emel','nama', 'nama_majikan', 'jenis_sukan', 'nama_jurulatih','senarai_nama_peserta','tempat_lahir', 'alamat_majikan_1', 'alamat_majikan_2', 
                 'alamat_majikan_3', 'no_passport', 'tempat_lahir', 'alamat_majikan_1', 'alamat_majikan_2', 'alamat_majikan_3', 'alamat_majikan_negeri', 
                 'kategori_pensijilan', 'alamat_1', 'alamat_2', 'alamat_3', 'no_lesen_jurulatih', 'no_sijil_spkk', 'alamat_majikan_bandar', 
-                'alamat_bandar','alamat_negeri'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                'alamat_bandar','alamat_negeri'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

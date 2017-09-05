@@ -60,8 +60,10 @@ class PengurusanKemudahanAduanPemeriksa extends \yii\db\ActiveRecord
             [['kategori_aduan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['venue', 'peralatan', 'nama_pengadu'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['kenyataan_aduan', 'tindakan_ulasan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['kategori_aduan','venue', 'peralatan', 'nama_pengadu','kenyataan_aduan', 'tindakan_ulasan'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['kategori_aduan','venue', 'peralatan', 'nama_pengadu','kenyataan_aduan', 'tindakan_ulasan'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

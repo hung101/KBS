@@ -108,8 +108,10 @@ class Sukarelawan extends \yii\db\ActiveRecord
             [['nama', 'menyatakan_jika_ada_kebatasan_fizikal', 'kelulusan_akademi','pekerjaan_semasa', 'nama_majikan', 'bidang_diminati', 'waktu_ketika_diperlukan', 
                 'menyatakan_waktu_ketika_diperlukan','alamat_1', 'alamat_2', 'alamat_3', 'alamat_majikan_1', 'alamat_majikan_2', 'alamat_majikan_3','alamat_negeri', 
                 'status', 'alamat_majikan_negeri', 'saiz_baju','alamat_bandar', 'alamat_majikan_bandar','emel', 'facebook', 'muatnaik', 'bidang_diminati_lain_lain',
-                'pengalaman_sukarelawan', 'kursus_latihan'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                'pengalaman_sukarelawan', 'kursus_latihan'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

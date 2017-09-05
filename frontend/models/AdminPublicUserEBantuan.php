@@ -57,8 +57,14 @@ class AdminPublicUserEBantuan extends Model
             ['sijil_pendaftaran', 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['sijil_pendaftaran'],'validateFileUploadWithRequired', 'skipOnEmpty' => false],
             
-            [['username','email','full_name','nama_persatuan_e_bantuan', 'jawatan_e_bantuan'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+//            [['username','email','full_name','nama_persatuan_e_bantuan', 'jawatan_e_bantuan'], 'filter', 'filter' => function ($value) {
+//                return  \common\models\general\GeneralFunction::filterXSS($value);
+//            }],
+                    
+            [['username','email','full_name','nama_persatuan_e_bantuan', 'jawatan_e_bantuan'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

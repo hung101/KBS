@@ -66,8 +66,10 @@ class BspBendahariIpt extends \yii\db\ActiveRecord
             ['new_password', 'validatePassword'],
             ['new_password', 'string', 'min' => 6, 'tooShort' => GeneralMessage::yii_validation_string_min],
             [['username'], 'unique', 'message' => GeneralMessage::yii_validation_unique],
-            [['username', 'email'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['username', 'email'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

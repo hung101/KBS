@@ -56,8 +56,10 @@ class LtbsKejohananProgramAktiviti extends \yii\db\ActiveRecord
             [['bilangan_peserta_yang_menyertai', 'profil_badan_sukan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['kos_kejohanan_program_aktiviti_yang_disertai'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['nama_kejohanana_program_aktiviti_yang_disertai'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['lokasi_tempat_kejohanan_program_aktiviti_yang_disertai','nama_kejohanana_program_aktiviti_yang_disertai'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['lokasi_tempat_kejohanan_program_aktiviti_yang_disertai','nama_kejohanana_program_aktiviti_yang_disertai'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

@@ -45,8 +45,10 @@ class BantuanPenganjuranKursusElemen extends \yii\db\ActiveRecord
             [['created', 'updated'], 'safe'],
             [['elemen_bantuan', 'sub_elemen'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['session_id'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['elemen_bantuan', 'sub_elemen'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['elemen_bantuan', 'sub_elemen'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

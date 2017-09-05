@@ -112,8 +112,10 @@ class BantuanPenganjuranKejohanan extends \yii\db\ActiveRecord
             [['permohonan_rasmi_dari_ahli_gabungan', 'maklumat_lain_sokongan', 'surat_kelulusan'],'validateFileUpload', 'skipOnEmpty' => false],
             [['badan_sukan', 'nama_bank', 'jkb','sukan', 'no_pendaftaran', 'alamat_1', 'alamat_2', 'alamat_3', 'no_akaun', 'peringkat','alamat_negeri','alamat_bandar', 'alamat_poskod',
                 'laman_sesawang', 'facebook', 'twitter','tempat', 'tujuan', 'nama_kejohanan_pertandingan','kertas_kerja', 'surat_rasmi_badan_sukan_ms_negeri', 
-                'permohonan_rasmi_dari_ahli_gabungan', 'maklumat_lain_sokongan', 'surat_kelulusan', 'catatan'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                'permohonan_rasmi_dari_ahli_gabungan', 'maklumat_lain_sokongan', 'surat_kelulusan', 'catatan'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

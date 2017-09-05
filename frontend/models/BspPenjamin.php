@@ -87,8 +87,10 @@ class BspPenjamin extends \yii\db\ActiveRecord
             [['email'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['nama','alamat_tetap_1', 'alamat_tetap_2', 'alamat_tetap_3', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_2',
                 'alamat_surat_menyurat_3', 'alamat_pejabat_1', 'alamat_pejabat_2', 'alamat_pejabat_3','alamat_negeri', 'alamat_surat_menyurat_negeri', 
-                'alamat_pejabat_negeri','alamat_bandar', 'alamat_surat_menyurat_bandar', 'alamat_pejabat_bandar','email'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                'alamat_pejabat_negeri','alamat_bandar', 'alamat_surat_menyurat_bandar', 'alamat_pejabat_bandar','email'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

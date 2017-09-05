@@ -67,8 +67,10 @@ class BorangAduanKerosakan extends \yii\db\ActiveRecord
             [['jawatan'], 'string', 'max' => 80],
             [['no_tel_pejabat', 'no_tel_bimbit'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_tel_pejabat', 'no_tel_bimbit'], 'string', 'max' => 14],
-            [['jawatan'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['jawatan'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

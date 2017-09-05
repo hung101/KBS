@@ -65,8 +65,10 @@ class AnugerahPencalonanPasukan extends \yii\db\ActiveRecord
             [['gambar_pasukan'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['ulasan_pencapaian', 'asas_pencalonan', 'sumbangan_pencapaian'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['gambar_pasukan'],'validateFileUpload', 'skipOnEmpty' => false],
-            [['kategori', 'sukan','nama_pasukan'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['kategori', 'sukan','nama_pasukan'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

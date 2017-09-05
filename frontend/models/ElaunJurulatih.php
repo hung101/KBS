@@ -54,8 +54,10 @@ class ElaunJurulatih extends \yii\db\ActiveRecord
             [['jumlah_elaun'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['jenis_elaun'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tarikh_mula', 'tarikh_tamat'], 'safe'],
-            [['jenis_elaun'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['jenis_elaun'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

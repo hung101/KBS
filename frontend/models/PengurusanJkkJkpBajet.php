@@ -53,8 +53,10 @@ class PengurusanJkkJkpBajet extends \yii\db\ActiveRecord
             [['pengurusan_jkk_jkp_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['jumlah_bajet'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['kategori_bajet'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['kategori_bajet'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['kategori_bajet'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

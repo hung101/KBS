@@ -148,8 +148,10 @@ class Jurulatih extends \yii\db\ActiveRecord
                 'alamat_surat_menyurat_bandar', 'alamat_majikan_bandar', 'bilangan_jkb', 'bilangan_mpj','alamat_rumah_poskod', 'alamat_surat_menyurat_poskod', 
                 'alamat_majikan_poskod','pengerusi', 'kelulusan_dkp', 'catatan_spkk', 'bersyarat', 'lain_lain', 'catatan', 'catatan_mpj', 'borang_maklumat', 'borang_kesihatan', 
                 'borang_hrmis', 'borang_rawatan', 'borang_keselamatan', 'borang_pelekat', 'borang_income_tax', 'keputusan_mesyuarat', 'salinan_ic_passport',
-                'surat_sokongan'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                'surat_sokongan'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

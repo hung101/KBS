@@ -66,8 +66,10 @@ class SignupEKemudahanMsnForm extends Model
             
             [['tel_bimbit_no'], 'string', 'min' => 10, 'tooShort' => GeneralMessage::yii_validation_string_min],
             
-            [['email','full_name','alamat_kemudahan_msn', 'majikan_alamat_kemudahan_msn','majikan_kemudahan_msn'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['email','full_name','alamat_kemudahan_msn', 'majikan_alamat_kemudahan_msn','majikan_kemudahan_msn'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

@@ -26,8 +26,10 @@ class ElaporanPelaksanaanReport extends Model
             [['format'], 'required', 'message' => GeneralMessage::yii_validation_required],
             [['nama_penganjur', 'nama_program', 'negeri', 'tarikh_dari', 'tarikh_pada', 'e_laporan_kategori'], 'safe'],
             [['tarikh_pada'], 'compare', 'compareAttribute'=>'tarikh_dari', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
-            [['nama_penganjur', 'nama_program', 'negeri'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['nama_penganjur', 'nama_program', 'negeri'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

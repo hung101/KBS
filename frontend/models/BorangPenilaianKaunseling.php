@@ -74,8 +74,10 @@ class BorangPenilaianKaunseling extends \yii\db\ActiveRecord
 			}, 'whenClient' => "function (attribute, value) {
 				return $('#jenisKlienID').val() === '3';
 			}", 'message' => GeneralMessage::yii_validation_required],
-            [['diagnosis', 'preskripsi', 'cadangan', 'rujukan', 'tindakan_selanjutnya', 'kategori_permasalahan', 'lain_lain_nyatakan','pegawai_anggota'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['diagnosis', 'preskripsi', 'cadangan', 'rujukan', 'tindakan_selanjutnya', 'kategori_permasalahan', 'lain_lain_nyatakan','pegawai_anggota'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

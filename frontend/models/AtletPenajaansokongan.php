@@ -77,8 +77,10 @@ class AtletPenajaansokongan extends \yii\db\ActiveRecord
             [['alamat_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['nama_syarikat', 'emel', 'barang_yang_penyokong','tahun_permulaan', 'tahun_akhir','alamat_1', 'alamat_2', 'alamat_3','peribadi_yang_bertanggungjawab',
-                'jenis_kontrak', 'alamat_negeri','alamat_bandar'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                'jenis_kontrak', 'alamat_negeri','alamat_bandar'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

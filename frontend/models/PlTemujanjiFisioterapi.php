@@ -65,8 +65,10 @@ class PlTemujanjiFisioterapi extends \yii\db\ActiveRecord
             [['no_kad_pengenalan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['muat_naik', 'gambar'],'validateFileUpload', 'skipOnEmpty' => false],
             [['doktor_pegawai_perubatan', 'makmal_perubatan', 'pegawai_yang_bertanggungjawab','nama_pesakit_luar','status_temujanji','jenis_sukan',
-                'catitan_ringkas', 'maklumbalas'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                'catitan_ringkas', 'maklumbalas'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

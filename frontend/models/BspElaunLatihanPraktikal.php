@@ -58,8 +58,10 @@ class BspElaunLatihanPraktikal extends \yii\db\ActiveRecord
             [['tarikh', 'tarikh_mula', 'tarikh_tamat'], 'safe'],
             [['jenis_latihan_amali'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat_latihan_praktikal'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['tempat_latihan_praktikal','jenis_latihan_amali'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['tempat_latihan_praktikal','jenis_latihan_amali'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

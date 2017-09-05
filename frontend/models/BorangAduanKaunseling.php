@@ -71,8 +71,10 @@ class BorangAduanKaunseling extends \yii\db\ActiveRecord
                 'tindakan_susulan', 'aduan_dimajukan_kepada_agensi_lain', 'catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['nama_pengadu','no_aduan', 'status_aduan', 'aduan_kategori','penyataan_aduan', 'tindakan_yang_telah_diambil', 'dokumen_berkaitan_yang_dilampirkan', 
                 'bantuan_yang_anda_perlukan', 'rujukan_aduan_kepada_cawangan_yang_berkaitan', 'rujuk_aduan_kepada_atlet', 'tiada_sebarang_tindakan', 'maklumbalas_kepada_pengadu', 
-                'tindakan_susulan', 'aduan_dimajukan_kepada_agensi_lain', 'catatan'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                'tindakan_susulan', 'aduan_dimajukan_kepada_agensi_lain', 'catatan'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

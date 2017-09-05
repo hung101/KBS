@@ -141,8 +141,10 @@ class Atlet extends \yii\db\ActiveRecord
                     'tempat_lahir_negeri', 'alamat_rumah_negeri', 'alamat_surat_negeri', 'passport_tempat_dikeluarkan', 'negeri_diwakili',
                     'bangsa', 'bahasa_ibu','agama', 'taraf_perkahwinan', 'no_sijil_lahir', 'passport_no', 'ms_negeri','ic_no_lama', 'lesen_memandu_no',
                     'jenis_lesen', 'emel', 'facebook', 'twitter','tawaran_fail_rujukan', 'no_lesen_ipc','tempat_lahir_alamat_1','alamat_rumah_1',
-                    'alamat_rumah_2','alamat_rumah_3', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3'], 'filter', 'filter' => function ($value) {
-                    return  \common\models\general\GeneralFunction::filterXSS($value);
+                    'alamat_rumah_2','alamat_rumah_3', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3'], function ($attribute, $params) {
+                    if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                        $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                    }
                 }],
             ];
         } else {
@@ -184,8 +186,10 @@ class Atlet extends \yii\db\ActiveRecord
                     'tempat_lahir_negeri', 'alamat_rumah_negeri', 'alamat_surat_negeri', 'passport_tempat_dikeluarkan', 'negeri_diwakili',
                     'bangsa', 'bahasa_ibu','agama', 'taraf_perkahwinan', 'no_sijil_lahir', 'passport_no', 'ms_negeri','ic_no_lama', 'lesen_memandu_no',
                     'jenis_lesen', 'emel', 'facebook', 'twitter','tawaran_fail_rujukan', 'no_lesen_ipc','tempat_lahir_alamat_1','alamat_rumah_1',
-                    'alamat_rumah_2','alamat_rumah_3', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3'], 'filter', 'filter' => function ($value) {
-                    return  \common\models\general\GeneralFunction::filterXSS($value);
+                    'alamat_rumah_2','alamat_rumah_3', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3'], function ($attribute, $params) {
+                    if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                        $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                    }
                 }],
             ];
         }

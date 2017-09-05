@@ -64,8 +64,10 @@ class PerancanganProgramPlan extends \yii\db\ActiveRecord
             [['catatan', 'tempat'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false],
             [['jumlah_atlet', 'jumlah_jurulatih', 'jumlah_pegawai','nama_program', 'bilangan_jkk_jkp', 'bilangan_jkb','kelulusan','lokasi',
-                'catatan', 'tempat'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                'catatan', 'tempat'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
 /*             ['jenis_aktiviti', 'required', 'message' => GeneralMessage::yii_validation_required, 'when' => function ($model) {
                     return $model->bahagian != 1;

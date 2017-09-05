@@ -52,8 +52,10 @@ class PengurusanSoalanMaklumBalasPeserta extends \yii\db\ActiveRecord
             [['nama_temasya','kategori_penilaian', 'soalan', 'rating'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['pengurusan_maklum_balas_peserta_id', 'rating'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['soalan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['nama_temasya','kategori_penilaian','soalan'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['nama_temasya','kategori_penilaian','soalan'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

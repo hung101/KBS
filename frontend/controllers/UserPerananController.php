@@ -12,6 +12,10 @@ use yii\filters\VerbFilter;
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralLabel;
 
+use app\models\RefJabatanUser;
+use app\models\RefBahagianUser;
+use app\models\RefCawanganUser;
+
 /**
  * UserPerananController implements the CRUD actions for UserPeranan model.
  */
@@ -67,6 +71,15 @@ class UserPerananController extends Controller
         
         $model = $this->findModel($id);
         
+        $ref = RefJabatanUser::findOne(['id' => $model->jabatan]);
+        $model->jabatan = $ref['desc'];
+        
+        $ref = RefBahagianUser::findOne(['id' => $model->bahagian]);
+        $model->bahagian = $ref['desc'];
+        
+        $ref = RefCawanganUser::findOne(['id' => $model->cawangan]);
+        $model->cawangan = $ref['desc'];
+        
         $model->aktif = GeneralLabel::getYesNoLabel($model->aktif);
         
         return $this->render('view', [
@@ -121,8 +134,11 @@ class UserPerananController extends Controller
                 $modules['Admin'] = $admin;
             }
             
-            $model->agensi = implode(",",$model->agensi);
+            if(isset($model->agensi)){
+                $model->agensi = implode(",",$model->agensi);
+            }
             
+            if($modules != null){
             foreach($modules as $category_key => $category_value){
                 foreach($category_value as $action_key => $action_value){
                     foreach($action_value as $permission_key => $permission_value){
@@ -130,6 +146,7 @@ class UserPerananController extends Controller
                         unset($modules[$category_key][$action_key][$permission_key]);
                     }
                 }
+            }
             }
             
             // array to string to store into database
@@ -194,7 +211,9 @@ class UserPerananController extends Controller
                 $modules['Admin'] = $admin;
             }
             
-            $model->agensi = implode(",",$model->agensi);
+            if(isset($model->agensi)){
+                $model->agensi = implode(",",$model->agensi);
+            }
             
             foreach($modules as $category_key => $category_value){
                 foreach($category_value as $action_key => $action_value){
@@ -212,7 +231,9 @@ class UserPerananController extends Controller
         if (Yii::$app->request->post() && $model->save()) {
             return $this->redirect(['view', 'id' => $model->user_peranan_id]);
         } else {
-            $model->agensi=explode(',',$model->agensi);
+            if(isset($model->agensi)){
+                $model->agensi = explode(",",$model->agensi);
+            }
             
             return $this->render('update', [
                 'model' => $model,

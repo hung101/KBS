@@ -64,8 +64,10 @@ class ForumSeminarPersidanganDiLuarNegara extends \yii\db\ActiveRecord
             [['surat_permohonan', 'surat_jemputan'], 'validateFileUpload', 'skipOnEmpty' => false],
             [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email],
             [['tarikh_tamat'], 'compare', 'compareAttribute'=>'tarikh', 'operator'=>'>=', 'message' => GeneralMessage::yii_validation_compare],
-            [['nama','emel','negara', 'bilangan_jkb','catatan'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['nama','emel','negara', 'bilangan_jkb','catatan'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

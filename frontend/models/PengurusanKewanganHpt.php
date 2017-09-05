@@ -63,8 +63,10 @@ class PengurusanKewanganHpt extends \yii\db\ActiveRecord
             [['harga_penggunaan', 'jumlah_bajet', 'jumlah_penggunaan', 'bajet_keseluruhan', 'penggunaan_keseluruhan', 'baki'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['nama_acara_program', 'kategori_acara', 'kategori_penggunaan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['objektif', 'catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['nama_acara_program', 'kategori_acara', 'kategori_penggunaan','objektif', 'catatan'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['nama_acara_program', 'kategori_acara', 'kategori_penggunaan','objektif', 'catatan'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

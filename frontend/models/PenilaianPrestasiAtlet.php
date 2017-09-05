@@ -64,8 +64,10 @@ class PenilaianPrestasiAtlet extends \yii\db\ActiveRecord
             [['sasaran'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['maklumat_shakam_shakar', 'ulasan', 'tindakan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tahap_kesihatan', 'tahap_kecederaan', 'nama_sukan', 'nama_acara', 'keputusan','sasaran','maklumat_shakam_shakar', 'ulasan', 'tindakan',
-                'tahun_penilaian', 'jadual_latihan'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                'tahun_penilaian', 'jadual_latihan'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

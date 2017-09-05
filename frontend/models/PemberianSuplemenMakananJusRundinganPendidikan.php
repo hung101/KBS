@@ -55,8 +55,10 @@ class PemberianSuplemenMakananJusRundinganPendidikan extends \yii\db\ActiveRecor
             [['nama_suplemen_makanan_jus_rundingan_pendidikan', 'tarikh'], 'safe'],
             [['harga'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['nama_suplemen_makanan_jus_rundingan_pendidikan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['nama_suplemen_makanan_jus_rundingan_pendidikan'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['nama_suplemen_makanan_jus_rundingan_pendidikan'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

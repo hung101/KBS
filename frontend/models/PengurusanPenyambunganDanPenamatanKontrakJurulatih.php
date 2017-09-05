@@ -71,8 +71,10 @@ class PengurusanPenyambunganDanPenamatanKontrakJurulatih extends \yii\db\ActiveR
             [['sebab', 'muat_naik_cadangan', 'kelulusan_dkp', 'catatan_jkb', 'pengerusi', 'catatan_mpj'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik_document','muat_naik_cadangan'],'validateFileUpload', 'skipOnEmpty' => false],
             [['status_permohonan', 'jenis_permohonan', 'program_baru', 'cadangan_gaji_elaun', 'bil_jkb', 'bil_mpj','sebab', 
-                'kelulusan_dkp', 'catatan_jkb', 'pengerusi', 'catatan_mpj','gaji_elaun', 'program'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                'kelulusan_dkp', 'catatan_jkb', 'pengerusi', 'catatan_mpj','gaji_elaun', 'program'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

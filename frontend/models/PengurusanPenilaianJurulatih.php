@@ -54,8 +54,10 @@ class PengurusanPenilaianJurulatih extends \yii\db\ActiveRecord
             [['pengurusan_pemantauan_dan_penilaian_jurulatih_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_dinilai'], 'safe'],
             [['penilaian_oleh', 'nama'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['penilaian_oleh', 'nama'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['penilaian_oleh', 'nama'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

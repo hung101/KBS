@@ -63,8 +63,10 @@ class AtletSukanPersatuanpersekutuandunia extends \yii\db\ActiveRecord
             [['alamat_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email],
             [['laman_web'], 'string', 'max' => 120, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['jenis', 'alamat_1', 'alamat_2', 'alamat_3','name_persatuan_persekutuan_dunia', 'emel','alamat_poskod', 'alamat_bandar','laman_web'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['jenis', 'alamat_1', 'alamat_2', 'alamat_3','name_persatuan_persekutuan_dunia', 'emel','alamat_poskod', 'alamat_bandar','laman_web'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

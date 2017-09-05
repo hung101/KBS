@@ -56,8 +56,10 @@ class PermohonanPerganjuran extends \yii\db\ActiveRecord
             [['kelulusan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tempat_kursus'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['aktiviti', 'nama_instructor'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['tempat_kursus','aktiviti', 'nama_instructor'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['tempat_kursus','aktiviti', 'nama_instructor'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

@@ -9,7 +9,7 @@ return [
     'allowLoginAttempt' => 3, // number of allow login attemption
     'allowConcurrentLogin' => false, // reset auth key if false
 	// eddie end
-    'passwordReused' => 3, // new password cannot be same as previous last 3 passwords
+    'passwordReused' => 4, // new password cannot be same as previous last 3 passwords
     'jasperuser' => 'jasperadmin',
     'jasperpass' => 'jasperadmin',
     'jasperurl' => 'http://10.19.189.87:8080/jasperserver',

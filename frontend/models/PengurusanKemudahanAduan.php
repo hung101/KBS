@@ -64,8 +64,10 @@ class PengurusanKemudahanAduan extends \yii\db\ActiveRecord
             [['tel_bimbit_pengadu'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['venue', 'peralatan', 'nama_pengadu'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['kenyataan_aduan', 'tindakan_ulasan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['kategori_aduan','emel_pengadu','venue', 'peralatan', 'nama_pengadu','kenyataan_aduan', 'tindakan_ulasan'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['kategori_aduan','emel_pengadu','venue', 'peralatan', 'nama_pengadu','kenyataan_aduan', 'tindakan_ulasan'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

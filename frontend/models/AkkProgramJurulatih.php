@@ -62,8 +62,11 @@ class AkkProgramJurulatih extends \yii\db\ActiveRecord
             [['kod_kursus', 'tahap'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['catatan', 'kelulusan_dkp', 'pengerusi'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false],
-            [['nama_program', 'bilangan_mpj', 'bilangan_jkb','tempat_program','kod_kursus', 'tahap','catatan', 'kelulusan_dkp', 'pengerusi'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['nama_program', 'bilangan_mpj', 'bilangan_jkb','tempat_program','kod_kursus', 'tahap','catatan', 'kelulusan_dkp', 
+                'pengerusi', 'penganjur','catatan_mpj','catatan_jkb'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

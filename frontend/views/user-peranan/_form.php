@@ -6,16 +6,22 @@ use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
 use kartik\builder\FormGrid;
 use yii\helpers\ArrayHelper;
+use kartik\widgets\Select2;
+use kartik\widgets\DepDrop;
+use yii\helpers\Url;
 
 // table reference
 use app\models\SystemModules;
 use app\models\UserPeranan;
 use app\models\RefJabatanUser;
+use app\models\RefBahagianUser;
+use app\models\RefCawanganUser;
 
 // contant values
+use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
-use app\models\general\GeneralVariable;
 use app\models\general\GeneralMessage;
+use app\models\general\GeneralVariable;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\UserPeranan */
@@ -38,6 +44,33 @@ $class_bootstrap = array(
     );
 
 $class_bootstrap_runner = 0;
+
+
+// filter by agency
+$filterAgency=array();
+
+if(isset(Yii::$app->user->identity->peranan_akses['Admin']['user']['msn'])){
+    $filterAgency[] = RefJabatanUser::MSN;
+}
+
+if(isset(Yii::$app->user->identity->peranan_akses['Admin']['user']['isn'])){
+    $filterAgency[] = RefJabatanUser::ISN;
+}
+
+if(isset(Yii::$app->user->identity->peranan_akses['Admin']['user']['pjs'])){
+    $filterAgency[] = RefJabatanUser::PJS;
+}
+
+if(isset(Yii::$app->user->identity->peranan_akses['Admin']['user']['kbs'])){
+    $filterAgency[] = RefJabatanUser::KBS;
+}
+
+
+$jabatan_list = RefJabatanUser::find()->andWhere(['=', 'aktif', 1])->all();
+
+if(count($filterAgency) > 0 && Yii::$app->user->identity->peranan != UserPeranan::PERANAN_ADMIN){
+    $jabatan_list = RefJabatanUser::find()->andWhere(['=', 'aktif', 1])->andFilterWhere(['in', 'id', $filterAgency])->all();
+}
 ?>
 
 
@@ -60,6 +93,77 @@ $class_bootstrap_runner = 0;
                     'attributes' => [
                          'nama_peranan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>8],'options'=>['maxlength'=>80]],  
                     ],
+                ],
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'jabatan' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=>'\kartik\widgets\Select2',
+                            'options'=>[
+                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                [
+                                    'append' => [
+                                        'content' => Html::a(Html::icon('edit'), ['/ref-jabatan-user/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                        'asButton' => true
+                                    ]
+                                ] : null,
+                                'data'=>ArrayHelper::map($jabatan_list,'id', 'desc'),
+                                'options' => ['placeholder' => Placeholder::jabatan],
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],],
+                            'columnOptions'=>['colspan'=>3]],
+                        'bahagian' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=>'\kartik\widgets\DepDrop', 
+                            'options'=>[
+                                'type'=>DepDrop::TYPE_SELECT2,
+                                'select2Options'=> [
+                                    'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                    [
+                                        'append' => [
+                                            'content' => Html::a(Html::icon('edit'), ['/ref-bahagian-user/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                            'asButton' => true
+                                        ]
+                                    ] : null,
+                                    'pluginOptions'=>['allowClear'=>true]
+                                ],
+                                'data'=>ArrayHelper::map(RefBahagianUser::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                                'options'=>['prompt'=>'',],
+                                'pluginOptions' => [
+                                    'initialize' => true,
+                                    'depends'=>[Html::getInputId($model, 'jabatan')],
+                                    'placeholder' => Placeholder::bahagian,
+                                    'url'=>Url::to(['/ref-bahagian-user/subbahagians'])],
+                                ],
+                            'columnOptions'=>['colspan'=>3]],
+                        'cawangan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\DepDrop', 
+                    'options'=>[
+                        'type'=>DepDrop::TYPE_SELECT2,
+                        'select2Options'=> [
+                            'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                            [
+                                'append' => [
+                                    'content' => Html::a(Html::icon('edit'), ['/ref-cawangan-user/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                    'asButton' => true
+                                ]
+                            ] : null,
+                            'pluginOptions'=>['allowClear'=>true]
+                        ],
+                        'data'=>ArrayHelper::map(RefCawanganUser::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options'=>['prompt'=>'',],
+                        'pluginOptions' => [
+                            'initialize' => true,
+                            'depends'=>[Html::getInputId($model, 'bahagian')],
+                            'placeholder' => Placeholder::cawangan,
+                            'url'=>Url::to(['/ref-cawangan-user/subbahagiancawangans'])],
+                        ],
+                    'columnOptions'=>['colspan'=>3]],
+                    ]
                 ],
                 [
                     'columns'=>12,

@@ -53,8 +53,10 @@ class PengurusanKemudahanAduanKerosakan extends \yii\db\ActiveRecord
             [['pengurusan_kemudahan_aduan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['jenis_kerosakan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['lokasi_kerosakan'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['jenis_kerosakan','lokasi_kerosakan'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['jenis_kerosakan','lokasi_kerosakan'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

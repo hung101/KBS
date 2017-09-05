@@ -61,8 +61,10 @@ class PerkhidmatanAnalisaPerlawananBiomekanik extends \yii\db\ActiveRecord
             [['status_ujian'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['catitan_ringkas'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik_video'],'validateFileUpload', 'skipOnEmpty' => false],
-            [['perkhidmatan', 'pegawai_yang_bertanggungjawab','status_ujian','catitan_ringkas'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['perkhidmatan', 'pegawai_yang_bertanggungjawab','status_ujian','catitan_ringkas'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

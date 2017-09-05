@@ -75,8 +75,10 @@ class PermohonanKemudahanTicketKapalTerbang extends \yii\db\ActiveRecord
             [['nama_pemohon', 'jawatan', 'nama_program', 'aktiviti', 'cawangan','bahagian','bilangan_jkb', 'pri_flight_pergi', 'pri_flight_balik',
                 'destinasi', 'tarikh_ke', 'pulang_tarikh_dari', 'pulang_tarikh_ke', 'dari_pergi_2', 'ke_pergi_2', 'dari_pergi_3', 'ke_pergi_3', 'dari_pulang_2', 'ke_pulang_2',
                 'dari_pulang_3', 'ke_pulang_3','no_fail_kelulusan', 'kod_perbelanjaan', 'pri_masa_pergi', 'pri_masa_balik',
-                'pegawai_teknikal', 'catatan', 'pri_destinasi_pergi', 'pri_destinasi_balik'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                'pegawai_teknikal', 'catatan', 'pri_destinasi_pergi', 'pri_destinasi_balik'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
         

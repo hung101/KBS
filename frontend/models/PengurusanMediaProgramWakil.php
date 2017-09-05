@@ -39,8 +39,10 @@ class PengurusanMediaProgramWakil extends \yii\db\ActiveRecord
             [['created', 'updated'], 'safe'],
             [['nama_wakil'], 'string', 'max' => 80],
             [['session_id'], 'string', 'max' => 100],
-            [['nama_wakil'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['nama_wakil'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

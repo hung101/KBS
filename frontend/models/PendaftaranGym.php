@@ -54,8 +54,10 @@ class PendaftaranGym extends \yii\db\ActiveRecord
             [['jumlah_atlet'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             ['tarikh', 'compare', 'compareValue' => date('Y-m-d H:i:s'), 'operator' => '>=', 'on' => 'create', 'message' => GeneralMessage::yii_validation_compare],
             [['sukan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['sukan'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['sukan'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

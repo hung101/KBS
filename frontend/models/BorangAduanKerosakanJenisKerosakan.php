@@ -68,8 +68,10 @@ class BorangAduanKerosakanJenisKerosakan extends \yii\db\ActiveRecord
             [['jenis_kerosakan', 'session_id'], 'string', 'max' => 100],
             [['catatan', 'ulasan_pemeriksa', 'gambar'], 'string', 'max' => 255],
             [['gambar'], 'validateFileUpload', 'skipOnEmpty' => false],
-            [['lokasi', 'nama_pemeriksa', 'kategori_kerosakan', 'tindakan','jenis_kerosakan','catatan', 'ulasan_pemeriksa', 'gambar'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['lokasi', 'nama_pemeriksa', 'kategori_kerosakan', 'tindakan','jenis_kerosakan','catatan', 'ulasan_pemeriksa', 'gambar'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

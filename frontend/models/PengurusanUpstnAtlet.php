@@ -61,8 +61,10 @@ class PengurusanUpstnAtlet extends \yii\db\ActiveRecord
             [['pengurusan_upstn_id'], 'string', 'max' => 80],
             [['tempat'], 'string', 'max' => 90],
             [['session_id'], 'string', 'max' => 100],
-            [['tempat','pengurusan_upstn_id', 'peserta'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['tempat','pengurusan_upstn_id', 'peserta'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

@@ -62,8 +62,10 @@ class PemohonKursusTahapAkk extends \yii\db\ActiveRecord
             [['tempat'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muatnaik_sijil'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muatnaik_sijil'], 'validateFileUpload', 'skipOnEmpty' => false],
-            [['tahap', 'no_sijil', 'kod_kursus','tempat','tahun_lulus'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['tahap', 'no_sijil', 'kod_kursus','tempat','tahun_lulus'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

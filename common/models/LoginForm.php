@@ -37,6 +37,7 @@ class LoginForm extends Model
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
             ['confirm_password', 'safe'],
+            ['password', 'string', 'min' => 12, 'tooShort' => GeneralMessage::yii_validation_string_min, 'on' => 'new-password'],
             [['password'], StrengthValidator::className(), 'digit'=>1, 'special'=>1, 'lower' => 1, 'upper' => 0, 
                 'digitError'=>GeneralMessage::yii_validation_password_strength,
                 'specialError'=>GeneralMessage::yii_validation_password_strength,

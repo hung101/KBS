@@ -59,8 +59,10 @@ class PengurusanMouMoaAntarabangsa extends \yii\db\ActiveRecord
             [['nama_negara_terlibat', 'agensi'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             //[['asas_asas_pertimbangan', 'catatan', 'tajuk_mou_moa'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['status'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['nama_negara_terlibat', 'agensi','status'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['nama_negara_terlibat', 'agensi','status'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

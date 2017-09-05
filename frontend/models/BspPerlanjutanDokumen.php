@@ -56,8 +56,10 @@ class BspPerlanjutanDokumen extends \yii\db\ActiveRecord
             [['nama_dokumen'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['upload'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['upload'], 'validateFileUpload', 'skipOnEmpty' => false],
-            [['nama_dokumen'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['nama_dokumen'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

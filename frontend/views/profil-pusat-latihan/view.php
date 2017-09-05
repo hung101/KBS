@@ -43,6 +43,9 @@ $this->params['breadcrumbs'][] = $this->title;
             ]) ?>
         <?php endif; ?>
         <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-pusat-latihan']['update']) && $model->hantar_flag == 1): ?>
+            <?= Html::a(GeneralLabel::cetak, ['print', 'id' => $model->profil_pusat_latihan_id], ['class' => 'btn btn-info', 'target' => '_blank']) ?>
+        <?php endif; ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-pusat-latihan']['update']) && $model->hantar_flag == 1): ?>
         <?php if($model->status_permohonan_id && $model->status_permohonan_id == RefStatusBantuanPenganjuranKejohanan::LULUS): ?>
             <?= Html::a(GeneralLabel::permohonan_peralatan, ['/permohonan-peralatan/index', 'profil_pusat_latihan_id' => $model->profil_pusat_latihan_id], ['class' => 'btn btn-warning', 'target' => '_blank']) ?>
         <?php endif; ?>

@@ -65,8 +65,10 @@ class AkkSijilPertolonganCemas extends \yii\db\ActiveRecord
             [['tahap'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['sijil', 'session_id'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['sijil'], 'validateFileUpload', 'skipOnEmpty' => false],
-            [['no_sijil','tahap'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['no_sijil','tahap'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

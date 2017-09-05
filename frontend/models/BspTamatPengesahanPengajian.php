@@ -60,8 +60,10 @@ class BspTamatPengesahanPengajian extends \yii\db\ActiveRecord
             [['cgpa_pngk'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['cgpa_pngk'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false],
-            [['nama_ipts', 'pengajian', 'bidang', 'nama_pelajar'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['nama_ipts', 'pengajian', 'bidang', 'nama_pelajar'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

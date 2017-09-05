@@ -79,8 +79,10 @@ class ElaporanPelaksaan extends \yii\db\ActiveRecord
             [['creator_mobile_no'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik', 'creator_emel'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['peringkat', 'rumusan_program','no_cek_eft','nama_projek_program_aktiviti_kejohanan', 'nama_penganjur_persatuan_kerjasama', 'dirasmikan_oleh', 
-                'creator_nama','objektif_pelaksaan','tempat_pelaksanaan','creator_mobile_no','creator_emel'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                'creator_nama','objektif_pelaksaan','tempat_pelaksanaan','creator_mobile_no','creator_emel'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

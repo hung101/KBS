@@ -81,8 +81,10 @@ class PsikologiProfil extends \yii\db\ActiveRecord
             [['pengalaman_pertandingan'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
             //[['muat_naik'], 'string', 'max' => 100],
             [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false],
-            [['nama','alamat_1', 'alamat_2', 'alamat_3','alamat_negeri','alamat_bandar','emel', 'facebook','catatan','pengalaman_pertandingan'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['nama','alamat_1', 'alamat_2', 'alamat_3','alamat_negeri','alamat_bandar','emel', 'facebook','catatan','pengalaman_pertandingan'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

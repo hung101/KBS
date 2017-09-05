@@ -67,8 +67,10 @@ class ProfilKonsultan extends \yii\db\ActiveRecord
             [['alamat_poskod', 'alamat_bandar'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['gambar'], 'validateFileUpload', 'skipOnEmpty' => false],
-            [['nama_konsultan', 'bidang_konsultansi', 'lain_lain', 'agensi','emel','kepakaran_pengalaman','alamat_bandar'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['nama_konsultan', 'bidang_konsultansi', 'lain_lain', 'agensi','emel','kepakaran_pengalaman','alamat_bandar'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

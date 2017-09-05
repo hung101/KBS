@@ -31,8 +31,10 @@ class ContactForm extends Model
             ['email', 'email', 'message' => GeneralMessage::yii_validation_email],
             // verifyCode needs to be entered correctly
             ['verifyCode', 'captcha'],
-            [['name', 'email','subject','body'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['name', 'email','subject','body'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

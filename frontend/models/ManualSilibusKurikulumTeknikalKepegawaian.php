@@ -44,8 +44,10 @@ class ManualSilibusKurikulumTeknikalKepegawaian extends \yii\db\ActiveRecord
             [['persatuan_sukan', 'jilid_versi'], 'string', 'max' => 30],
             [['muat_naik'], 'string', 'max' => 255],
             [['muat_naik'], 'validateFileUpload', 'skipOnEmpty' => false],
-            [['persatuan_sukan', 'jilid_versi'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['persatuan_sukan', 'jilid_versi'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

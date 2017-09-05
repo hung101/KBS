@@ -56,8 +56,10 @@ class LatihanDanProgram extends \yii\db\ActiveRecord
             [['bilangan_ahli_yang_menyertai', 'status'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama_kursus', 'lokasi_kursus'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['penganjuran_kursus', 'catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['nama_kursus', 'lokasi_kursus','penganjuran_kursus', 'catatan'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['nama_kursus', 'lokasi_kursus','penganjuran_kursus', 'catatan'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

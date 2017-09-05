@@ -20,15 +20,18 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?php if($model->username != "admin"): ?>
-        <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => GeneralMessage::confirmDelete,
-                'method' => 'post',
-            ],
-        ]) ?>
+        
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['Admin']['user']['update'])): ?>
+            <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?php endif; ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['Admin']['user']['delete'])): ?>
+            <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->id], [
+                'class' => 'btn btn-danger',
+                'data' => [
+                    'confirm' => GeneralMessage::confirmDelete,
+                    'method' => 'post',
+                ],
+            ]) ?>
         <?php endif; ?>
     </p>
     

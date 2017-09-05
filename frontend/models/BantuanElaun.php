@@ -97,8 +97,10 @@ class BantuanElaun extends \yii\db\ActiveRecord
             [['catatan', 'surat_permohonan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
 			[['surat_permohonan'], 'validateFileUpload', 'skipOnEmpty' => false],
             [['kursus','catatan','emel','nama', 'kelayakan_akademi','muatnaik_gambar', 'emel', 'muatnaik_dokumen', 'no_akaun','kewarganegara', 'alamat_negeri',
-                'catatan'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                'catatan'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

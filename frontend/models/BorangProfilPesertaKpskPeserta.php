@@ -101,8 +101,10 @@ class BorangProfilPesertaKpskPeserta extends \yii\db\ActiveRecord
             [['emel', 'facebook', 'session_id'], 'string', 'max' => 100],
             [['catatan'], 'string', 'max' => 255],
             [['kehadiran'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['nama', 'pekerjaan', 'nama_majikan','alamat_1', 'alamat_2', 'alamat_3','alamat_negeri','alamat_bandar', 'alamat_poskod','gred','catatan','emel', 'facebook'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['nama', 'pekerjaan', 'nama_majikan','alamat_1', 'alamat_2', 'alamat_3','alamat_negeri','alamat_bandar', 'alamat_poskod','gred','catatan','emel', 'facebook'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

@@ -85,8 +85,10 @@ class BantuanPenganjuranKursusPenceramah extends \yii\db\ActiveRecord
             [['nama_kejohanan_kursus'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tahap_kelayakan_sukan_peringkat_kebangsaan', 'tahap_kelayakan_sukan_peringkat_antarabangsa'],'validateFileUpload', 'skipOnEmpty' => false],
             [['badan_sukan', 'nama_majikan', 'jawatan','sukan', 'nama', 'alamat_1', 'alamat_2', 'alamat_3', 'no_passport', 'tahap_akademik','alamat_negeri',
-                'alamat_bandar', 'alamat_poskod','alamat_e_mail','gred','tempat','nama_kejohanan_kursus'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                'alamat_bandar', 'alamat_poskod','alamat_e_mail','gred','tempat','nama_kejohanan_kursus'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

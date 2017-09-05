@@ -57,8 +57,10 @@ class PengurusanKpi extends \yii\db\ActiveRecord
             [['senarai_atlet_yang_memenangi'], 'safe'],
             [['nama_sukan', 'nama_acara', 'rekod_baru_yang_dicipta'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             //[['senarai_atlet_yang_memenangi'], 'string', 'max' => 255],
-            [['nama_sukan', 'nama_acara', 'rekod_baru_yang_dicipta'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['nama_sukan', 'nama_acara', 'rekod_baru_yang_dicipta'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

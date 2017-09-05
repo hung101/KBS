@@ -31,8 +31,10 @@ class GeranBantuanGajiLampiran extends \yii\db\ActiveRecord
             [['lampiran'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['session_id'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['lampiran'], 'validateFileUpload', 'skipOnEmpty' => false],
-            [['nama_dokumen'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['nama_dokumen'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

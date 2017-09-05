@@ -68,8 +68,10 @@ class AtletAset extends \yii\db\ActiveRecord
             [['daftar_alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['daftar_alamat_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['jenis_aset', 'jenis_harta_pengangkutan_perniagaan', 'daftar_no_pengangkutan','daftar_alamat_1', 'daftar_alamat_2', 'daftar_alamat_3',
-                'nama_syarikat_perniagaan', 'produk_perkhidmatan_perniagaan'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                'nama_syarikat_perniagaan', 'produk_perkhidmatan_perniagaan'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

@@ -103,8 +103,10 @@ class PermohonanEBantuan extends \yii\db\ActiveRecord
             [['pejabat_yang_mendaftarkan', 'jawatankuasa_penaung', 'jawatankuasa_pegerusi', 'jawatankuasa_timbalan_pengerusi', 'jawatankuasa_naib_pengerusi', 
                 'jawatankuasa_setiausaha', 'jawatankuasa_bendahari','no_pendaftaran', 'alamat_negeri', 'alamat_surat_menyurat_negeri', 'bil_mesyuarat', 'peringkat_program',
                 'alamat_1', 'alamat_2', 'alamat_3', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3','alamat_bandar', 'alamat_surat_menyurat_bandar',
-                'alamat_parlimen', 'alamat_surat_menyurat_parlimen','email'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                'alamat_parlimen', 'alamat_surat_menyurat_parlimen','email'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

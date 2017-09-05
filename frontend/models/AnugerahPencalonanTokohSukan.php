@@ -71,8 +71,10 @@ class AnugerahPencalonanTokohSukan extends \yii\db\ActiveRecord
             [['no_tel_1', 'no_tel_2'], 'string', 'max' => 14],
             [['no_tel_1', 'no_tel_2', 'no_kad_pengenalan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['gambar'],'validateFileUpload', 'skipOnEmpty' => false],
-            [['kategori','nama','sumbangan_dalam_pencapaian', 'ulasan_justifikasi'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['kategori','nama','sumbangan_dalam_pencapaian', 'ulasan_justifikasi'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

@@ -70,8 +70,10 @@ class AnugerahPencalonanJurulatih extends \yii\db\ActiveRecord
             [['no_telefon_1', 'no_telefon_2'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],            
             [['ulasan_pencapaian'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['gambar'],'validateFileUpload', 'skipOnEmpty' => false],
-            [['sukan', 'nama_jurulatih','ulasan_pencapaian'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['sukan', 'nama_jurulatih','ulasan_pencapaian'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

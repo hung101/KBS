@@ -69,8 +69,10 @@ class GajiDanElaunJurulatih extends \yii\db\ActiveRecord
             [['catatan', 'pengerusi', 'kelulusan_dkp', 'catatan_jkb', 'catatan_mpj'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['dokumen_muat_naik', 'surat_tawaran', 'kelulusan_pinjaman', 'rekod_cuti'],'validateFileUpload', 'skipOnEmpty' => false],
             [['no_passport','nama_sukan', 'bank', 'cawangan','no_pekerja', 'no_kwsp','no_akaun', 'bil_jkb', 'bil_mpj',
-                'catatan', 'pengerusi', 'kelulusan_dkp', 'catatan_jkb', 'catatan_mpj'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                'catatan', 'pengerusi', 'kelulusan_dkp', 'catatan_jkb', 'catatan_mpj'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

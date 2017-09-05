@@ -73,8 +73,10 @@ class PermohonanBimbinganKaunselingPegawaiAnggota extends \yii\db\ActiveRecord
             [['emel', 'emel_pegawai'], 'string', 'max' => 100],
             [['catatan_kaunselor', 'tindakan_kaunselor', 'cadangan_kaunselor', 'catatan_permohonan'], 'string', 'max' => 255],
             [['nama', 'jawatan', 'nama_pegawai_anggota', 'jawatan_pegawai','no_fail_pekerja_pegawai', 'no_fail_pekerja','emel', 'emel_pegawai',
-                'catatan_kaunselor', 'tindakan_kaunselor', 'cadangan_kaunselor', 'catatan_permohonan'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                'catatan_kaunselor', 'tindakan_kaunselor', 'cadangan_kaunselor', 'catatan_permohonan'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

@@ -85,8 +85,10 @@ class UjianSaringan extends \yii\db\ActiveRecord
             [['jangkauan_meluntur'], 'number', 'max' => 60, 'message' => GeneralMessage::yii_validation_number, 'tooBig' => GeneralMessage::yii_validation_integer_max],
             [['lari_pecut_20_meter'], 'number', 'max' => 10, 'message' => GeneralMessage::yii_validation_number, 'tooBig' => GeneralMessage::yii_validation_integer_max],
             [['bangsa', 'sukan', 'tarikh_lahir', 'maklumat_program'], 'safe'],
-            [['nama', 'sekolah','alamat_1', 'alamat_2', 'alamat_3','alamat_negeri', 'darjah','alamat_bandar','catatan'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['nama', 'sekolah','alamat_1', 'alamat_2', 'alamat_3','alamat_negeri', 'darjah','alamat_bandar','catatan'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

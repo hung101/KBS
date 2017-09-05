@@ -338,6 +338,63 @@ class ProfilPusatLatihanController extends Controller
         
         return $this->redirect(['view', 'id' => $model->profil_pusat_latihan_id]);
     }
+    
+    public function actionPrint($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }  
+        $model = $this->findModel($id);
+        
+        $ref = RefNegeri::findOne(['id' => $model->alamat_negeri]);
+        $model->alamat_negeri = $ref['desc'];
+        
+        $ref = RefBandar::findOne(['id' => $model->alamat_bandar]);
+        $model->alamat_bandar = $ref['desc'];
+        
+        $ref = RefStatusPusatLatihan::findOne(['id' => $model->status]);
+        $model->status = $ref['desc'];
+        
+        $ref = RefSukan::findOne(['id' => $model->sukan]);
+        $model->sukan = $ref['desc'];
+        
+        $ref = RefProgramMsn::findOne(['id' => $model->program]);
+        $model->program = $ref['desc'];
+        
+        $model->status_permohonan_id = $model->status_permohonan;
+        $ref = RefStatusBantuanPenganjuranKejohanan::findOne(['id' => $model->status_permohonan]);
+        $model->status_permohonan = $ref['desc'];
+        
+        $ref = RefJenisMaklumatPusatLatihan::findOne(['id' => $model->jenis_maklumat]);
+        $model->jenis_maklumat = $ref['desc'];
+        
+        $ref = RefKategoriPusatLatihan::findOne(['id' => $model->kategori]);
+        $model->kategori = $ref['desc'];
+        
+        if($model->tarikh_program_bermula != "") {$model->tarikh_program_bermula = GeneralFunction::convert($model->tarikh_program_bermula, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_jkk_jkb != "") {$model->tarikh_jkk_jkb = GeneralFunction::convert($model->tarikh_jkk_jkb, GeneralFunction::TYPE_DATE);}
+        
+        $ProfilPusatLatihanKemudahan = ProfilPusatLatihanKemudahan::find()->where(['profil_pusat_latihan_id' => $model->profil_pusat_latihan_id])->all();
+
+        $ProfilPusatLatihanPeralatan = ProfilPusatLatihanPeralatan::find()->where(['profil_pusat_latihan_id' => $model->profil_pusat_latihan_id])->all();
+
+        $pdf = new \mPDF('utf-8', 'A4');
+
+        $pdf->title = 'Permohonan / Maklumat Pusat Latihan';
+
+        $stylesheet = file_get_contents('css/report.css');
+
+        $pdf->WriteHTML($stylesheet,1);
+        
+        $pdf->WriteHTML($this->renderpartial('print', [
+            'model'  => $model,
+            'title' => $pdf->title,
+            'ProfilPusatLatihanKemudahan'  => $ProfilPusatLatihanKemudahan,
+            'ProfilPusatLatihanPeralatan'  => $ProfilPusatLatihanPeralatan,
+        ]));
+
+        $pdf->Output(str_replace(' ', '_', $pdf->title).'_'.$model->profil_pusat_latihan_id.'.pdf', 'I');
+    }
 
     /**
      * Finds the ProfilPusatLatihan model based on its primary key value.

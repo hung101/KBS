@@ -75,8 +75,10 @@ class JurulatihKeluarga extends \yii\db\ActiveRecord
             [['no_telefon', 'no_telefon_bimbit'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_telefon', 'no_telefon_bimbit'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['nama_suami_isteri_waris','alamat_surat_menyurat_1', 'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3','alamat_surat_menyurat_negeri', 'hubungan_keluargaan',
-                'alamat_surat_menyurat_bandar','emel'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                'alamat_surat_menyurat_bandar','emel'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

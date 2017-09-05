@@ -56,8 +56,10 @@ class PengurusanProgramBinaanLaporanPenganjuran extends \yii\db\ActiveRecord
             [['pengurusan_program_binaan_id', 'atlet_lelaki', 'atlet_perempuan', 'jurulatih_lelaki', 'jurulatih_perempuan', 'pegawai_lelaki', 'pegawai_perempuan', 'teknikal_lelaki', 'teknikal_perempuan', 'urusetia_lelaki', 'urusetia_perempuan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['peruntukan_dipohon_msn', 'peruntukan_dipohon_psn', 'peruntukan_dilulus_msn', 'peruntukan_dilulus_psn', 'jumlah_diterima_msn', 'jumlah_diterima_psn', 'jumlah_perbelanjaan', 'perbelanjaan_sebenar', 'baki_dituntut'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['aktiviti', 'tempat'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['aktiviti', 'tempat','negeri', 'sukan', 'jenis_laporan', 'tahap', 'jenis_aktiviti'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['aktiviti', 'tempat','negeri', 'sukan', 'jenis_laporan', 'tahap', 'jenis_aktiviti'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

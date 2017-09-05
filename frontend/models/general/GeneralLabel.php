@@ -253,6 +253,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const bahagian_cawangan_pusat = "Bahagian / Cawangan / Pusat";
         const bahagian_kecederaan = "Bahagian Kecederaan";
         const bahagian_pusat_unit = "Bahagian / Pusat / Unit";
+        const bahagian_user = "Bahagian Pengguna";
         const bahasa_ibu = "Bahasa Ibunda";
         const bajet_keseluruhan = "Bajet Keseluruhan";
         const bajet_keseluruhan_rm = "Bajet Keseluruhan (RM)";
@@ -435,6 +436,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const catitan_ringkas = "Catatan Ringkas";
         const cawangan = "Cawangan";
         const cawangan_dan_alamat_bank = "Cawangan Dan Alamat Bank";
+        const cawangan_pusat = "Cawangan / Pusat";
         const cek_atas_nama = "Cek Atas Nama";
         const cetak = "Cetak";
         const cetak_profil_atlet = "Cetak Profil Atlet";
@@ -4140,6 +4142,7 @@ if($session->get('language') == "EN") {
         const bahagian_cawangan_pusat = "Division / Branch / Center";
         const bahagian_kecederaan = "Part Injury";
         const bahagian_pusat_unit = "Division / Centre / Unit";
+        const bahagian_user = "User Division";
         const bahasa_ibu = "Native Language";
         const bajet_keseluruhan = "Overall Budget";
         const bajet_keseluruhan_rm = "Overall Budget (RM)";
@@ -4325,6 +4328,7 @@ if($session->get('language') == "EN") {
         const catitan_ringkas = "Simple Entry";
         const cawangan = "Branch";
         const cawangan_dan_alamat_bank = "Branch And Address Of The Bank";
+        const cawangan_pusat = "Branch / Center";
         const cek_atas_nama = "Cheques Name";
         const cetak = "Print";
         const cetak_profil_atlet = "Print Profile Athlete";

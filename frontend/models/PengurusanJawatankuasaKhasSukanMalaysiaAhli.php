@@ -66,8 +66,10 @@ class PengurusanJawatankuasaKhasSukanMalaysiaAhli extends \yii\db\ActiveRecord
             [['jenis_keahlian_nyatakan', 'agensi_organisasi_nyatakan', 'jawatan_lain_lain'], 'string', 'max' => 80],
             [['session_id', 'emel'], 'string', 'max' => 100],
             [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email],
-            [['jenis_keahlian','jenis_keahlian_nyatakan', 'agensi_organisasi_nyatakan', 'jawatan_lain_lain','emel'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['jenis_keahlian','jenis_keahlian_nyatakan', 'agensi_organisasi_nyatakan', 'jawatan_lain_lain','emel'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

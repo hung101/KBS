@@ -41,6 +41,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
             const yii_validation_compare_max = '{attribute} mesti lebih kecil daripada atau sama dengan "{compareAttribute}"';
             const yii_validation_password_strength  = '{attribute} mesti kombinasi huruf besar, huruf kecil, nombor dan aksara khas';
             const yii_validation_password_contain_username = '{attribute} tidak boleh mengandungi Username';
+            const yii_validation_xss = 'Nilai tidak boleh diterima.';
             
             // custom validation general message BM
             const custom_validation_password_equal = "Kata laluan tidak sepadan";
@@ -92,6 +93,7 @@ if($session->get('language') == "EN") {
             const yii_validation_compare_max = '{attribute} must be less than or equal to "{compareAttribute}"';
             const yii_validation_password_strength  = '{attribute} must be a combination of uppercase letter, lowercase letter, number and special character';
             const yii_validation_password_contain_username = '{attribute} cannot contain the Username';
+            const yii_validation_xss = 'The value is not acceptable.';
             
             // custom validation general message EN
             const custom_validation_password_equal = "Password do not match";

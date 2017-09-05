@@ -60,8 +60,10 @@ class PengurusanJawatankuasaKhasSukanMalaysia extends \yii\db\ActiveRecord
             [['jawatankuasa', 'created_by', 'updated_by', 'negeri'], 'integer'],
             [['temasya'], 'string', 'max' => 80],
             [['memo'], 'string', 'max' => 500, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['memo','temasya'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['memo','temasya'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

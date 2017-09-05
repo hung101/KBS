@@ -74,8 +74,10 @@ class PengurusanPerhubunganDalamDanLuarNegaraMesyuarat extends \yii\db\ActiveRec
             [['no_tel_bimbit'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['emel', 'muatnaik_dokumen', 'muatnaik_dokumen_kejohanan'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['nama', 'jawatan', 'nama_kejohonan','alamat_1', 'alamat_2', 'alamat_3','alamat_negeri', 'status_permohonan','alamat_bandar',
-                'emel', 'muatnaik_dokumen', 'muatnaik_dokumen_kejohanan'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                'emel', 'muatnaik_dokumen', 'muatnaik_dokumen_kejohanan'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

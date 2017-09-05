@@ -67,8 +67,10 @@ class Persatuan extends \yii\db\ActiveRecord
             ['new_password', 'validatePassword'],
             ['new_password', 'string', 'min' => 12, 'tooShort' => GeneralMessage::yii_validation_string_min],
             [['username'], 'unique', 'message' => GeneralMessage::yii_validation_unique],
-            [['username','full_name','email','sukan'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['username','full_name','email','sukan'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

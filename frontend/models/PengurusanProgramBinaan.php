@@ -71,8 +71,10 @@ class PengurusanProgramBinaan extends \yii\db\ActiveRecord
             [['nama_program', 'usptn_kuota_lap', 'usptn_lap_tertunggak'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['daerah'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['nama_ppn', 'pengurus_pn', 'bilangan_jkb', 'jabatan','kategori_permohonan', 'tahap', 'negeri', 'jenis_aktiviti','tempat',
-                'catatan', 'usptn_bajet', 'usptn_jadual','nama_program', 'usptn_kuota_lap', 'usptn_lap_tertunggak','daerah'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                'catatan', 'usptn_bajet', 'usptn_jadual','nama_program', 'usptn_kuota_lap', 'usptn_lap_tertunggak','daerah'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

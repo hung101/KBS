@@ -36,8 +36,10 @@ class BspKedudukanKewanganPenjaminJenisHarta extends \yii\db\ActiveRecord
             [['bsp_kedudukan_kewangan_penjamin_id', 'jumlah_ekar_kaki_persegi'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nilai'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['jenis_harta'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['jenis_harta',], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['jenis_harta',], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

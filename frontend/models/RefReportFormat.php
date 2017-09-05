@@ -58,8 +58,10 @@ class RefReportFormat extends \yii\db\ActiveRecord
             [['created', 'updated'], 'safe'],
             [['desc'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['file_extension'], 'string', 'max' => 10, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['desc','file_extension'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['desc','file_extension'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

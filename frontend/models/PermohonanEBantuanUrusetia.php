@@ -76,8 +76,10 @@ class PermohonanEBantuanUrusetia extends \yii\db\ActiveRecord
             ['new_password', 'validatePassword'],
             ['new_password', 'string', 'min' => 12, 'tooShort' => GeneralMessage::yii_validation_string_min],
             [['username'], 'unique', 'message' => GeneralMessage::yii_validation_unique],
-            [['full_name','email'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['full_name','email'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

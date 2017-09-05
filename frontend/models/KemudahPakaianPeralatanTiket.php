@@ -60,8 +60,10 @@ class KemudahPakaianPeralatanTiket extends \yii\db\ActiveRecord
             [['kategori_permohonan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['destinasi_daripada', 'destinasi_ke'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['ulasan_permohonan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['kategori_permohonan','destinasi_daripada', 'destinasi_ke','ulasan_permohonan'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['kategori_permohonan','destinasi_daripada', 'destinasi_ke','ulasan_permohonan'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

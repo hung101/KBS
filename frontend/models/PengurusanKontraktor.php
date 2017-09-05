@@ -65,8 +65,10 @@ class PengurusanKontraktor extends \yii\db\ActiveRecord
             [['alamat_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['telefon_pejabat', 'telefon_bimbit'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['telefon_pejabat', 'telefon_bimbit'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['nama_kontraktor', 'peralatan_yang_dibekal','alamat_1', 'alamat_2', 'alamat_3','alamat_negeri','alamat_bandar'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['nama_kontraktor', 'peralatan_yang_dibekal','alamat_1', 'alamat_2', 'alamat_3','alamat_negeri','alamat_bandar'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

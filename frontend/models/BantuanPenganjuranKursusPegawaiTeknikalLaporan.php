@@ -63,8 +63,10 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporan extends \yii\db\ActiveRecor
             [['penyata_perbelanjaan_resit_yang_telah_disahkan'], 'validateFileUploadRequired', 'skipOnEmpty' => false],
             [['laporan_bergambar', 'jadual_keputusan_pertandingan', 'senarai_peserta', 
                 'statistik_penyertaan', 'senarai_pegawai_penceramah', 'senarai_urusetia_sukarelawan'],'validateFileUpload', 'skipOnEmpty' => false],
-            [['tempat','tujuan_kursus_kejohanan','bilangan_pasukan', 'bilangan_peserta', 'bilangan_pembantu','bilangan_pegawai_teknikal','bilangan_penceramah','bilangan_urusetia'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['tempat','tujuan_kursus_kejohanan','bilangan_pasukan', 'bilangan_peserta', 'bilangan_pembantu','bilangan_pegawai_teknikal','bilangan_penceramah','bilangan_urusetia'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

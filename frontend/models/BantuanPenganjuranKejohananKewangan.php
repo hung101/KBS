@@ -43,8 +43,10 @@ class BantuanPenganjuranKejohananKewangan extends \yii\db\ActiveRecord
             [['sumber_kewangan'], 'string', 'max' => 30],
             [['lain_lain'], 'string', 'max' => 80],
             [['session_id'], 'string', 'max' => 100],
-            [['lain_lain','sumber_kewangan'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['lain_lain','sumber_kewangan'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

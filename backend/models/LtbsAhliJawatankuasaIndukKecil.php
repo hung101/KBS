@@ -73,8 +73,10 @@ class LtbsAhliJawatankuasaIndukKecil extends \yii\db\ActiveRecord
             [['jantina'], 'string', 'max' => 1, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['bangsa'], 'string', 'max' => 25, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['jenis_jawatankuasa', 'nama_majikan','nama_jawatankuasa', 'jawatan', 'pekerjaan','nama_penuh', 'pengiktirafan_yang_diterima', 'kursus_yang_pernah_diikuti_oleh_pemegang_jawatan',
-                'tempat_lahir', 'alamat_kediaman','bangsa'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                'tempat_lahir', 'alamat_kediaman','bangsa'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

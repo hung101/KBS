@@ -78,8 +78,10 @@ class GeranBantuanGaji extends \yii\db\ActiveRecord
             [['boucher', 'no_cek', 'bil_jkb', 'bil_mpj','nama_jurulatih', 'cawangan', 'sub_cawangan', 'program_msn', 'lain_lain_program', 
                 'pusat_latihan', 'agensi', 'cek_atas_nama','kelulusan', 'status_jurulatih', 'status_permohonan', 'status_keaktifan_jurulatih', 
                 'kategori_geran', 'status_geran','catatan', 'rujukan', 'status_terkini_pengeluaran_cek', 'salinan_tawaran', 'persetujuan_terima', 
-                'pengerusi', 'kelulusan_dkp', 'catatan_jkb', 'catatan_mpj'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                'pengerusi', 'kelulusan_dkp', 'catatan_jkb', 'catatan_mpj'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

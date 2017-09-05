@@ -63,8 +63,10 @@ class MaklumatKongresDiLuarNegara extends \yii\db\ActiveRecord
             [['tajuk', 'nama_pegawai_terlibat'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tiket_penerbangan'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['tajuk', 'nama_pegawai_terlibat','tempat','tiket_penerbangan'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['tajuk', 'nama_pegawai_terlibat','tempat','tiket_penerbangan'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

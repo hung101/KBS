@@ -53,8 +53,10 @@ class AtletPembangunanKaunseling extends \yii\db\ActiveRecord
             [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh'], 'safe'],
             [['tujuan', 'susulan'], 'string', 'max' => 250, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['tujuan', 'susulan'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['tujuan', 'susulan'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

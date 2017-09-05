@@ -61,8 +61,10 @@ class LtbsAhliGabungan extends \yii\db\ActiveRecord
             [['no_tel_bimbit_presiden_badan_sukan', 'no_tel_bimbit_setiausaha_badan_sukan'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],            
             [['profil_badan_sukan_id', 'status', 'alamat_badan_sukan_poskod', 'no_tel_bimbit_presiden_badan_sukan', 'no_tel_bimbit_setiausaha_badan_sukan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama_badan_sukan', 'nama_penuh_presiden_badan_sukan', 'nama_penuh_setiausaha_badan_sukan', 'nama','alamat_badan_sukan_1', 'alamat_badan_sukan_2', 'alamat_badan_sukan_3',
-                'emel_presiden_badan_sukan', 'emel_setiausaha_badan_sukan','alamat_badan_sukan_poskod', 'alamat_badan_sukan_bandar'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                'emel_presiden_badan_sukan', 'emel_setiausaha_badan_sukan','alamat_badan_sukan_poskod', 'alamat_badan_sukan_bandar'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

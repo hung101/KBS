@@ -44,8 +44,10 @@ class PermohonanPeralatanPenggunaan extends \yii\db\ActiveRecord
             [['created', 'updated'], 'safe'],
             [['nama_peralatan'], 'string', 'max' => 80],
             [['session_id'], 'string', 'max' => 100],
-            [['nama_peralatan'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['nama_peralatan'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

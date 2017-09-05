@@ -58,8 +58,10 @@ class PermohonanPerkhidmatanPermakanan extends \yii\db\ActiveRecord
             [['tarikh'], 'safe'],
             [['sukan', 'kategori_permohonan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tujuan', 'jenis_perkhidmatan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['sukan', 'kategori_permohonan','tujuan', 'jenis_perkhidmatan'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['sukan', 'kategori_permohonan','tujuan', 'jenis_perkhidmatan'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

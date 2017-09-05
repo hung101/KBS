@@ -429,7 +429,10 @@ class SiteController extends Controller
                     $session['session_error_msg'] = GeneralLabel::sesi_concurrent_msg;
                     Yii::$app->user->logout();
                     Yii::$app->session->setFlash('error', GeneralLabel::sesi_concurrent_msg);
-                    Yii::$app->response->redirect(['site/login']);
+                    //Yii::$app->response->redirect(['site/login']);
+                    
+                    echo '1';
+                    exit();
                 }
             }
             
@@ -446,7 +449,10 @@ class SiteController extends Controller
                         $session['session_error_msg'] = GeneralLabel::sesi_tamat_msg;
                         Yii::$app->user->logout();
                         Yii::$app->session->setFlash('error', GeneralLabel::sesi_tamat_msg);
-                        Yii::$app->response->redirect(['site/login']);
+                        //Yii::$app->response->redirect(['site/login']);
+                        
+                        echo '1';
+                        exit();
                     }
                 }
             }
@@ -455,9 +461,14 @@ class SiteController extends Controller
             if(isset($session['session_error_msg'])){
                 Yii::$app->session->setFlash('error', $session['session_error_msg']);
             }
-            Yii::$app->response->redirect(['site/login']);
+            //Yii::$app->response->redirect(['site/login']);
+            
+            echo '1';
+            exit();
         }
         
         $session->close();
+        
+        echo '0';
     }
 }

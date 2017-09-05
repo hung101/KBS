@@ -123,6 +123,13 @@ class UserSearch extends User
             $query->andFilterWhere(['in', 'jabatan_id', $filterAgency]);
         }
         
+        // show child users only under parent
+        if(Yii::$app->user->identity->peranan != \app\models\UserPeranan::PERANAN_ADMIN){
+            //$queryParams['UserSearch']['created_by'] = Yii::$app->user->identity->id;
+            $query->andWhere(new \yii\db\Expression('FIND_IN_SET(:parent_id, parent_path)'))->addParams([':parent_id' => Yii::$app->user->identity->id])
+                    ->orFilterWhere(['tbl_user.created_by' => Yii::$app->user->identity->id]);
+        }
+        
         return $dataProvider;
     }
 }

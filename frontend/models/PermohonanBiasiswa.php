@@ -91,8 +91,10 @@ class PermohonanBiasiswa extends \yii\db\ActiveRecord
             [['muatnaik'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muatnaik'],'validateFileUpload', 'skipOnEmpty' => false],
             [['alamat_rumah_1', 'alamat_rumah_2', 'alamat_rumah_3', 'alamat_pengajian_1', 'alamat_pengajian_2', 'alamat_pengajian_3','alamat_rumah_negeri', 'alamat_pengajian_negeri',
-                'alamat_rumah_bandar', 'alamat_pengajian_bandar','no_matrix','jenis_biasiswa', 'jenis_biasiswa_lain'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                'alamat_rumah_bandar', 'alamat_pengajian_bandar','no_matrix','jenis_biasiswa', 'jenis_biasiswa_lain'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

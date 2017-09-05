@@ -29,8 +29,10 @@ class MsnSuratRasmi extends Model
             // [['nama_penerima', 'jawatan', 'address_1', 'negeri', 'tarikh', 'bil_msnm', 'gelaran'], 'required', 'message' => GeneralMessage::yii_validation_required],
             [['bil_msnm'], 'required', 'message' => GeneralMessage::yii_validation_required],
             [['nama_penerima', 'jawatan', 'address_1', 'address_2', 'address_3', 'negeri', 'tarikh', 'bil_msnm', 'gelaran', 'nama_pengurus_sukan', 'no_telefon_pengurus'], 'safe'],
-            [['nama_penerima', 'jawatan','bil_msnm', 'gelaran', 'nama_pengurus_sukan', 'no_telefon_pengurus'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['nama_penerima', 'jawatan','bil_msnm', 'gelaran', 'nama_pengurus_sukan', 'no_telefon_pengurus'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

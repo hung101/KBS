@@ -54,8 +54,10 @@ class PengurusanPerhimpunanKemPeserta extends \yii\db\ActiveRecord
             [['pengurusan_perhimpunan_kem_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama_peserta'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['kategori_peserta', 'jawatan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['nama_peserta','kategori_peserta', 'jawatan'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['nama_peserta','kategori_peserta', 'jawatan'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

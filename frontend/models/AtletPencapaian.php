@@ -61,8 +61,10 @@ class AtletPencapaian extends \yii\db\ActiveRecord
             [['peringkat_kejohanan', 'nama_sukan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             //[['nama_acara'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['lokasi_kejohanan'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['nama_kejohanan_temasya','peringkat_kejohanan', 'nama_sukan','lokasi_kejohanan'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['nama_kejohanan_temasya','peringkat_kejohanan', 'nama_sukan','lokasi_kejohanan'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

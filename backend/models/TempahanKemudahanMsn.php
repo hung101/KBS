@@ -88,8 +88,10 @@ class TempahanKemudahanMsn extends \yii\db\ActiveRecord
             [['no_tel'], 'string', 'min' => 9, 'tooShort' => GeneralMessage::yii_validation_string_min],
             [['no_tel_bimbit'], 'string', 'min' => 10, 'tooShort' => GeneralMessage::yii_validation_string_min],
             [['nama', 'venue', 'nama_pemilik', 'majikan', 'bahagian', 'nama_program','alamat_majikan', 'alamat_pemohon','quantity_kadar','location_alamat_1', 
-                'location_alamat_2', 'location_alamat_3','location_alamat_bandar','location_alamat_negeri','email_pemilik','catatan'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                'location_alamat_2', 'location_alamat_3','location_alamat_bandar','location_alamat_negeri','email_pemilik','catatan'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

@@ -113,8 +113,10 @@ class PermohonanEBiasiswa extends \yii\db\ActiveRecord
             [['nama', 'oku_lain_lain', 'universiti_institusi', 'program_pengajian', 'kursus_bidang_pengajian', 'falkulti', 'sukan', 'nyatakan_nama_penaja',
                 'keturunan','agama', 'taraf_perkahwinan','png_semasa', 'pngk_semasa','kawasan_temuduga_anda', 'alamat_1', 'alamat_2', 'alamat_3', 'alamat_negeri', 
                 'no_pendaftaran_oku', 'kategori_oku', 'kategori', 'no_matriks', 'mendapat_pembiayaan_pendidikan', 'status_permohonan','alamat_bandar','tempat_temuduga',
-                ], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                ], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

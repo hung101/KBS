@@ -64,8 +64,10 @@ class PengurusanKehadiranMediaProgram extends \yii\db\ActiveRecord
             [['nama_wartawan'], 'unique', 'targetAttribute' => ['session_id', 'nama_wartawan'], 'when' => function ($model) {
                     return $model->session_id != "";
                 }, 'message' => GeneralMessage::yii_validation_unique_multiple],
-            [['program', 'nama_wartawan', 'agensi','emel'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['program', 'nama_wartawan', 'agensi','emel'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

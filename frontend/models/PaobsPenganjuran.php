@@ -73,8 +73,10 @@ class PaobsPenganjuran extends \yii\db\ActiveRecord
             //[['laporan_penganjuran'], 'string', 'max' => 100],
             //[['surat_sokongan'], 'string', 'max' => 255],
             [['surat_sokongan', 'laporan_penganjuran'],'validateFileUpload', 'skipOnEmpty' => false],
-            [['alamat_lokasi_bandar','nama_aktiviti','alamat_lokasi_1','alamat_lokasi_2','alamat_lokasi_3','jenis_sukan','tempoh'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['alamat_lokasi_bandar','nama_aktiviti','alamat_lokasi_1','alamat_lokasi_2','alamat_lokasi_3','jenis_sukan','tempoh'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

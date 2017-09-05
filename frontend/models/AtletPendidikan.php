@@ -79,8 +79,10 @@ class AtletPendidikan extends \yii\db\ActiveRecord
             [['alamat_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['jenis_biasiswa', 'alamat_negeri'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['jenis_peringkatan_pendidikan','kursus', 'fakulti', 'nama', 'alamat_bandar','no_matrix','alamat_1', 'alamat_2', 'alamat_3',
-                'pelajar_id_no','keputusan_cgpa','biasiswa_tajaan','jenis_biasiswa', 'alamat_negeri'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                'pelajar_id_no','keputusan_cgpa','biasiswa_tajaan','jenis_biasiswa', 'alamat_negeri'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

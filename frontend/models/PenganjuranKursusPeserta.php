@@ -127,8 +127,10 @@ class PenganjuranKursusPeserta extends \yii\db\ActiveRecord
                 'kelulusan_sukan_spesifik', 'nama_sukan_akademi', 'kelulusan_sains_sukan', 'sijil_spkk_msn', 'lesen_kejurulatihan_msn', 
                 'lantikan', 'nama_sukan_jurulatih', 'catatan','kod_kursus', 'alamat_negeri', 'alamat_majikan_negeri', 'status_jurulatih', 'no_lesen','emel',
                 'taraf_perkahwinan', 'kaum','no_passport','no_kp_polis_tentera','alamat_1', 'alamat_2', 'alamat_3', 'alamat_majikan_1', 'alamat_majikan_2', 'alamat_majikan_3',
-                'alamat_bandar', 'alamat_majikan_bandar','pencapaian','maklumat_persamaan_taraf'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                'alamat_bandar', 'alamat_majikan_bandar','pencapaian','maklumat_persamaan_taraf'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

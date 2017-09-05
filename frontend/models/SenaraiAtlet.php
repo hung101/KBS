@@ -51,8 +51,10 @@ class SenaraiAtlet extends \yii\db\ActiveRecord
             [['atlet'], 'required', 'skipOnEmpty' => true],
             [['pengurusan_jkk_jkp_program_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['atlet'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['atlet'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['atlet'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

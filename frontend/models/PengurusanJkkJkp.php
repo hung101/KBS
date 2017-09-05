@@ -68,8 +68,10 @@ class PengurusanJkkJkp extends \yii\db\ActiveRecord
             [['email'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['email'], 'email', 'message' => GeneralMessage::yii_validation_email],
             [['nama_setiausaha_jkk_jkp', 'nama_pegawai_coach', 'jawatan', 'nama_atlet', 'nama_jurulatih','status', 'peranan','agensi', 
-                'jawatan_agensi', 'peranan_lain','emel'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                'jawatan_agensi', 'peranan_lain','emel'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

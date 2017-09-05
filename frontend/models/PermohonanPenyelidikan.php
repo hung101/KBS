@@ -72,8 +72,10 @@ class PermohonanPenyelidikan extends \yii\db\ActiveRecord
                 'semak_salinan_dokumen_dokumen_sokongan', 'semak_salinan_soal_selidik'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama_permohon', 'akademik_nama', 'akademik_nama_yang_dicadangkan','ringkasan_permohonan', 'pengecualian_persetujuan', 
                 'sebab_tiada_penyertaan_lembaran_maklumat', 'sebab_tiada_borang_persetujuan_penyertaan', 'tajuk_penyelidikan','isnrp_no', 'akademik_no_kakitangan',
-                'akademik_emel'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                'akademik_emel'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

@@ -51,8 +51,10 @@ class BantuanPenganjuranKejohananSirkitOlehMsn extends \yii\db\ActiveRecord
             [['peringkat_penganjuran_lain'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['kejohanan','tempat'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tarikh_tamat'], 'compare', 'compareAttribute'=>'tarikh_mula', 'operator'=>'>=', 'message' => GeneralMessage::yii_validation_compare],
-            [['peringkat_penganjuran','peringkat_penganjuran_lain','kejohanan','tempat'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['peringkat_penganjuran','peringkat_penganjuran_lain','kejohanan','tempat'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

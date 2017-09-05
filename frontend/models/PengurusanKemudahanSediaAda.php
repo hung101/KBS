@@ -65,8 +65,10 @@ class PengurusanKemudahanSediaAda extends \yii\db\ActiveRecord
                 'kadar_sewaan_sebulan_malam'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['keluasan_padang', 'size'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['gambar_1', 'gambar_2', 'gambar_3', 'gambar_4', 'gambar_5'],'validateFileUpload', 'skipOnEmpty' => false],
-            [['keluasan_padang', 'size','lokasi'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['keluasan_padang', 'size','lokasi'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

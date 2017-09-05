@@ -269,6 +269,16 @@ class GeneralFunction{
         return $value;
     }
     
+    public static function validateXSS($value){
+        $result = true;
+        
+        if($value != strip_tags($value)) {
+            $result = false;
+        }
+        
+        return $result;
+    }
+    
     public static function checkFileExtension($extension){
         switch(strtolower($extension)){
             case "jpg":

@@ -74,8 +74,10 @@ class PengurusanBeritaAntarabangsa extends \yii\db\ActiveRecord
             [['no_telefon', 'no_faks'], 'match', 'pattern' => '/^[0-9-+.]+$/', 'message' => GeneralMessage::yii_validation_match], //only allow international number
             [['kategori_berita', 'nama_berita', 'nama_pegawai_embassy', 'climate', 'region', 'state', 'goverment_mayor',
                 'area_municipality', 'economy_gpp', 'popular_sports','alamat_1', 'alamat_2', 'alamat_3', 'area_code',
-                'gps','currency', 'timezone', 'malaysian_timezone','catatan', 'public_transportation'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+                'gps','currency', 'timezone', 'malaysian_timezone','catatan', 'public_transportation'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

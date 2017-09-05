@@ -58,8 +58,10 @@ class PengurusanDokumenMediaProgram extends \yii\db\ActiveRecord
             [['kategori_dokumen', 'nama_dokumen'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muatnaik'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muatnaik'], 'validateFileUpload', 'skipOnEmpty' => false],
-            [['kategori_dokumen', 'nama_dokumen'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['kategori_dokumen', 'nama_dokumen'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }

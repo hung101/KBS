@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
+use yii\helpers\BaseUrl;
 
 use app\models\general\GeneralVariable;
 
@@ -131,11 +132,51 @@ class PengurusanPenyeliaController extends Controller
         $model->jabatan_id = RefJabatanUser::MSN;
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            
+            $password_show = $model->new_password;
             $model->setPassword($model->new_password);
             $model->generateAuthKey();
             
             if($model->save()){
+                if($model->email && $model->email != ""){
+                        try {
+                            
+                                Yii::$app->mailer->compose()
+                                        ->setTo($model->email)
+                                        ->setFrom('noreply@spsb.com')
+                                        ->setSubject('Akaun Baru Profil Pegawai & Anggota USPTN')
+                                        ->setHtmlBody("Assalamualaikum dan Salam Sejahtera, 
+<br><br>
+Tan Sri/Datuk/Dato'/Datin/Dr./Tuan/Puan,
+<br><br>
+<b>AKAUN BARU SISTEM SPSB</b>
+<br><br>
+Dengan segala hormatnya perkara di atas adalah dirujuk.
+<br><br>
+2. Sukacita dimaklumkan bahawa satu akaun baru Sistem SPSB atas nama Tan Sri/Datuk/Dato'/Datin/Dr./Tuan/Puan telah diwujudkan. Sehubungan itu, id pengguna dan kata laluan Tan Sri/Datuk/Dato'/Datin/Dr./Tuan/Puan adalah seperti berikut:
+<br><br>Nama Penuh   : ".$model->full_name."
+<br><br>Id Pengguna   : ".$model->username."
+<br><br>Kata Laluan   : ".$password_show."
+    <br><br>
+3. Tan Sri/Datuk/Dato'/Datin/Dr./Tuan/Puan dipohon untuk menukarkan kata laluan di atas bagi tujuan keselamatan. Sila klik di  <a href='" . BaseUrl::to(['site/login'], true) . "' target='_blank'>sini</a> untuk log masuk Tan Sri/Datuk/Dato'/Datin/Dr./Tuan/Puan.
+<br><br>
+4. Kerjasama dan perhatian Tan Sri/Datuk/Dato'/Datin/Dr./Tuan/Puan dalam perkara ini amat dihargai dan didahului dengan ucapan terima kasih.
+<br><br>
+Sekian.
+<br><br>
+".'
+                                "KE ARAH KECEMERLANGAN SUKAN"<br>
+                                Majlis Sukan Negara Malaysia.
+                                ')->send();
+                                
+                                Yii::$app->session->setFlash('success', 'E-mel telah dihantar kepada pemohon.');
+                        }
+                        catch(\Swift_SwiftException $exception)
+                        {
+                            //return 'Can sent mail due to the following exception'.print_r($exception);
+                            Yii::$app->session->setFlash('error', 'Terdapat ralat menghantar e-mel.'.print_r($exception));
+                        }
+                }
+                
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         }

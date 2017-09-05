@@ -51,8 +51,10 @@ class Inventori extends \yii\db\ActiveRecord
             [['alamat_pembekal_negeri'], 'string', 'max' => 3],
             [['alamat_pembekal_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['alamat_pembekal_bandar', 'alamat_pembekal_poskod'], 'string', 'max' => 5],
-            [['perkara','program', 'sukan', 'no_co', 'alamat_pembekal_1', 'alamat_pembekal_2', 'alamat_pembekal_3','alamat_pembekal_negeri','alamat_pembekal_bandar'], 'filter', 'filter' => function ($value) {
-                return  \common\models\general\GeneralFunction::filterXSS($value);
+            [['perkara','program', 'sukan', 'no_co', 'alamat_pembekal_1', 'alamat_pembekal_2', 'alamat_pembekal_3','alamat_pembekal_negeri','alamat_pembekal_bandar'], function ($attribute, $params) {
+                if (!\common\models\general\GeneralFunction::validateXSS($this->$attribute)) {
+                    $this->addError($attribute, GeneralMessage::yii_validation_xss);
+                }
             }],
         ];
     }
