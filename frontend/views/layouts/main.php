@@ -1217,7 +1217,7 @@ function IdleTimeout() {
 
 
 // concurrent login checking - START
-var timer_checking = 7000; // 1000 = 1 second
+var timer_checking = 15000; // 1000 = 1 second
 var checkConcurrentTimer;
 var auth_key_session = '<?=$auth_key_session?>';
 var current_user_auth_key = '<?=$current_user_auth_key?>';

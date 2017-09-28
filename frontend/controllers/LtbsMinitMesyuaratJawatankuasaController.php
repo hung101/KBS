@@ -255,6 +255,7 @@ class LtbsMinitMesyuaratJawatankuasaController extends Controller
                 if(isset($refBadanSukan['emel_badan_sukan']) && $refBadanSukan['emel_badan_sukan'] != ""){
 
                         try {
+                            if(isset($refBadanSukan['emel_badan_sukan']) && $refBadanSukan['emel_badan_sukan'] != ''){
                                 Yii::$app->mailer->compose()
                                         ->setTo($refBadanSukan['emel_badan_sukan'])
                                                                     ->setFrom('noreply@spsb.com')
@@ -265,6 +266,7 @@ class LtbsMinitMesyuaratJawatankuasaController extends Controller
     <br><br>
     Sekian, terima kasih.
                                 ')->send();
+                            }
                         }
                         catch(\Swift_SwiftException $exception)
                         {
@@ -541,6 +543,7 @@ class LtbsMinitMesyuaratJawatankuasaController extends Controller
                         $status_desc = $ref['desc'];
 
                         try {
+                            if(isset($refBadanSukan['emel_badan_sukan']) && $refBadanSukan['emel_badan_sukan'] != ''){
                                 Yii::$app->mailer->compose()
                                         ->setTo($refBadanSukan['emel_badan_sukan'])
                                                                     ->setFrom('noreply@spsb.com')
@@ -551,6 +554,7 @@ class LtbsMinitMesyuaratJawatankuasaController extends Controller
     <br><br>
     Sekian, terima kasih.
                                 ')->send();
+                            }
                         }
                         catch(\Swift_SwiftException $exception)
                         {

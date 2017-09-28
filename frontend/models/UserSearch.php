@@ -78,7 +78,7 @@ class UserSearch extends User
         }
 
         $query->andFilterWhere([
-            'id' => $this->id,
+            'tbl_user.id' => $this->id,
             //'jabatan_id' => $this->jabatan_id,
             'peranan' => $this->peranan,
             'status' => $this->status,

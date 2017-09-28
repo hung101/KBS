@@ -63,7 +63,7 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['username', 'jabatan_id', 'peranan', 'full_name', 'status', 'ipt_bendahari_e_biasiswa'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['username', 'jabatan_id', 'peranan', 'full_name', 'status', 'ipt_bendahari_e_biasiswa', 'email'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['jabatan_id', 'peranan', 'status', 'profil_badan_sukan', 'ipt_bendahari_e_biasiswa', 'no_kad_pengenalan','bahagian','cawangan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             //[['expiry_date'], 'safe'],
             [['username'], 'integer', 'message' => GeneralMessage::yii_validation_integer, 'on' => 'create'],

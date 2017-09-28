@@ -14,18 +14,18 @@ use app\models\general\GeneralMessage;
 $this->title = GeneralLabel::ahli_jawatankuasa_kecil_biro_;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="ltbs-ahli-jawatankuasa-kecil-index">
+<div class="profil-badan-sukan-index">
     
     <?php
         $template = '{view}';
         
         // Update Access
-        if(isset(Yii::$app->user->identity->peranan_akses['PJS']['ltbs-ahli-jawatankuasa-kecil']['update']) && Yii::$app->user->identity->jabatan_id!=app\models\RefJabatanUser::MSN){
+        if(isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['update']) && Yii::$app->user->identity->jabatan_id!=app\models\RefJabatanUser::MSN){
             $template .= ' {update}';
         }
         
         // Delete Access
-        if(isset(Yii::$app->user->identity->peranan_akses['PJS']['ltbs-ahli-jawatankuasa-kecil']['delete']) && Yii::$app->user->identity->jabatan_id!=app\models\RefJabatanUser::MSN){
+        if(isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['delete']) && Yii::$app->user->identity->jabatan_id!=app\models\RefJabatanUser::MSN){
             $template .= ' {delete}';
         }
     ?>
@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?php if(isset(Yii::$app->user->identity->peranan_akses['PJS']['ltbs-ahli-jawatankuasa-kecil']['create']) && Yii::$app->user->identity->jabatan_id!=app\models\RefJabatanUser::MSN): ?>
+    <?php if(isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['create']) && Yii::$app->user->identity->jabatan_id!=app\models\RefJabatanUser::MSN): ?>
         <p>
             <?= Html::a(GeneralLabel::createTitle . ' '.GeneralLabel::ahli_jawatan_kecil_id.' ', Url::to(['create', 'profil_badan_sukan_id' => $profil_badan_sukan_id]), ['class' => 'btn btn-success']) ?>
         </p>

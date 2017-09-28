@@ -105,7 +105,7 @@ use common\models\general\GeneralFunction;
                         ]
                     ],
                     'columnOptions'=>['colspan'=>3]],
-                'tempat' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>9],'options'=>['maxlength'=>30]],
+                'tempat' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>9],'options'=>['maxlength'=>255]],
             ]
         ],
         [

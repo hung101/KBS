@@ -16,15 +16,15 @@ $this->title =  ''.GeneralLabel::senarai_ahli_gabungan;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::senarai_ahli_gabungan, 'url' => Url::to(['index', 'profil_badan_sukan_id' => $profil_badan_sukan_id])];
 $this->params['breadcrumbs'][] = GeneralLabel::viewTitle;
 ?>
-<div class="ltbs-ahli-gabungan-view">
+<div class="profil-badan-sukan-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['PJS']['ltbs-ahli-gabungan']['update']) && Yii::$app->user->identity->jabatan_id!=app\models\RefJabatanUser::MSN): ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['update']) && Yii::$app->user->identity->jabatan_id!=app\models\RefJabatanUser::MSN): ?>
             <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->ahli_gabungan_id], ['class' => 'btn btn-primary']) ?>
         <?php endif; ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['PJS']['ltbs-ahli-gabungan']['delete']) && Yii::$app->user->identity->jabatan_id!=app\models\RefJabatanUser::MSN): ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['delete']) && Yii::$app->user->identity->jabatan_id!=app\models\RefJabatanUser::MSN): ?>
             <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->ahli_gabungan_id], [
                 'class' => 'btn btn-danger',
                 'data' => [

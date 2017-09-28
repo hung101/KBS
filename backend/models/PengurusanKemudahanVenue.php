@@ -133,7 +133,26 @@ class PengurusanKemudahanVenue extends \yii\db\ActiveRecord
     }
     
     public function getNameAndState(){
-        $returnValue = '(' . $this->refNegeri->desc . ' - ' . $this->refBandar->desc . ')  ' . $this->nama_venue;
+        $returnValue = '(';
+        $gotNegeri = false;
+        
+        if(isset($this->refNegeri->desc)){
+            $returnValue .= $this->refNegeri->desc;
+            $gotNegeri = true;
+        }
+        
+        if(isset($this->refBandar->desc)){
+            if($gotNegeri){
+                $returnValue .=  ' - ';
+            }
+            $returnValue .= $this->refBandar->desc;
+        }
+        
+        $returnValue .= ')  ';
+        
+        if(isset($this->nama_venue)){
+            $returnValue .= $this->nama_venue;
+        }
         
         return $returnValue;
     }

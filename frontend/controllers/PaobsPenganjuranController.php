@@ -226,6 +226,7 @@ class PaobsPenganjuranController extends Controller
                         }
                         
                         try {
+                            if(isset($refBadanSukan['emel_badan_sukan']) && $refBadanSukan['emel_badan_sukan'] != ''){
                                 Yii::$app->mailer->compose()
                                         ->setTo($refBadanSukan['emel_badan_sukan'])
                                                                     ->setFrom('noreply@spsb.com')
@@ -236,6 +237,7 @@ class PaobsPenganjuranController extends Controller
     <br><br>
     Sekian, terima kasih.
                                 ')->send();
+                            }
                         }
                         catch(\Swift_SwiftException $exception)
                         {

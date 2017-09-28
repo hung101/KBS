@@ -215,11 +215,13 @@ class UserPerananController extends Controller
                 $model->agensi = implode(",",$model->agensi);
             }
             
-            foreach($modules as $category_key => $category_value){
-                foreach($category_value as $action_key => $action_value){
-                    foreach($action_value as $permission_key => $permission_value){
-                        $modules[$category_key][$action_key][$permission_value] = true;
-                        unset($modules[$category_key][$action_key][$permission_key]);
+            if($modules != null){
+                foreach($modules as $category_key => $category_value){
+                    foreach($category_value as $action_key => $action_value){
+                        foreach($action_value as $permission_key => $permission_value){
+                            $modules[$category_key][$action_key][$permission_value] = true;
+                            unset($modules[$category_key][$action_key][$permission_key]);
+                        }
                     }
                 }
             }

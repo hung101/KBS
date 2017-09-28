@@ -14,18 +14,18 @@ use common\models\general\GeneralFunction;
 $this->title = GeneralLabel::aktiviti_psikologi;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="psikologi-aktiviti-index">
+<div class="psikologi-profil-index">
     
     <?php
         $template = '{view}';
         
         // Update Access
-        if(isset(Yii::$app->user->identity->peranan_akses['ISN']['psikologi-aktiviti']['update'])){
+        if(isset(Yii::$app->user->identity->peranan_akses['ISN']['psikologi-profil']['update'])){
             $template .= ' {update}';
         }
         
         // Delete Access
-        if(isset(Yii::$app->user->identity->peranan_akses['ISN']['psikologi-aktiviti']['delete'])){
+        if(isset(Yii::$app->user->identity->peranan_akses['ISN']['psikologi-profil']['delete'])){
             $template .= ' {delete}';
         }
     ?>
@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?php if(isset(Yii::$app->user->identity->peranan_akses['ISN']['psikologi-aktiviti']['create'])): ?>
+    <?php if(isset(Yii::$app->user->identity->peranan_akses['ISN']['psikologi-profil']['create'])): ?>
         <p>
             <?= Html::a(GeneralLabel::createTitle .' ' . GeneralLabel::aktiviti_psikologi, ['create', 'psikologi_profil_id' => $psikologi_profil_id], ['class' => 'btn btn-success']) ?>
         </p>

@@ -15,15 +15,15 @@ $this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::aktiviti_psikologi;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::aktiviti_psikologi, 'url' => ['index', 'psikologi_profil_id' => $model->psikologi_profil_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="psikologi-aktiviti-view">
+<div class="psikologi-profil-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['ISN']['psikologi-aktiviti']['update'])): ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['ISN']['psikologi-profil']['update'])): ?>
             <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->psikologi_aktiviti_id], ['class' => 'btn btn-primary']) ?>
         <?php endif; ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['ISN']['psikologi-aktiviti']['delete'])): ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['ISN']['psikologi-profil']['delete'])): ?>
             <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->psikologi_aktiviti_id], [
                 'class' => 'btn btn-danger',
                 'data' => [
