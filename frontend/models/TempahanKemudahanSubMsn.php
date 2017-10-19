@@ -66,7 +66,8 @@ class TempahanKemudahanSubMsn extends \yii\db\ActiveRecord
         return [
             [['nama', 'no_kad_pengenalan', 'no_tel', 'emel', 'kemudahan', 'bayaran_sewa', 'jenis_kadar', 'quantity_kadar', 'tarikh_mula', 
                 'tarikh_akhir', 'jumlah_orang', 'status', 'agensi'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_mula'], 'safe'],
+            //[['tarikh_mula'], 'safe'],
+            [['tarikh_mula'], 'compare', 'compareValue'=>date("Y-m-d"), 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
             [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email],
             [['no_tel', 'jumlah_jam'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_tel'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],            

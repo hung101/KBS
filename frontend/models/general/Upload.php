@@ -136,7 +136,13 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
                 $Folder = $Folder . '/' . $SubFolder;
             }
             
-            $fileLocation = self::uploadRootFolder . '/' . $Folder . '/' . $file->baseName . '_' . $id . '.' . $file->extension;
+            $filename = $file->baseName;
+            if(strlen($file->baseName) != mb_strlen($file->baseName, 'utf-8')){
+                // content non-english characters
+                $filename = md5($file->baseName);
+            }
+            
+            $fileLocation = self::uploadRootFolder . '/' . $Folder . '/' . $filename . '_' . $id . '.' . $file->extension;
             $file->saveAs($fileLocation);
             
             return $fileLocation;
@@ -300,7 +306,13 @@ if($session->get('language') == "EN") {
                 $Folder = $Folder . '/' . $SubFolder;
             }
             
-            $fileLocation = self::uploadRootFolder . '/' . $Folder . '/' . $file->baseName . '_' . $id . '.' . $file->extension;
+            $filename = $file->baseName;
+            if(strlen($file->baseName) != mb_strlen($file->baseName, 'utf-8')){
+                // content non-english characters
+                $filename = md5($file->baseName);
+            }
+            
+            $fileLocation = self::uploadRootFolder . '/' . $Folder . '/' . $filename . '_' . $id . '.' . $file->extension;
             $file->saveAs($fileLocation);
             
             return $fileLocation;

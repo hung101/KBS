@@ -284,6 +284,9 @@ class GeneralFunction{
             case "jpg":
                 return true;
                 break;
+            case "jpeg":
+                return true;
+                break;
             case "pnm":
                 return true;
                 break;

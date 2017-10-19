@@ -2395,10 +2395,10 @@ use app\models\general\GeneralLabel;
                                 if(isset($modelLoop['atlet']['name_penuh'])){echo GeneralFunction::getUpperCaseWords($modelLoop['atlet']['name_penuh']); } else { echo $no_data;}
                                 echo '</td>';
                                 echo '<td class="table_records_td">';
-                                if(isset($modelLoop['refSixStepStage']['desc'])){echo GeneralFunction::getUpperCaseWords($modelLoop['refSixStepStage']['desc']); } else { echo $no_data;}
+                                if(isset($modelLoop['refSixstepBiomekanikStage']['desc'])){echo GeneralFunction::getUpperCaseWords($modelLoop['refSixstepBiomekanikStage']['desc']); } else { echo $no_data;}
                                 echo '</td>';
                                 echo '<td class="table_records_td">';
-                                if(isset($modelLoop['refSixStepStatus']['desc'])){echo GeneralFunction::getUpperCaseWords($modelLoop['refSixStepStatus']['desc']); } else { echo $no_data;}
+                                if(isset($modelLoop['refSixstepBiomekanikStatus']['desc'])){echo GeneralFunction::getUpperCaseWords($modelLoop['refSixstepBiomekanikStatus']['desc']); } else { echo $no_data;}
                                 echo '</td>';
                                 echo '</tr>';
                                 $counter++;
@@ -2445,10 +2445,10 @@ use app\models\general\GeneralLabel;
                                 if(isset($modelLoop['atlet']['name_penuh'])){echo GeneralFunction::getUpperCaseWords($modelLoop['atlet']['name_penuh']); } else { echo $no_data;}
                                 echo '</td>';
                                 echo '<td class="table_records_td">';
-                                if(isset($modelLoop['refSixStepStage']['desc'])){echo GeneralFunction::getUpperCaseWords($modelLoop['refSixStepStage']['desc']); } else { echo $no_data;}
+                                if(isset($modelLoop['refSixstepFisiologiStage']['desc'])){echo GeneralFunction::getUpperCaseWords($modelLoop['refSixstepFisiologiStage']['desc']); } else { echo $no_data;}
                                 echo '</td>';
                                 echo '<td class="table_records_td">';
-                                if(isset($modelLoop['refSixStepStatus']['desc'])){echo GeneralFunction::getUpperCaseWords($modelLoop['refSixStepStatus']['desc']); } else { echo $no_data;}
+                                if(isset($modelLoop['refSixstepFisiologiStatus']['desc'])){echo GeneralFunction::getUpperCaseWords($modelLoop['refSixstepFisiologiStatus']['desc']); } else { echo $no_data;}
                                 echo '</td>';
                                 echo '</tr>';
                                 $counter++;
@@ -2495,10 +2495,10 @@ use app\models\general\GeneralLabel;
                                 if(isset($modelLoop['atlet']['name_penuh'])){echo GeneralFunction::getUpperCaseWords($modelLoop['atlet']['name_penuh']); } else { echo $no_data;}
                                 echo '</td>';
                                 echo '<td class="table_records_td">';
-                                if(isset($modelLoop['refSixStepStage']['desc'])){echo GeneralFunction::getUpperCaseWords($modelLoop['refSixStepStage']['desc']); } else { echo $no_data;}
+                                if(isset($modelLoop['refSixstepPsikologiStage']['desc'])){echo GeneralFunction::getUpperCaseWords($modelLoop['refSixstepPsikologiStage']['desc']); } else { echo $no_data;}
                                 echo '</td>';
                                 echo '<td class="table_records_td">';
-                                if(isset($modelLoop['refSixStepStatus']['desc'])){echo GeneralFunction::getUpperCaseWords($modelLoop['refSixStepStatus']['desc']); } else { echo $no_data;}
+                                if(isset($modelLoop['refSixstepPsikologiStatus']['desc'])){echo GeneralFunction::getUpperCaseWords($modelLoop['refSixstepPsikologiStatus']['desc']); } else { echo $no_data;}
                                 echo '</td>';
                                 echo '</tr>';
                                 $counter++;
@@ -2545,10 +2545,10 @@ use app\models\general\GeneralLabel;
                                 if(isset($modelLoop['atlet']['name_penuh'])){echo GeneralFunction::getUpperCaseWords($modelLoop['atlet']['name_penuh']); } else { echo $no_data;}
                                 echo '</td>';
                                 echo '<td class="table_records_td">';
-                                if(isset($modelLoop['refSixStepStage']['desc'])){echo GeneralFunction::getUpperCaseWords($modelLoop['refSixStepStage']['desc']); } else { echo $no_data;}
+                                if(isset($modelLoop['refSixstepSatelitStage']['desc'])){echo GeneralFunction::getUpperCaseWords($modelLoop['refSixstepSatelitStage']['desc']); } else { echo $no_data;}
                                 echo '</td>';
                                 echo '<td class="table_records_td">';
-                                if(isset($modelLoop['refSixStepStatus']['desc'])){echo GeneralFunction::getUpperCaseWords($modelLoop['refSixStepStatus']['desc']); } else { echo $no_data;}
+                                if(isset($modelLoop['refSixstepSatelitStatus']['desc'])){echo GeneralFunction::getUpperCaseWords($modelLoop['refSixstepSatelitStatus']['desc']); } else { echo $no_data;}
                                 echo '</td>';
                                 echo '</tr>';
                                 $counter++;

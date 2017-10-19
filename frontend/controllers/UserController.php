@@ -224,10 +224,9 @@ Sekian.
         
         $model = $this->findModel($id);
         $oldStatus = null;
+        $oldStatus = $model->getOldAttribute('status');
         
         if ($model->load(Yii::$app->request->post()) && $model->sukan) {
-            $oldStatus = $model->getOldAttribute('status');
-            
             //$stringlens = $model->sukan;
             if(is_array($model->sukan)){
                 $model->sukan = implode(",",$model->sukan);

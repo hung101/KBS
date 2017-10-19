@@ -335,13 +335,13 @@ class AtletController extends Controller
             $file = UploadedFile::getInstance($model, 'muat_naik_surat_persetujuan');
             if($file){
                 $model->muat_naik_surat_persetujuan = Yii::$app->request->hostInfo.Yii::$app->request->baseUrl.'/'.
-													  Upload::uploadFile($file, Upload::atletFolder, 'muat_naik_surat_persetujuan-' . $model->atlet_id);
+                Upload::uploadFile($file, Upload::atletFolder, 'muat_naik_surat_persetujuan-' . $model->atlet_id);
             }
             
             $file = UploadedFile::getInstance($model, 'surat_tawaran_program_podium');
             if($file){
                 $model->surat_tawaran_program_podium = Yii::$app->request->hostInfo.Yii::$app->request->baseUrl.'/'.
-													   Upload::uploadFile($file, Upload::atletFolder, 'surat_tawaran_program_podium-' . $model->atlet_id);
+                Upload::uploadFile($file, Upload::atletFolder, 'surat_tawaran_program_podium-' . $model->atlet_id);
             }
             
             if($model->save()){
@@ -450,6 +450,7 @@ Majlis Sukan Negara Malaysia.
             
             $file = UploadedFile::getInstance($model, 'gambar');
             if($file){
+                self::actionDeleteupload($id, 'gambar');
                 $model->gambar = Upload::uploadFile($file, Upload::atletFolder, $model->atlet_id);
             } else {
                 $model->gambar = $existingGambar;
@@ -457,12 +458,14 @@ Majlis Sukan Negara Malaysia.
             
             $file = UploadedFile::getInstance($model, 'muat_naik_surat_persetujuan');
             if($file){
+                self::actionDeleteupload($id, 'muat_naik_surat_persetujuan');
                 $model->muat_naik_surat_persetujuan = Yii::$app->request->hostInfo.Yii::$app->request->baseUrl.'/'.
 													  Upload::uploadFile($file, Upload::atletFolder, 'muat_naik_surat_persetujuan-' . $model->atlet_id);
             }
             
             $file = UploadedFile::getInstance($model, 'surat_tawaran_program_podium');
             if($file){
+                self::actionDeleteupload($id, 'surat_tawaran_program_podium');
                 //$model->surat_tawaran_program_podium = Upload::uploadFile($file, Upload::atletFolder, 'surat_tawaran_program_podium-' . $model->atlet_id);
 				$model->surat_tawaran_program_podium = Yii::$app->request->hostInfo.Yii::$app->request->baseUrl.'/'.
 														Upload::uploadFile($file, Upload::atletFolder, 'surat_tawaran_program_podium-' . $model->atlet_id);

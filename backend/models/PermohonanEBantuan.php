@@ -133,7 +133,7 @@ class PermohonanEBantuan extends \yii\db\ActiveRecord
                 [['muat_naik_pb4', 'muat_naik_pb5', 'muat_naik_pb6', 'kertas_kerja','sijil_pendaftaran_persatuan', 
                     'salinan_perlembagaan_persatuan','senarai_ahli_jawatankuasa_persatuan','salinan_akaun_bank_persatuan', 
                     'laporan_penyata_kewangan_tahunan'],'validateFileUpload', 'skipOnEmpty' => false],
-                [['tarikh_didaftarkan'], 'compare', 'compareValue'=>date("Y-m-d"), 'operator'=>'<=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::custom_validation_tarikh_didaftarkan],
+                [['tarikh_didaftarkan'], 'compare', 'compareValue'=>date("Y-m-d"), 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::custom_validation_tarikh_didaftarkan],
                 [['tarikh_pelaksanaan_tamat'], 'compare', 'compareAttribute'=>'tarikh_pelaksanaan', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
                 ['tarikh_pelaksanaan','validateBeforePenganjuran', 'on' => 'create'],
                 //['jumlah_bantuan_yang_dipohon','validateJumlahPerbelanjaanDipohon'],

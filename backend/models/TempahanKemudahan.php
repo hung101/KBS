@@ -65,7 +65,8 @@ class TempahanKemudahan extends \yii\db\ActiveRecord
     {
         return [
             [['nama', 'no_kad_pengenalan', 'no_tel', 'emel', 'kemudahan', 'bayaran_sewa', 'jenis_kadar', 'quantity_kadar', 'tarikh_mula', 'tarikh_akhir', 'jumlah_orang', 'status'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_mula'], 'safe'],
+            //[['tarikh_mula'], 'safe'],
+            [['tarikh_mula'], 'compare', 'compareValue'=>date("Y-m-d"), 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
             [['nama', 'venue', 'nama_pemilik'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['quantity_kadar'], 'string', 'max' => 11, 'skipOnEmpty' => true, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
